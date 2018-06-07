@@ -125,6 +125,7 @@
     <Compile Include="AttachedProperty\TextBoxAtt.cs" />
     <Compile Include="AttachedProperty\TreeViewItemAtt.cs" />
     <Compile Include="Controls\CaptionButton.cs" />
+    <Compile Include="Controls\OptionalRadioButton.cs" />
     <Compile Include="Controls\Standard\CaptionButtonMode.cs" />
     <Compile Include="Controls\Standard\InternalExtensions.cs" />
     <Compile Include="Controls\Standard\WindowAction.cs" />

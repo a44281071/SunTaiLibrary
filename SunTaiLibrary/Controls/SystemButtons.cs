@@ -4,7 +4,7 @@ using System.Windows.Controls;
 namespace SunTaiLibrary.Controls
 {
     /// <summary>
-    /// 自定义窗体右上角的功能按钮组
+    /// 自定义窗体右上角的功能按钮组（最小化，最大化，还原，关闭）
     /// </summary>
     public class SystemButtons : Control
     { 

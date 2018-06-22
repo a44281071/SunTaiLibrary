@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Microsoft.Windows.Shell;
-
 
 namespace SunTaiLibrary.Controls
 {
@@ -50,7 +48,7 @@ namespace SunTaiLibrary.Controls
         /// </summary>
         public static bool Compare(this string strA, string strB)
         {
-            return string.Compare(strA, strB, StringComparison.OrdinalIgnoreCase) == 0;
+            return String.Compare(strA, strB, StringComparison.OrdinalIgnoreCase) == 0;
         }
 
         public static void ForEach<T>(this IEnumerable<T> sequence, Action<T> action)

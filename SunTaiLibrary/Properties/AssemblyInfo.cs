@@ -16,6 +16,12 @@ using System.Windows;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
+[assembly: XmlnsPrefix("http://www.suntai.org/library", "tai3")]
+[assembly: XmlnsDefinition("http://www.suntai.org/library", "SunTaiLibrary.Controls")]
+[assembly: XmlnsDefinition("http://www.suntai.org/library", "SunTaiLibrary.Converters")]
+[assembly: XmlnsDefinition("http://www.suntai.org/library", "SunTaiLibrary.Dependencies")]
+[assembly: XmlnsDefinition("http://www.suntai.org/library", "SunTaiLibrary.Attached")]
+
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.

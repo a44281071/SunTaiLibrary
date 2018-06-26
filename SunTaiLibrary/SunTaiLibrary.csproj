@@ -69,13 +69,16 @@
     <Compile Include="Controls\Standard\InternalExtensions.cs" />
     <Compile Include="Controls\Standard\WindowAction.cs" />
     <Compile Include="Controls\SystemButtons.cs" />
+    <Compile Include="Converters\BoolVisibilityConverter.cs" />
+    <Compile Include="Converters\EnumDescriptionConverter.cs" />
+    <Compile Include="Converters\EqualsConverter.cs" />
     <Compile Include="Converters\ReverseBoolConverter.cs" />
     <Compile Include="Dependencies\BindingProxy.cs" />
-    <Compile Include="ExtensionMethod\ExtensionEnum.cs" />
-    <Compile Include="ExtensionMethod\ExtensionIEnumerable.cs" />
-    <Compile Include="ExtensionMethod\ExtensionLinqExpresstion.cs" />
-    <Compile Include="ExtensionMethod\ExtensionMessageBox.cs" />
-    <Compile Include="ExtensionMethod\ExtensionString.cs" />
+    <Compile Include="ExtensionMethods\ExtensionEnum.cs" />
+    <Compile Include="ExtensionMethods\ExtensionIEnumerable.cs" />
+    <Compile Include="ExtensionMethods\ExtensionLinqExpresstion.cs" />
+    <Compile Include="ExtensionMethods\ExtensionMessageBox.cs" />
+    <Compile Include="ExtensionMethods\ExtensionString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

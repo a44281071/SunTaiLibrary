@@ -59,6 +59,7 @@
     <Compile Include="Attached\PasswordAtt.cs" />
     <Compile Include="Attached\SelectorAttach.cs" />
     <Compile Include="Attached\TextBoxAtt.cs" />
+    <Compile Include="Attached\TouchAtt.cs" />
     <Compile Include="Attached\TreeViewItemAtt.cs" />
     <Compile Include="Controls\CaptionButton.cs" />
     <Compile Include="Controls\HandleManipulationBoundaryFeedback.cs" />
@@ -73,7 +74,9 @@
     <Compile Include="Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Converters\EqualsConverter.cs" />
     <Compile Include="Converters\ReverseBoolConverter.cs" />
+    <Compile Include="Converters\RowIndexConverter.cs" />
     <Compile Include="Dependencies\BindingProxy.cs" />
+    <Compile Include="ExtensionMethods\ExtensionDependencyObject.cs" />
     <Compile Include="ExtensionMethods\ExtensionEnum.cs" />
     <Compile Include="ExtensionMethods\ExtensionIEnumerable.cs" />
     <Compile Include="ExtensionMethods\ExtensionLinqExpresstion.cs" />

@@ -3,14 +3,14 @@ using System.Windows.Controls;
 
 namespace SunTaiLibrary.Attached
 {
-  public static class TouchAtt
+  public static class TouchAttached
   {
-    public static bool GetIsEnabled(DependencyObject obj)
+    public static bool GetIsEnabled(UIElement obj)
     {
       return (bool)obj.GetValue(IsEnabledProperty);
     }
 
-    public static void SetIsEnabled(DependencyObject obj, bool value)
+    public static void SetIsEnabled(UIElement obj, bool value)
     {
       obj.SetValue(IsEnabledProperty, value);
     }
@@ -21,7 +21,7 @@ namespace SunTaiLibrary.Attached
     public static readonly DependencyProperty IsEnabledProperty =
            DependencyProperty.RegisterAttached("IsEnabled"
              , typeof(bool)
-             , typeof(TouchAtt)
+             , typeof(TouchAttached)
              , new PropertyMetadata(false, OnEnabledChanged));
 
     private static void OnEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

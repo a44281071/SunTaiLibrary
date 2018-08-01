@@ -10,14 +10,14 @@ namespace SunTaiLibrary.Attached
   /// <summary>
   /// 用于支持PasswordBox的绑定
   /// </summary>
-  public static class PasswordAtt
+  public static class PasswordAttached
   {
     //用于绑定密码区域
     public static readonly DependencyProperty BindPassword = DependencyProperty.RegisterAttached(
         "BindPassword",
         typeof(string),
-        typeof(PasswordAtt),
-        new FrameworkPropertyMetadata(string.Empty, OnBindPasswordChanged)
+        typeof(PasswordAttached),
+        new FrameworkPropertyMetadata(String.Empty, OnBindPasswordChanged)
         {
           BindsTwoWayByDefault = true,
           DefaultUpdateSourceTrigger = System.Windows.Data.UpdateSourceTrigger.PropertyChanged
@@ -27,11 +27,11 @@ namespace SunTaiLibrary.Attached
     public static readonly DependencyProperty IsEnabled = DependencyProperty.RegisterAttached(
         "IsEnabled",
         typeof(bool),
-        typeof(PasswordAtt),
+        typeof(PasswordAttached),
         new PropertyMetadata(false, OnIsEnabledChanged));
 
     private static readonly DependencyProperty UpdatingPassword =
-        DependencyProperty.RegisterAttached("UpdatingPassword", typeof(bool), typeof(PasswordAtt));
+        DependencyProperty.RegisterAttached("UpdatingPassword", typeof(bool), typeof(PasswordAttached));
 
     private static void OnBindPasswordChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -86,32 +86,32 @@ namespace SunTaiLibrary.Attached
       SetUpdatingPassword(box, false);
     }
 
-    public static void SetIsEnabled(DependencyObject dp, bool value)
+    public static void SetIsEnabled(PasswordBox dp, bool value)
     {
       dp.SetValue(IsEnabled, value);
     }
 
-    public static bool GetIsEnabled(DependencyObject dp)
+    public static bool GetIsEnabled(PasswordBox dp)
     {
       return (bool)dp.GetValue(IsEnabled);
     }
 
-    public static string GetBindPassword(DependencyObject dp)
+    public static string GetBindPassword(PasswordBox dp)
     {
       return (string)dp.GetValue(BindPassword);
     }
 
-    public static void SetBindPassword(DependencyObject dp, string value)
+    public static void SetBindPassword(PasswordBox dp, string value)
     {
       dp.SetValue(BindPassword, value);
     }
 
-    private static bool GetUpdatingPassword(DependencyObject dp)
+    private static bool GetUpdatingPassword(PasswordBox dp)
     {
       return (bool)dp.GetValue(UpdatingPassword);
     }
 
-    private static void SetUpdatingPassword(DependencyObject dp, bool value)
+    private static void SetUpdatingPassword(PasswordBox dp, bool value)
     {
       dp.SetValue(UpdatingPassword, value);
     }

@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace SunTaiLibrary.Attached
 {
-  public static class TreeViewItemAtt
+  public static class TreeViewItemAttached
   {
     #region IsBroughtIntoViewWhenSelected附加属性
 
@@ -17,8 +17,7 @@ namespace SunTaiLibrary.Attached
       return (bool)treeViewItem.GetValue(IsBroughtIntoViewWhenSelectedProperty);
     }
 
-    public static void SetIsBroughtIntoViewWhenSelected(
-      TreeViewItem treeViewItem, bool value)
+    public static void SetIsBroughtIntoViewWhenSelected(TreeViewItem treeViewItem, bool value)
     {
       treeViewItem.SetValue(IsBroughtIntoViewWhenSelectedProperty, value);
     }
@@ -30,14 +29,13 @@ namespace SunTaiLibrary.Attached
             DependencyProperty.RegisterAttached(
             "IsBroughtIntoViewWhenSelected",
             typeof(bool),
-            typeof(TreeViewItemAtt),
+            typeof(TreeViewItemAttached),
             new UIPropertyMetadata(false, OnIsBroughtIntoViewWhenSelectedChanged));
 
     static void OnIsBroughtIntoViewWhenSelectedChanged(
       DependencyObject depObj, DependencyPropertyChangedEventArgs e)
     {
-      TreeViewItem item = depObj as TreeViewItem;
-      if (item == null)
+      if (!(depObj is TreeViewItem item))
         return;
 
       if (e.NewValue is bool == false)

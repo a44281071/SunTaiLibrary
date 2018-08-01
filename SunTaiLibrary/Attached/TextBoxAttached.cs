@@ -7,13 +7,13 @@ using System.Windows.Data;
 
 namespace SunTaiLibrary.Attached
 {
-  public static class TextBoxAtt
+  public static class TextBoxAttached
   {
     public static readonly DependencyProperty AutoSelectAllProperty =
         DependencyProperty.RegisterAttached(
         "AutoSelectAll",
         typeof(bool),
-        typeof(TextBoxAtt),
+        typeof(TextBoxAttached),
         new FrameworkPropertyMetadata(false, new PropertyChangedCallback(OnAutoSelectAllChanged)));
 
     public static bool GetAutoSelectAll(TextBox d)
@@ -31,19 +31,18 @@ namespace SunTaiLibrary.Attached
     /// </summary>
     private static void OnAutoSelectAllChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-      var textBox = d as TextBox;
-      if (textBox != null)
+      if (d is TextBox textBox)
       {
         var flag = (bool)e.NewValue;
         if (flag)
         {
           textBox.GotFocus += TextBoxOnGotFocus;
-          textBox.PreviewMouseLeftButtonDown += textBox_PreviewMouseLeftButtonDown;
+          textBox.PreviewMouseLeftButtonDown += TextBox_PreviewMouseLeftButtonDown;
         }
         else
         {
           textBox.GotFocus -= TextBoxOnGotFocus;
-          textBox.PreviewMouseLeftButtonDown -= textBox_PreviewMouseLeftButtonDown;
+          textBox.PreviewMouseLeftButtonDown -= TextBox_PreviewMouseLeftButtonDown;
         }
       }
     }
@@ -51,7 +50,7 @@ namespace SunTaiLibrary.Attached
     /// <summary>
     /// 鼠标点击时，如果是重新获取焦点，则忽略光标定位功能，防止全选功能失效
     /// </summary>
-    static void textBox_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    static void TextBox_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
       var textBox = sender as TextBox;
 

@@ -4,14 +4,14 @@ using System.Windows.Controls.Primitives;
 
 namespace SunTaiLibrary.Attached
 {
-  public class SelectorAttach
+  public class SelectorAttached
   {
-    public static bool GetEnableBringIntoViewOnSelected(DependencyObject obj)
+    public static bool GetEnableBringIntoViewOnSelected(Selector obj)
     {
       return (bool)obj.GetValue(EnableBringIntoViewOnSelectedProperty);
     }
 
-    public static void SetEnableBringIntoViewOnSelected(DependencyObject obj, bool value)
+    public static void SetEnableBringIntoViewOnSelected(Selector obj, bool value)
     {
       obj.SetValue(EnableBringIntoViewOnSelectedProperty, value);
     }
@@ -20,7 +20,7 @@ namespace SunTaiLibrary.Attached
     /// 启用当选择项更新时，确保该项在界面中显示。
     /// </summary>
     public static readonly DependencyProperty EnableBringIntoViewOnSelectedProperty =
-        DependencyProperty.RegisterAttached("EnableBringIntoViewOnSelected", typeof(bool), typeof(SelectorAttach)
+        DependencyProperty.RegisterAttached("EnableBringIntoViewOnSelected", typeof(bool), typeof(SelectorAttached)
           , new UIPropertyMetadata(false, OnEnableBringIntoViewOnSelectedChanged));
 
     private static void OnEnableBringIntoViewOnSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

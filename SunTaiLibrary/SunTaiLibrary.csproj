@@ -55,12 +55,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSingleInstance\SingleInstance.cs" />
-    <Compile Include="Attached\ComboBoxAtt.cs" />
-    <Compile Include="Attached\PasswordAtt.cs" />
-    <Compile Include="Attached\SelectorAttach.cs" />
-    <Compile Include="Attached\TextBoxAtt.cs" />
-    <Compile Include="Attached\TouchAtt.cs" />
-    <Compile Include="Attached\TreeViewItemAtt.cs" />
+    <Compile Include="Attached\ComboBoxAttached.cs" />
+    <Compile Include="Attached\FrameworkElementAttached.cs" />
+    <Compile Include="Attached\PasswordAttached.cs" />
+    <Compile Include="Attached\SelectorAttached.cs" />
+    <Compile Include="Attached\TextBoxAttached.cs" />
+    <Compile Include="Attached\TouchAttached.cs" />
+    <Compile Include="Attached\TreeViewItemAttached.cs" />
     <Compile Include="Controls\CaptionButton.cs" />
     <Compile Include="Controls\HandleManipulationBoundaryFeedback.cs" />
     <Compile Include="Controls\ImageButton.cs" />

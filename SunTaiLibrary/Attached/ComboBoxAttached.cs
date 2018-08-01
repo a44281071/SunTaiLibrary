@@ -7,14 +7,14 @@ using System.Windows.Input;
 
 namespace SunTaiLibrary.Attached
 {
-  public static class ComboBoxAtt
+  public static class ComboBoxAttached
   {
-    public static bool GetIsFilterSearch(DependencyObject obj)
+    public static bool GetIsFilterSearch(ComboBox obj)
     {
       return (bool)obj.GetValue(IsFilterSearchProperty);
     }
 
-    public static void SetIsFilterSearch(DependencyObject obj, bool value)
+    public static void SetIsFilterSearch(ComboBox obj, bool value)
     {
       obj.SetValue(IsFilterSearchProperty, value);
     }
@@ -24,14 +24,13 @@ namespace SunTaiLibrary.Attached
     /// <para>缺陷：只支持绑定到 “DisplayMemberPath” 属性，且只能解析单级，无法支持wpf的路径属性写法</para>
     /// </summary>
     public static readonly DependencyProperty IsFilterSearchProperty =
-        DependencyProperty.RegisterAttached("IsFilterSearch", typeof(bool), typeof(ComboBoxAtt), new PropertyMetadata(false, IsFilterSearchChangedHandler));
+        DependencyProperty.RegisterAttached("IsFilterSearch", typeof(bool), typeof(PasswordAttached), new PropertyMetadata(false, IsFilterSearchChangedHandler));
 
     private static void IsFilterSearchChangedHandler(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-      var eleComboBox = d as ComboBox;
       var isFilterSearch = (bool)e.NewValue;
 
-      if (null != eleComboBox && isFilterSearch)
+      if (d is ComboBox eleComboBox && isFilterSearch)
       {
         if (!String.IsNullOrWhiteSpace(eleComboBox.DisplayMemberPath))
         {
@@ -42,13 +41,13 @@ namespace SunTaiLibrary.Attached
 
         if (isFilterSearch)
         {
-          eleComboBox.KeyDown += eleComboBox_KeyDown;
-          eleComboBox.DropDownClosed += eleComboBox_DropDownClosed;
+          eleComboBox.KeyDown += ComboBox_KeyDown;
+          eleComboBox.DropDownClosed += ComboBox_DropDownClosed;
         }
         else
         {
-          eleComboBox.KeyDown -= eleComboBox_KeyDown;
-          eleComboBox.DropDownClosed -= eleComboBox_DropDownClosed;
+          eleComboBox.KeyDown -= ComboBox_KeyDown;
+          eleComboBox.DropDownClosed -= ComboBox_DropDownClosed;
         }
       }
     }
@@ -56,12 +55,11 @@ namespace SunTaiLibrary.Attached
     /// <summary>
     /// 输入字符，按下Enter，筛选符合条件的并展示结果
     /// </summary>
-    static void eleComboBox_KeyDown(object sender, KeyEventArgs e)
+    static void ComboBox_KeyDown(object sender, KeyEventArgs e)
     {
-      var eleComboBox = sender as ComboBox;
       //var textBox = eleComboBox.Template.FindName("PART_EditableTextBox", eleComboBox) as TextBox;
       //if (null == eleComboBox || null == textBox) return;
-      if (null == eleComboBox) return;
+      if (!(sender is ComboBox eleComboBox)) return;
 
       if (e.Key == Key.Enter)
       {
@@ -104,7 +102,7 @@ namespace SunTaiLibrary.Attached
     /// <summary>
     /// 当展示结果关闭时，初始化列表，防止被筛选的数据回不来了
     /// </summary>
-    static void eleComboBox_DropDownClosed(object sender, EventArgs e)
+    static void ComboBox_DropDownClosed(object sender, EventArgs e)
     {
       var eleComboBox = sender as ComboBox;
 

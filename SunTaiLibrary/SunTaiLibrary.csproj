@@ -63,8 +63,8 @@
     <Compile Include="Attached\TouchAttached.cs" />
     <Compile Include="Attached\TreeViewItemAttached.cs" />
     <Compile Include="Controls\CaptionButton.cs" />
-    <Compile Include="Controls\HandleManipulationBoundaryFeedback.cs" />
     <Compile Include="Controls\ImageButton.cs" />
+    <Compile Include="Controls\MarqueeCanvas.cs" />
     <Compile Include="Controls\NineGridImage.cs" />
     <Compile Include="Controls\OptionalRadioButton.cs" />
     <Compile Include="Controls\Standard\CaptionButtonMode.cs" />

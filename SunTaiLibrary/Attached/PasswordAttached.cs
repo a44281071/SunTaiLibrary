@@ -37,7 +37,7 @@ namespace SunTaiLibrary.Attached
     {
       PasswordBox box = d as PasswordBox;
 
-      if (d == null || !GetIsEnabled(d))
+      if (d == null || !GetIsEnabled(box))
       {
         return;
       }

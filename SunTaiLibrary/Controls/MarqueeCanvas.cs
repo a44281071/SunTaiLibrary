@@ -71,9 +71,8 @@ namespace SunTaiLibrary.Controls
             || child_width > canvas_width)
           {
             var left = GetLeft(jchild);
-            left = Double.IsNaN(left) ? 0d : left;
-            var minWidth = Math.Min(canvas_width, child_width);
-            if ((0 - left) > minWidth)
+            left = Double.IsNaN(left) ? 0d : left;         
+            if ((0 - left) > child_width)
             {
               // 飞出左侧，复位至最右侧
               SetLeft(jchild, canvas_width);

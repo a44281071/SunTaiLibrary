@@ -20,7 +20,6 @@ namespace SunTaiLibrary.Controls
     private const double DefaultSpeed = 33.33d;
     private readonly DispatcherTimer _Timer;
 
-
     /// <summary>
     /// 是否强制启用跑马灯效果。
     /// 默认不强制，表示子内容如果未被画布裁切，属于完整显示，则不启用跑马灯效果。
@@ -34,8 +33,6 @@ namespace SunTaiLibrary.Controls
 
     public static readonly DependencyProperty IsForcingProperty =
         DependencyProperty.Register("IsForcing", typeof(bool), typeof(MarqueeCanvas), new PropertyMetadata(false));
-
-
 
     /// <summary>
     /// 一个大于 0 的有限值，指定此时间线的时间相对于其父级速度的前进速率。
@@ -71,7 +68,7 @@ namespace SunTaiLibrary.Controls
             || child_width > canvas_width)
           {
             var left = GetLeft(jchild);
-            left = Double.IsNaN(left) ? 0d : left;         
+            left = Double.IsNaN(left) ? 0d : left;
             if ((0 - left) > child_width)
             {
               // 飞出左侧，复位至最右侧
@@ -88,7 +85,6 @@ namespace SunTaiLibrary.Controls
               SetLeft(jchild, left - 1);
             }
           }
-
         }
       }
     }
@@ -101,6 +97,12 @@ namespace SunTaiLibrary.Controls
     private void MarqueeCanvas_Unloaded(object sender, System.Windows.RoutedEventArgs e)
     {
       _Timer.Stop();
+    }
+
+    protected override void OnChildDesiredSizeChanged(UIElement child)
+    {
+      Canvas.SetLeft(child, 0);
+      base.OnChildDesiredSizeChanged(child);
     }
   }
 }

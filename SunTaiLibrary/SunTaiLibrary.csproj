@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -57,6 +58,7 @@
     <Compile Include="AppSingleInstance\SingleInstance.cs" />
     <Compile Include="Attached\ComboBoxAttached.cs" />
     <Compile Include="Attached\FrameworkElementAttached.cs" />
+    <Compile Include="Attached\HorizontalMouseScrollBehavior.cs" />
     <Compile Include="Attached\PasswordAttached.cs" />
     <Compile Include="Attached\SelectorAttached.cs" />
     <Compile Include="Attached\TextBoxAttached.cs" />
@@ -83,6 +85,8 @@
     <Compile Include="ExtensionMethods\ExtensionLinqExpresstion.cs" />
     <Compile Include="ExtensionMethods\ExtensionMessageBox.cs" />
     <Compile Include="ExtensionMethods\ExtensionString.cs" />
+    <Compile Include="Helpers\LocalHelper.cs" />
+    <Compile Include="Helpers\VisualTreeHelperEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

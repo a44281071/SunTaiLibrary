@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package>
+  <!--详情请参阅：快速入门：使用 Visual Studio 创建和发布包（.NET Framework、Windows）-->
+  <!--https://docs.microsoft.com/zh-cn/nuget/quickstart/create-and-publish-a-package-using-visual-studio-net-framework-->
+  <metadata>
+    <id>SunTaiLibrary</id>
+    <version>1.0.1.0</version>
+    <title>suntai library for wpf</title>
+    <authors>suntai</authors>
+    <owners>suntai</owners>
+    <licenseUrl>https://github.com/a44281071/SunTaiLibrary/wiki</licenseUrl>
+    <projectUrl>https://github.com/a44281071/SunTaiLibrary</projectUrl>
+    <iconUrl>https://github.com/a44281071/SunTaiLibrary/raw/master/Documents/SunTai.jpg</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>suntai library for wpf</description>
+    <releaseNotes>first publish.</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>suntai library wpf helper</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Runtime.Remoting" targetFramework="net40" />
+      <frameworkAssembly assemblyName="System.Windows.Interactivity" targetFramework="net45" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

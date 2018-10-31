@@ -7,7 +7,9 @@
                     mc:Ignorable="d">
 
   <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="/SunTaiLibrary;component/Styles/Icons.xaml" />
+    <ResourceDictionary Source="/SunTaiLibrary;component/Themes/Dark.xaml" />
+    <ResourceDictionary Source="/SunTaiLibrary;component/Themes/Accents/Orange.xaml" />
+    <ResourceDictionary Source="/SunTaiLibrary;component/Themes/Icons.xaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <Style TargetType="{x:Type cc:CaptionButton}">
@@ -93,6 +95,7 @@
   </Style>
 
   <Style TargetType="{x:Type cc:ImageButton}">
+    <Setter Property="Background" Value="Transparent" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type cc:ImageButton}">
@@ -216,6 +219,4 @@
       </Setter.Value>
     </Setter>
   </Style>
-
-
 </ResourceDictionary>

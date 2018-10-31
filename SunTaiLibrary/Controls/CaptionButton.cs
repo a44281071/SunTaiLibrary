@@ -4,9 +4,9 @@ using System.Windows.Controls;
 
 namespace SunTaiLibrary.Controls
 {
-  /// </summary>
   /// <summary>
   /// ウィンドウのキャプション部分で使用するために最適化された <see cref="Button"/> コントロールを表します。
+  /// <see cref="https://github.com/Grabacr07/MetroRadiance"/>
   /// </summary>
   public class CaptionButton : Button
   {

@@ -4,7 +4,7 @@
   <!--https://docs.microsoft.com/zh-cn/nuget/quickstart/create-and-publish-a-package-using-visual-studio-net-framework-->
   <metadata>
     <id>SunTaiLibrary</id>
-    <version>1.0.1.0</version>
+    <version>1.0.1.2</version>
     <title>suntai library for wpf</title>
     <authors>suntai</authors>
     <owners>suntai</owners>
@@ -13,7 +13,10 @@
     <iconUrl>https://github.com/a44281071/SunTaiLibrary/raw/master/Documents/SunTai.jpg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>suntai library for wpf</description>
-    <releaseNotes>first publish.</releaseNotes>
+    <releaseNotes>
+      - fix resource dictionary locate bug.
+      - add xml document file.
+    </releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>suntai library wpf helper</tags>
     <frameworkAssemblies>

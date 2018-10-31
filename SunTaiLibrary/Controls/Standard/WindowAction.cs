@@ -4,10 +4,11 @@ using System.Collections.Generic;
 
 namespace SunTaiLibrary.Controls
 {
-	/// <summary>
-	/// ウィンドウ操作を示す識別子を定義します。
-	/// </summary>
-	public enum WindowAction
+  /// <summary>
+  /// ウィンドウ操作を示す識別子を定義します。
+  /// <see cref="https://github.com/Grabacr07/MetroRadiance"/>
+  /// </summary>
+  public enum WindowAction
 	{
 		/// <summary>
 		/// ウィンドウ操作は実行されません。

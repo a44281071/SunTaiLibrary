@@ -50,6 +50,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\MessageToast.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Accents\Blue.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -89,9 +93,13 @@
     <Compile Include="Attached\TextBoxAttached.cs" />
     <Compile Include="Attached\TouchAttached.cs" />
     <Compile Include="Attached\TreeViewItemAttached.cs" />
+    <Compile Include="Controls\BusyIndicator.cs" />
     <Compile Include="Controls\CaptionButton.cs" />
     <Compile Include="Controls\ImageButton.cs" />
     <Compile Include="Controls\MarqueeCanvas.cs" />
+    <Compile Include="Controls\MessageToast.xaml.cs">
+      <DependentUpon>MessageToast.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NineGridImage.cs" />
     <Compile Include="Controls\OptionalRadioButton.cs" />
     <Compile Include="Controls\Standard\CaptionButtonMode.cs" />
@@ -101,6 +109,7 @@
     <Compile Include="Converters\BoolVisibilityConverter.cs" />
     <Compile Include="Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Converters\EqualsConverter.cs" />
+    <Compile Include="Converters\ProgressBarWidthConverter.cs" />
     <Compile Include="Converters\ReverseBoolConverter.cs" />
     <Compile Include="Converters\RowIndexConverter.cs" />
     <Compile Include="Dependencies\BindingProxy.cs" />

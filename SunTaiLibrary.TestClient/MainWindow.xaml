@@ -1,0 +1,52 @@
+﻿<Window x:Class="SunTaiLibrary.TestClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:SunTaiLibrary.TestClient"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tai3="http://www.suntai.org/library"
+        Title="MainWindow"
+        Width="800"
+        Height="450"
+        Background="Gray"
+        mc:Ignorable="d">
+
+  <ScrollViewer>
+    <WrapPanel>
+      <GroupBox Header="Controls.NineGridImage">
+        <tai3:NineGridImage Width="200"
+                            Height="42"
+                            Source="Resources/bar-active2.png"
+                            Offsets="1,0,25,0" />
+      </GroupBox>
+      <GroupBox Header="Controls.ImageButton">
+        <tai3:ImageButton Width="132"
+                          Height="90"
+                          Content="i'm content"
+                          DisableImage="Resources/btn-back-disable.png"
+                          HoverImage="Resources/btn-back-hover.png"
+                          NormalImage="Resources/btn-back-normal.png"
+                          PressedImage="Resources/btn-back-pressed.png" />
+      </GroupBox>
+      <GroupBox Name="groupbox1"
+                Background="Transparent"
+                Header="Control.BusyIndicator">
+        <tai3:BusyIndicator CurrentProgressValue="50"
+                            FontSize="18"
+                            IsBusy="{Binding Path=IsMouseOver, ElementName=groupbox1, Mode=OneWay}">
+          <StackPanel>
+            <TextBlock Text="hold here to busy." />
+            <TextBox Margin="5"
+                     Text="I'm text box." />
+            <Button Content="I'm button." />
+          </StackPanel>
+        </tai3:BusyIndicator>
+      </GroupBox>
+      <GroupBox Header="System.Windows.MessageToast">
+        <Button Click="ShowMessageToast_Click"
+                Content="show message toast" />
+      </GroupBox>
+
+    </WrapPanel>
+  </ScrollViewer>
+</Window>

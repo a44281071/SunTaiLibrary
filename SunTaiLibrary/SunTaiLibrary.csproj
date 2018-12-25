@@ -95,6 +95,7 @@
     <Compile Include="Attached\TreeViewItemAttached.cs" />
     <Compile Include="Controls\BusyIndicator.cs" />
     <Compile Include="Controls\CaptionButton.cs" />
+    <Compile Include="Controls\EnumImageButton.cs" />
     <Compile Include="Controls\ImageButton.cs" />
     <Compile Include="Controls\MarqueeCanvas.cs" />
     <Compile Include="Controls\MessageToast.xaml.cs">

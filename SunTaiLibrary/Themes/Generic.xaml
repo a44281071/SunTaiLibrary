@@ -85,7 +85,8 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type cc:SystemButtons}">
-          <StackPanel Orientation="Horizontal">
+          <StackPanel Orientation="Horizontal"
+                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
             <cc:CaptionButton WindowAction="Minimize" />
             <cc:CaptionButton d:IsHidden="True"
                               WindowAction="Normalize" />
@@ -139,7 +140,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type cc:NineGridImage}">
-          <Grid>
+          <Grid SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="Auto" />
               <ColumnDefinition Width="*" />
@@ -408,6 +409,40 @@
               </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
           </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style TargetType="{x:Type cc:EnumImageButton}">
+    <Setter Property="Padding" Value="0,20" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type cc:EnumImageButton}">
+          <Border Background="Transparent"
+                  SnapsToDevicePixels="True">
+            <Grid Margin="{TemplateBinding Padding}"
+                  Background="{TemplateBinding Background}">
+              <Image Name="normalImage"
+                     Source="{TemplateBinding NormalImage}" />
+              <Image Name="matchedImage"
+                     Source="{TemplateBinding MatchedImage}"
+                     Visibility="Hidden" />
+              <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMatched" Value="True">
+              <Setter TargetName="normalImage" Property="Visibility" Value="Hidden" />
+              <Setter TargetName="matchedImage" Property="Visibility" Value="Visible" />
+            </Trigger>
+          </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>

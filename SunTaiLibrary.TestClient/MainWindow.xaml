@@ -46,7 +46,18 @@
         <Button Click="ShowMessageToast_Click"
                 Content="show message toast" />
       </GroupBox>
-
+      <GroupBox Width="250"
+                Height="80"
+                Header="Controls.MarqueeCanvas">
+        <tai3:MarqueeCanvas IsForcing="True">
+          <TextBlock Text="i'm text block." />
+          <TextBox Canvas.Top="15"
+                   Margin="5"
+                   Text="I'm text box." />
+          <Button Canvas.Top="40"
+                  Content="I'm button." />
+        </tai3:MarqueeCanvas>
+      </GroupBox>
     </WrapPanel>
   </ScrollViewer>
 </Window>

@@ -111,7 +111,7 @@
                   BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}"
                   SnapsToDevicePixels="True">
-            <Grid>
+            <Grid Margin="{TemplateBinding Padding}">
               <Image x:Name="img"
                      Source="{TemplateBinding NormalImage}" />
               <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -232,11 +232,8 @@
   </Style>
 
   <Style TargetType="{x:Type cc:BusyIndicator}">
-    <Setter Property="BusyContent" Value="{Binding Title, Mode=TwoWay}" />
-    <Setter Property="MinValue" Value="{Binding MinValue, Mode=TwoWay}" />
-    <Setter Property="MaxValue" Value="{Binding MaxValue, Mode=TwoWay}" />
-    <Setter Property="CurrentProgressValue" Value="{Binding CurrentProgressValue, Mode=TwoWay}" />
-    <Setter Property="IsIndeterminate" Value="{Binding IsIndeterminate, Mode=TwoWay}" />
+    <Setter Property="MinValue" Value="0" />
+    <Setter Property="MaxValue" Value="100" />
     <Setter Property="IsTabStop" Value="False" />
     <Setter Property="Focusable" Value="False" />
     <Setter Property="OverlayStyle">

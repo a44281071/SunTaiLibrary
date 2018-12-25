@@ -102,6 +102,7 @@
     </Compile>
     <Compile Include="Controls\NineGridImage.cs" />
     <Compile Include="Controls\OptionalRadioButton.cs" />
+    <Compile Include="Controls\OutlineText.cs" />
     <Compile Include="Controls\Standard\CaptionButtonMode.cs" />
     <Compile Include="Controls\Standard\InternalExtensions.cs" />
     <Compile Include="Controls\Standard\WindowAction.cs" />

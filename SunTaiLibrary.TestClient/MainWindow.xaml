@@ -6,13 +6,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:tai3="http://www.suntai.org/library"
         Title="MainWindow"
-        Width="800"
-        Height="450"
+        Width="1366"
+        Height="768"
         Background="Gray"
         mc:Ignorable="d">
-
+  <Window.DataContext>
+    <local:MainViewModel />
+  </Window.DataContext>
   <ScrollViewer>
     <WrapPanel>
+      <GroupBox Header="Controls.EnumImageButton">
+        <StackPanel Orientation="Horizontal">
+          <tai3:EnumImageButton Command="{Binding ChangePower}"
+                                CommandParameter="{x:Static local:PowerState.Off}"
+                                MatchSource="{Binding Power}"
+                                MatchTarget="{x:Static local:PowerState.Off}"
+                                MatchedImage="Resources/btn-OFF-select.png"
+                                NormalImage="Resources/btn-OFF-normal.png" />
+          <tai3:EnumImageButton Command="{Binding ChangePower}"
+                                CommandParameter="{x:Static local:PowerState.On}"
+                                MatchSource="{Binding Power}"
+                                MatchTarget="{x:Static local:PowerState.On}"
+                                MatchedImage="Resources/btn-ON-select.png"
+                                NormalImage="Resources/btn-ON-normal.png" />
+        </StackPanel>
+      </GroupBox>
       <GroupBox Header="Controls.NineGridImage">
         <tai3:NineGridImage Width="200"
                             Height="42"

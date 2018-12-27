@@ -12,6 +12,7 @@ namespace SunTaiLibrary.Controls
   {
     public MarqueeCanvas()
     {
+      ClipToBounds = true;
       _Timer = new DispatcherTimer(TimeSpan.FromMilliseconds(DefaultSpeed), DispatcherPriority.Render, Timer_Tick, Dispatcher);
       WeakEventManager<MarqueeCanvas, RoutedEventArgs>.AddHandler(this, "Loaded", MarqueeCanvas_Loaded);
       WeakEventManager<MarqueeCanvas, RoutedEventArgs>.AddHandler(this, "Unloaded", MarqueeCanvas_Unloaded);

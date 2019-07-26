@@ -37,7 +37,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Remoting" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -95,6 +95,9 @@
     <Compile Include="Attached\TextBoxAttached.cs" />
     <Compile Include="Attached\TouchAttached.cs" />
     <Compile Include="Attached\TreeViewItemAttached.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Commands\TextCommands.cs" />
+    <Compile Include="Commands\WindowCommands.cs" />
     <Compile Include="Controls\BusyIndicator.cs" />
     <Compile Include="Controls\CaptionButton.cs" />
     <Compile Include="Controls\EnumImageButton.cs" />

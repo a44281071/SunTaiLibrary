@@ -117,6 +117,7 @@
     <Compile Include="Converters\ReverseBoolConverter.cs" />
     <Compile Include="Converters\RowIndexConverter.cs" />
     <Compile Include="Dependencies\BindingProxy.cs" />
+    <Compile Include="EventArgs.cs" />
     <Compile Include="ExtensionMethods\ExtensionDependencyObject.cs" />
     <Compile Include="ExtensionMethods\ExtensionEnum.cs" />
     <Compile Include="ExtensionMethods\ExtensionIEnumerable.cs" />

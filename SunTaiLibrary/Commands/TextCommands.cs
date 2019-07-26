@@ -14,6 +14,7 @@ namespace SunTaiLibrary.Commands
   public static class TextCommands
   {
     private static ICommand _ClearTextBoxCommand;
+
     /// <summary>
     /// Gets the command that clears a <see cref="TextBox"/>.
     /// </summary>
@@ -43,6 +44,7 @@ namespace SunTaiLibrary.Commands
     }
 
     private static ICommand _ClearPasswordBoxCommand;
+
     /// <summary>
     /// Gets the command that clears a <see cref="PasswordBox"/>.
     /// </summary>

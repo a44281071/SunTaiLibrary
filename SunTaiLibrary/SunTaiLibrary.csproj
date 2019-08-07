@@ -90,6 +90,7 @@
     <Compile Include="Attached\ComboBoxAttached.cs" />
     <Compile Include="Attached\FrameworkElementAttached.cs" />
     <Compile Include="Attached\HorizontalMouseScrollBehavior.cs" />
+    <Compile Include="Attached\InteractivityItemsAttached.cs" />
     <Compile Include="Attached\PasswordAttached.cs" />
     <Compile Include="Attached\SelectorAttached.cs" />
     <Compile Include="Attached\TextBoxAttached.cs" />

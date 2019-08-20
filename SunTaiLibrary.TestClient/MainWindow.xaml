@@ -6,14 +6,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:tai3="http://www.suntai.org/library"
         Title="MainWindow"
-        Width="1366"
-        Height="768"
+        Width="500"
+        Height="800"
         Background="Gray"
         mc:Ignorable="d">
   <Window.DataContext>
     <local:MainViewModel />
   </Window.DataContext>
-  <ScrollViewer>
+  <ScrollViewer Margin="10">
     <WrapPanel>
       <GroupBox Header="Controls.EnumImageButton">
         <StackPanel Orientation="Horizontal">
@@ -34,8 +34,8 @@
       <GroupBox Header="Controls.NineGridImage">
         <tai3:NineGridImage Width="200"
                             Height="42"
-                            Source="Resources/bar-active2.png"
-                            Offsets="1,0,25,0" />
+                            Offsets="1,0,25,0"
+                            Source="Resources/bar-active2.png" />
       </GroupBox>
       <GroupBox Header="Controls.ImageButton">
         <tai3:ImageButton Width="132"
@@ -54,15 +54,13 @@
                             IsBusy="{Binding Path=IsMouseOver, ElementName=groupbox1, Mode=OneWay}">
           <StackPanel>
             <TextBlock Text="hold here to busy." />
-            <TextBox Margin="5"
-                     Text="I'm text box." />
+            <TextBox Margin="5" Text="I'm text box." />
             <Button Content="I'm button." />
           </StackPanel>
         </tai3:BusyIndicator>
       </GroupBox>
       <GroupBox Header="System.Windows.MessageToast">
-        <Button Click="ShowMessageToast_Click"
-                Content="show message toast" />
+        <Button Click="ShowMessageToast_Click" Content="show message toast" />
       </GroupBox>
       <GroupBox Width="250"
                 Height="80"
@@ -72,8 +70,7 @@
           <TextBox Canvas.Top="15"
                    Margin="5"
                    Text="I'm text box." />
-          <Button Canvas.Top="40"
-                  Content="I'm button." />
+          <Button Canvas.Top="40" Content="I'm button." />
         </tai3:MarqueeCanvas>
       </GroupBox>
     </WrapPanel>

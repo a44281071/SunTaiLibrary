@@ -15,6 +15,16 @@
   </Window.DataContext>
   <ScrollViewer Margin="10">
     <WrapPanel>
+      <GroupBox Header="Controls.ToastControl">
+        <Grid>
+          <StackPanel>
+            <Button Click="ShowMessageToast_Click" Content="show message toast" />
+            <tai3:ToastControl FlyOut="ToastControl_FlyOut">
+              我是提示消息
+            </tai3:ToastControl>
+          </StackPanel>
+        </Grid>
+      </GroupBox>
       <GroupBox Header="Controls.EnumImageButton">
         <StackPanel Orientation="Horizontal">
           <tai3:EnumImageButton Command="{Binding ChangePower}"
@@ -58,9 +68,6 @@
             <Button Content="I'm button." />
           </StackPanel>
         </tai3:BusyIndicator>
-      </GroupBox>
-      <GroupBox Header="System.Windows.MessageToast">
-        <Button Click="ShowMessageToast_Click" Content="show message toast" />
       </GroupBox>
       <GroupBox Width="250"
                 Height="80"

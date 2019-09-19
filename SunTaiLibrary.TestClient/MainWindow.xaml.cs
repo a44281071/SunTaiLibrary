@@ -29,5 +29,12 @@ namespace SunTaiLibrary.TestClient
     {
       System.Windows.MessageToast.Show("I'm message toast, time is " + DateTime.Now.ToString());
     }
+
+    private void ToastControl_FlyOut(object sender, RoutedEventArgs e)
+    {
+      //var ele = sender as Control;
+      //var ep = ele.Parent as Panel;
+      //ep.Children.Remove(ele);
+    }
   }
 }

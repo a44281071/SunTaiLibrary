@@ -40,7 +40,7 @@ namespace SunTaiLibrary.Controls
     /// <summary>
     /// 默认控件飞出延时（10秒后飞出）
     /// </summary>
-    private static readonly KeyTime Default_FlyTime = KeyTime.FromTimeSpan(TimeSpan.FromSeconds(111111));
+    private static readonly KeyTime Default_FlyTime = KeyTime.FromTimeSpan(TimeSpan.FromSeconds(10));
 
     private static readonly DoubleAnimation FlyIn_Anime;
     private static readonly DoubleAnimation FlyOut_Anime;

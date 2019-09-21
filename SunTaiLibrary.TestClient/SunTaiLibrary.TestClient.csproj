@@ -134,5 +134,8 @@
     <Resource Include="Resources\btn-ON-normal.png" />
     <Resource Include="Resources\btn-ON-select.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="dotnet.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

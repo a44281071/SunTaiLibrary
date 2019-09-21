@@ -59,8 +59,8 @@ namespace SunTaiLibrary.Controls
     private void Timer_Tick(object sender, EventArgs e)
     {
       foreach (UIElement jchild in Children)
-      {
-        if (jchild.IsMouseOver) return;
+      {       
+        if (jchild.IsMouseOver) continue;
         if (jchild is FrameworkElement jfe)
         {
           var canvas_width = ActualWidth;

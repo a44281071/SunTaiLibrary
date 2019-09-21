@@ -3,5 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SunTaiLibrary.TestClient"
              StartupUri="MainWindow.xaml">
-  <Application.Resources />
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/SunTaiLibrary;component/Themes/Light.xaml" />
+        <ResourceDictionary Source="/SunTaiLibrary;component/Themes/Accents/Blue.xaml" />
+        <ResourceDictionary Source="/SunTaiLibrary;component/Themes/SamTiStyle.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>    
+  </Application.Resources>
 </Application>

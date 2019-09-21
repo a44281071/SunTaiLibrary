@@ -36,5 +36,11 @@ namespace SunTaiLibrary.TestClient
       //var ep = ele.Parent as Panel;
       //ep.Children.Remove(ele);
     }
+
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+      var b = SystemParameters.WorkArea;
+      var c = 1;
+    }
   }
 }

@@ -13,6 +13,13 @@ namespace System
     /// </summary>
     public static class ExtensionEnum
     {
+        public static T[] ToArray<T>() where T : Enum
+        {
+            return Enum.GetValues(typeof(T))
+                .Cast<T>()
+                .ToArray();
+        }
+
         /// <summary>
         /// 获取枚举类子项描述信息（DescriptionAttribute），一个参数表示返回失败结果的类型
         /// </summary> 

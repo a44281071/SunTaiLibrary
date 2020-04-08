@@ -3,11 +3,11 @@
   <!--详情请参阅：快速入门：使用 Visual Studio 创建和发布包（.NET Framework、Windows）-->
   <!--https://docs.microsoft.com/zh-cn/nuget/quickstart/create-and-publish-a-package-using-visual-studio-net-framework-->
   <!--Nuget cli 样例：-->
-  <!--【打包】nuget pack SunTaiLibrary.csproj -Properties Configuration=Release -Version 1.0.1.6-->
-  <!--【上传】nuget push SunTaiLibrary.1.0.1.6.nupkg key1key2key3key4key5key6 -Source https://api.nuget.org/v3/index.json-->
+  <!--【打包】nuget pack SunTaiLibrary.csproj -Properties Configuration=Release -Version 1.0.1.7-->
+  <!--【上传】nuget push SunTaiLibrary.1.0.1.7.nupkg key1key2key3key4key5key6 -Source https://api.nuget.org/v3/index.json-->
   <metadata>
     <id>SunTaiLibrary</id>
-    <version>1.0.1.6</version>
+    <version>1.0.1.7</version>
     <title>suntai library for wpf</title>
     <authors>suntai</authors>
     <owners>suntai</owners>
@@ -17,12 +17,11 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>suntai library for wpf</description>
     <releaseNotes>
-      - fix bugs.
-      - add window style.
-      - add more controls.
-      - change style default value.
-      - add new controls.
-      - add quick start demos.
+      - change default XmlnsPrefix (tai3 -> t3).
+      - ImageButton remove any style setters, keep default.
+      - ImageButton if have no other picture(Disable,Hover,Pressed), keep Normal picture.
+      - add more commands for window.
+      - add extension for Enum.
     </releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>suntai library wpf control helper</tags>

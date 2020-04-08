@@ -1,0 +1,13 @@
+# 若要了解有关 .editorconfig 的详细信息，请参阅 https://aka.ms/editorconfigdocs
+
+# All files
+[*]
+indent_style = space
+
+# xml files
+[*.xml]
+indent_size = 2
+
+# cs files
+[*.cs]
+indent_size = 2

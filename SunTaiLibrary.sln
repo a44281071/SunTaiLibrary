@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2035
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9F0EA737-6248-46CA-8413-BB61720760EF}"
 	ProjectSection(SolutionItems) = preProject
@@ -13,6 +13,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunTaiLibrary", "SunTaiLibrary\SunTaiLibrary.csproj", "{BE011C96-CAF9-47D7-998F-77B966A1DCBA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunTaiLibrary.TestClient", "SunTaiLibrary.TestClient\SunTaiLibrary.TestClient.csproj", "{EA122DCD-3C5F-46BC-8FD5-CEDB6B07520F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{14045F88-BDBA-416C-8B7D-D7973EF093A2}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

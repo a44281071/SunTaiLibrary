@@ -56,8 +56,8 @@
           <tai3:ImageButton Width="132"
                             Height="90"
                             Content="i'm content"
-                            DisableImage="Resources/btn-back-disable.png"
                             HoverImage="Resources/btn-back-hover.png"
+                            IsEnabled="False"
                             NormalImage="Resources/btn-back-normal.png"
                             PressedImage="Resources/btn-back-pressed.png" />
         </GroupBox>

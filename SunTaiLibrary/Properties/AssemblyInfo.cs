@@ -17,7 +17,7 @@ using System.Windows.Markup;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: XmlnsPrefix("http://www.suntai.org/library", "tai3")]
+[assembly: XmlnsPrefix("http://www.suntai.org/library", "t3")]
 [assembly: XmlnsDefinition("http://www.suntai.org/library", "SunTaiLibrary.Controls")]
 [assembly: XmlnsDefinition("http://www.suntai.org/library", "SunTaiLibrary.Converters")]
 [assembly: XmlnsDefinition("http://www.suntai.org/library", "SunTaiLibrary.Dependencies")]
@@ -58,7 +58,7 @@ using System.Windows.Markup;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.1.6")]
-[assembly: AssemblyFileVersion("1.0.1.6")]
+[assembly: AssemblyVersion("1.0.1.7")]
+[assembly: AssemblyFileVersion("1.0.1.7")]
 [assembly: Guid("23110EFC-4EEA-4EFB-AD34-D9121C0D57B7")]
 

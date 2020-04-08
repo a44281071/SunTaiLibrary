@@ -39,7 +39,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Remoting" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\sdk\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -122,6 +124,7 @@
     <Compile Include="Converters\ProgressBarWidthConverter.cs" />
     <Compile Include="Converters\ReverseBoolConverter.cs" />
     <Compile Include="Converters\RowIndexConverter.cs" />
+    <Compile Include="Converters\ValueToEqualsParameterConverter.cs" />
     <Compile Include="Dependencies\BindingProxy.cs" />
     <Compile Include="EventArgs.cs" />
     <Compile Include="ExtensionMethods\ExtensionDependencyObject.cs" />

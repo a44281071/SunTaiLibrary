@@ -111,6 +111,7 @@
               <Image x:Name="img" Source="{TemplateBinding NormalImage}" />
               <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                RecognizesAccessKey="True"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
             </Grid>
           </Border>

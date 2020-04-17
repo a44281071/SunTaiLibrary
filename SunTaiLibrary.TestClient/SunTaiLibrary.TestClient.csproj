@@ -137,5 +137,11 @@
   <ItemGroup>
     <Resource Include="dotnet.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\check_false.png" />
+    <Resource Include="Resources\check_hover.png" />
+    <Resource Include="Resources\check_null.png" />
+    <Resource Include="Resources\check_true.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

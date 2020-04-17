@@ -20,6 +20,33 @@
   <Border>
     <ScrollViewer Margin="10">
       <WrapPanel>
+        <GroupBox Header="Controls.ToggleImageButton">
+          <tai3:ToggleImageButton Width="50"
+                                  Height="30"
+                                  Margin="5"
+                                  CheckedImage="Resources/check_true.png"
+                                  HoverImage="Resources/check_hover.png"
+                                  IndeterminateImage="Resources/check_null.png"
+                                  NormalImage="Resources/check_false.png" />
+        </GroupBox>
+        <GroupBox Header="Controls.RadioImageButton">
+          <StackPanel Orientation="Horizontal">
+            <tai3:RadioImageButton Width="50"
+                                   Height="30"
+                                   Margin="5"
+                                   CheckedImage="Resources/check_true.png"
+                                   HoverImage="Resources/check_hover.png"
+                                   IndeterminateImage="Resources/check_null.png"
+                                   NormalImage="Resources/check_false.png" />
+            <tai3:RadioImageButton Width="50"
+                                   Height="30"
+                                   Margin="5"
+                                   CheckedImage="Resources/check_true.png"
+                                   HoverImage="Resources/check_hover.png"
+                                   IndeterminateImage="Resources/check_null.png"
+                                   NormalImage="Resources/check_false.png" />
+          </StackPanel>
+        </GroupBox>
         <GroupBox Header="Controls.ToastControl">
           <Grid>
             <StackPanel>
@@ -86,5 +113,4 @@
       </WrapPanel>
     </ScrollViewer>
   </Border>
-
 </Window>

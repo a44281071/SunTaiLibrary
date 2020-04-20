@@ -22,6 +22,7 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("http://www.suntai.org/library", "SunTaiLibrary.Converters")]
 [assembly: XmlnsDefinition("http://www.suntai.org/library", "SunTaiLibrary.Dependencies")]
 [assembly: XmlnsDefinition("http://www.suntai.org/library", "SunTaiLibrary.Attached")]
+[assembly: XmlnsDefinition("http://www.suntai.org/library", "SunTaiLibrary.Commands")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

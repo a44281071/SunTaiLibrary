@@ -28,11 +28,11 @@ namespace System
     public static string GetEnumDescription(this Enum enumSubitem, bool isGetFallbackValue = true)
     {
       Type enumType = enumSubitem.GetType();
+
+      string strValue = enumSubitem.ToString();
+      string result = isGetFallbackValue ? strValue : String.Empty;
       if (Enum.IsDefined(enumType, enumSubitem))
       {
-        string strValue = enumSubitem.ToString();
-        string result = isGetFallbackValue ? strValue : String.Empty;
-
         FieldInfo fieldinfo = enumType.GetField(strValue);
         object[] da = fieldinfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
         if (null != da && da.Length > 0)
@@ -40,14 +40,8 @@ namespace System
           var da1 = (DescriptionAttribute)da[0];
           result = da1.Description;
         }
-
-        return result;
       }
-      else
-      {
-        // not defied in enum.
-        return enumSubitem?.ToString();
-      }
+      return result;
     }
   }
 }

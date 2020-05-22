@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:SunTaiLibrary.TestClient"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:tai3="http://www.suntai.org/library"
+        xmlns:t3="http://www.suntai.org/library"
         Title="MainWindow"
         Width="500"
         Height="800"
@@ -14,14 +14,27 @@
         Loaded="Window_Loaded"
         Style="{StaticResource SamTiWindow}"
         mc:Ignorable="d">
-  <Window.DataContext>
+  <FrameworkElement.DataContext>
     <local:MainViewModel />
-  </Window.DataContext>
+  </FrameworkElement.DataContext>
+  <FrameworkElement.Resources>
+    <t3:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
+  </FrameworkElement.Resources>
+  
   <Border>
     <ScrollViewer Margin="10">
       <WrapPanel>
+        <GroupBox  Header="EmumDisplay">
+          <ItemsControl ItemsSource="{Binding EnumItems}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding Path=.,Converter={StaticResource EnumDescriptionConverter}}"/>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </GroupBox>
         <GroupBox Header="Controls.ToggleImageButton">
-          <tai3:ToggleImageButton Width="50"
+          <t3:ToggleImageButton Width="50"
                                   Height="30"
                                   Margin="5"
                                   CheckedImage="Resources/check_true.png"
@@ -31,14 +44,14 @@
         </GroupBox>
         <GroupBox Header="Controls.RadioImageButton">
           <StackPanel Orientation="Horizontal">
-            <tai3:RadioImageButton Width="50"
+            <t3:RadioImageButton Width="50"
                                    Height="30"
                                    Margin="5"
                                    CheckedImage="Resources/check_true.png"
                                    HoverImage="Resources/check_hover.png"
                                    IndeterminateImage="Resources/check_null.png"
                                    NormalImage="Resources/check_false.png" />
-            <tai3:RadioImageButton Width="50"
+            <t3:RadioImageButton Width="50"
                                    Height="30"
                                    Margin="5"
                                    CheckedImage="Resources/check_true.png"
@@ -51,21 +64,21 @@
           <Grid>
             <StackPanel>
               <Button Click="ShowMessageToast_Click" Content="show message toast" />
-              <tai3:ToastControl FlyOut="ToastControl_FlyOut">
+              <t3:ToastControl FlyOut="ToastControl_FlyOut">
                 我是提示消息
-              </tai3:ToastControl>
+              </t3:ToastControl>
             </StackPanel>
           </Grid>
         </GroupBox>
         <GroupBox Header="Controls.EnumImageButton">
           <StackPanel Orientation="Horizontal">
-            <tai3:EnumImageButton Command="{Binding ChangePower}"
+            <t3:EnumImageButton Command="{Binding ChangePower}"
                                   CommandParameter="{x:Static local:PowerState.Off}"
                                   MatchSource="{Binding Power}"
                                   MatchTarget="{x:Static local:PowerState.Off}"
                                   MatchedImage="Resources/btn-OFF-select.png"
                                   NormalImage="Resources/btn-OFF-normal.png" />
-            <tai3:EnumImageButton Command="{Binding ChangePower}"
+            <t3:EnumImageButton Command="{Binding ChangePower}"
                                   CommandParameter="{x:Static local:PowerState.On}"
                                   MatchSource="{Binding Power}"
                                   MatchTarget="{x:Static local:PowerState.On}"
@@ -74,13 +87,13 @@
           </StackPanel>
         </GroupBox>
         <GroupBox Header="Controls.NineGridImage">
-          <tai3:NineGridImage Width="200"
+          <t3:NineGridImage Width="200"
                               Height="42"
                               Offsets="1,0,25,0"
                               Source="Resources/bar-active2.png" />
         </GroupBox>
         <GroupBox Header="Controls.ImageButton">
-          <tai3:ImageButton Width="132"
+          <t3:ImageButton Width="132"
                             Height="90"
                             Content="i'm content"
                             HoverImage="Resources/btn-back-hover.png"
@@ -91,24 +104,24 @@
         <GroupBox Name="groupbox1"
                   Background="Transparent"
                   Header="Control.BusyIndicator">
-          <tai3:BusyIndicator CurrentProgressValue="50" IsBusy="{Binding Path=IsMouseOver, ElementName=groupbox1, Mode=OneWay}">
+          <t3:BusyIndicator CurrentProgressValue="50" IsBusy="{Binding Path=IsMouseOver, ElementName=groupbox1, Mode=OneWay}">
             <StackPanel>
               <TextBlock Text="hold here to busy." />
               <TextBox Margin="5" Text="I'm text box." />
               <Button Content="I'm button." />
             </StackPanel>
-          </tai3:BusyIndicator>
+          </t3:BusyIndicator>
         </GroupBox>
         <GroupBox Width="250"
                   Height="80"
                   Header="Controls.MarqueeCanvas">
-          <tai3:MarqueeCanvas IsForcing="True">
+          <t3:MarqueeCanvas IsForcing="True">
             <TextBlock Background="Gray" Text="i'm text block." />
             <TextBox Canvas.Top="15"
                      Margin="5"
                      Text="I'm text box." />
             <Button Canvas.Top="40" Content="I'm button." />
-          </tai3:MarqueeCanvas>
+          </t3:MarqueeCanvas>
         </GroupBox>
       </WrapPanel>
     </ScrollViewer>

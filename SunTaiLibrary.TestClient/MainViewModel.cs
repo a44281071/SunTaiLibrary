@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,20 +14,20 @@ namespace SunTaiLibrary.TestClient
     public MainViewModel()
     {
       ChangePower = new RelayCommand<PowerState>(OnChangePower);
+
+      // test not defined.
+      EnumItems.Add((PowerState)233);      
     }
 
     #region Bind_Data
 
-    private PowerState _Power=PowerState.On;
+    private PowerState _Power = PowerState.On;
 
     /// <summary>
     /// 绑定通知，power state enum
     /// </summary>
-    public PowerState Power
-    {
-      get => _Power;
-      set => Set(ref _Power, value);
-    }
+    public PowerState Power { get => _Power; set => Set(ref _Power, value); } 
+    public ObservableCollection<PowerState> EnumItems { get; } = new ObservableCollection<PowerState>(ExtensionEnum.ToArray<PowerState>());
 
     #endregion Bind_Data
 

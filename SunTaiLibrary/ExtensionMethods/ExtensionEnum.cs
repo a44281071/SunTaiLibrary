@@ -27,18 +27,27 @@ namespace System
     /// <param name="isGetFallbackValue">true：如果获取不到则返回枚举项的定义名称。false：返回 String.Empty</param>
     public static string GetEnumDescription(this Enum enumSubitem, bool isGetFallbackValue = true)
     {
-      string strValue = enumSubitem.ToString();
-      string result = isGetFallbackValue ? strValue : String.Empty;
-
-      FieldInfo fieldinfo = enumSubitem.GetType().GetField(strValue);
-      Object[] da = fieldinfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
-      if (null != da && da.Length > 0)
+      Type enumType = enumSubitem.GetType();
+      if (Enum.IsDefined(enumType, enumSubitem))
       {
-        var da1 = (DescriptionAttribute)da[0];
-        result = da1.Description;
-      }
+        string strValue = enumSubitem.ToString();
+        string result = isGetFallbackValue ? strValue : String.Empty;
 
-      return result;
+        FieldInfo fieldinfo = enumType.GetField(strValue);
+        object[] da = fieldinfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
+        if (null != da && da.Length > 0)
+        {
+          var da1 = (DescriptionAttribute)da[0];
+          result = da1.Description;
+        }
+
+        return result;
+      }
+      else
+      {
+        // not defied in enum.
+        return enumSubitem?.ToString();
+      }
     }
   }
 }

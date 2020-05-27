@@ -108,7 +108,11 @@
                   BorderThickness="{TemplateBinding BorderThickness}"
                   SnapsToDevicePixels="True">
             <Grid Margin="{TemplateBinding Padding}">
-              <Image x:Name="img" Source="{TemplateBinding NormalImage}" />
+              <Image x:Name="img"
+                     HorizontalAlignment="{TemplateBinding HorizontalImageAlignment}"
+                     VerticalAlignment="{TemplateBinding VerticalImageAlignment}"
+                     Source="{TemplateBinding NormalImage}"
+                     Stretch="{TemplateBinding Stretch}" />
               <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 RecognizesAccessKey="True"

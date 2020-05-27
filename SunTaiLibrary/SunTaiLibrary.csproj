@@ -106,6 +106,7 @@
     <Compile Include="Commands\WindowCommands.cs" />
     <Compile Include="Controls\BusyIndicator.cs" />
     <Compile Include="Controls\CaptionButton.cs" />
+    <Compile Include="Controls\ClippingBorder.cs" />
     <Compile Include="Controls\EnumImageButton.cs" />
     <Compile Include="Controls\ImageButton.cs" />
     <Compile Include="Controls\MarqueeCanvas.cs" />

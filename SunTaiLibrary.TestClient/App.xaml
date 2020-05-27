@@ -10,6 +10,6 @@
         <ResourceDictionary Source="/SunTaiLibrary;component/Themes/Accents/Blue.xaml" />
         <ResourceDictionary Source="/SunTaiLibrary;component/Themes/SamTiStyle.xaml" />
       </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>    
+    </ResourceDictionary>
   </Application.Resources>
 </Application>

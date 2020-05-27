@@ -5,12 +5,70 @@ using System.Windows.Media;
 
 namespace SunTaiLibrary.Controls
 {
+  /// <summary>
+  /// button with image.
+  /// </summary>
   public class ImageButton : Button
   {
     static ImageButton()
     {
       DefaultStyleKeyProperty.OverrideMetadata(typeof(ImageButton), new FrameworkPropertyMetadata(typeof(ImageButton)));
     }
+
+    /// <summary>
+    /// Gets or sets a System.Windows.Media.Stretch enumeration value that describes
+    /// how the shape fills its allocated space.
+    /// </summary>
+    [Category("Common")]
+    public Stretch Stretch
+    {
+      get { return (Stretch)GetValue(StretchProperty); }
+      set { SetValue(StretchProperty, value); }
+    }
+
+    /// <summary>
+    /// Identifies the System.Windows.Shapes.Shape.Stretch dependency property.
+    /// </summary>
+    public static readonly DependencyProperty StretchProperty =
+        DependencyProperty.Register("Stretch", typeof(Stretch), typeof(ImageButton), new PropertyMetadata(Stretch.Uniform));
+
+    #region Alignment Properties
+
+    /// <summary>
+    /// Gets or sets the horizontal alignment of the control's image.
+    /// </summary>
+    [Category("Common")]
+    public HorizontalAlignment HorizontalImageAlignment
+    {
+      get { return (HorizontalAlignment)GetValue(HorizontalImageAlignmentProperty); }
+      set { SetValue(HorizontalImageAlignmentProperty, value); }
+    }
+
+    /// <summary>
+    /// Identifies the System.Windows.FrameworkElement.HorizontalAlignment dependency property.
+    /// </summary>
+    public static readonly DependencyProperty HorizontalImageAlignmentProperty =
+        DependencyProperty.Register("HorizontalImageAlignment", typeof(HorizontalAlignment), typeof(ImageButton), new PropertyMetadata(HorizontalAlignment.Stretch));
+
+    /// <summary>
+    /// Gets or sets the vertical alignment of the control's image.
+    /// </summary>
+    [Category("Common")]
+    public VerticalAlignment VerticalImageAlignment
+    {
+      get { return (VerticalAlignment)GetValue(VerticalImageAlignmentProperty); }
+      set { SetValue(VerticalImageAlignmentProperty, value); }
+    }
+
+    /// <summary>
+    /// Identifies the System.Windows.Controls.Control.VerticalContentAlignment dependency property.
+    /// </summary>
+    public static readonly DependencyProperty VerticalImageAlignmentProperty =
+        DependencyProperty.Register("VerticalImageAlignment", typeof(VerticalAlignment), typeof(ImageButton), new PropertyMetadata(VerticalAlignment.Stretch));
+
+    #endregion Alignment Properties
+
+    #region Image Properties
 
     /// <summary>
     /// 默认图片
@@ -75,5 +133,7 @@ namespace SunTaiLibrary.Controls
     /// </summary>
     public static readonly DependencyProperty DisableImageProperty =
     DependencyProperty.Register("DisableImage", typeof(ImageSource), typeof(ImageButton), new PropertyMetadata());
+
+    #endregion Image Properties
   }
 }

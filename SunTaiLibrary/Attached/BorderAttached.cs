@@ -7,6 +7,9 @@ using System.Windows;
 
 namespace SunTaiLibrary.Attached
 {
+  /// <summary>
+  /// add more properties for Border control.
+  /// </summary>
   public static class BorderAttached
   {
     private static CornerRadius Default_CornerRadius = new CornerRadius(0);

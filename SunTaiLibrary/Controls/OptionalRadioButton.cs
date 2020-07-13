@@ -17,6 +17,9 @@ namespace SunTaiLibrary.Controls
             typeof(OptionalRadioButton),
             new PropertyMetadata(true));
 
+    /// <summary>
+    /// 是否启用当按钮选中时再次点击将取消选中（默认启用）
+    /// </summary>
     public bool IsOptional
     {
       get { return (bool)GetValue(IsOptionalProperty); }
@@ -25,13 +28,19 @@ namespace SunTaiLibrary.Controls
 
     #endregion bool IsOptional dependency property
 
-    protected override void OnClick()
+    /// <summary>
+    /// if checked, click will set to uncheck.
+    /// </summary>
+    protected override void OnToggle()
     {
       bool? wasChecked = IsChecked;
-      base.OnClick();
       if (IsOptional && wasChecked == true)
       {
         IsChecked = false;
+      }
+      else
+      {
+        base.OnToggle();
       }
     }
   }

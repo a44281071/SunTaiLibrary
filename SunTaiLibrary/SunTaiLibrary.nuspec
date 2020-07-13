@@ -3,28 +3,25 @@
   <!--详情请参阅：快速入门：使用 Visual Studio 创建和发布包（.NET Framework、Windows）-->
   <!--https://docs.microsoft.com/zh-cn/nuget/quickstart/create-and-publish-a-package-using-visual-studio-net-framework-->
   <!--Nuget cli 样例：-->
-  <!--【打包】nuget pack SunTaiLibrary.csproj -Properties Configuration=Release -Version 1.0.1.9-->
-  <!--【上传】nuget push SunTaiLibrary.1.0.1.9.nupkg key1key2key3key4key5key6 -Source https://api.nuget.org/v3/index.json-->
+  <!--【打包】nuget pack SunTaiLibrary.csproj -Properties Configuration=Release -Version 1.0.1.10-->
+  <!--【上传】nuget push SunTaiLibrary.1.0.1.10.nupkg key1key2key3key4key5key6 -Source https://api.nuget.org/v3/index.json-->
   <metadata>
     <id>SunTaiLibrary</id>
-    <version>1.0.1.9</version>
+    <version>1.0.1.10</version>
     <title>suntai library for wpf</title>
-    <authors>suntai</authors>
+    <authors>suntai,SamTi</authors>
     <owners>suntai</owners>
-    <licenseUrl>https://github.com/a44281071/SunTaiLibrary/wiki</licenseUrl>
+    <license type="expression">MIT</license>
     <projectUrl>https://github.com/a44281071/SunTaiLibrary</projectUrl>
     <iconUrl>https://github.com/a44281071/SunTaiLibrary/raw/master/Documents/SunTai.jpg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>suntai library for wpf</description>
     <releaseNotes>
-      - change default XmlnsPrefix (tai3 -> t3).
-      - ImageButton remove any style setters, keep default.
-      - ImageButton if have no other picture(Disable,Hover,Pressed), keep Normal picture.
-      - add more commands for window.
-      - add extension for Enum.
+      - fix OptionalRadioButton click work flow.
+      - add more attached properties to help custom style theme.
     </releaseNotes>
     <copyright>Copyright 2018</copyright>
-    <tags>suntai library wpf control helper</tags>
+    <tags>suntai SamTi library wpf control helper</tags>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Runtime.Remoting" targetFramework="net40" />
       <frameworkAssembly assemblyName="System.Windows.Interactivity" targetFramework="net45" />

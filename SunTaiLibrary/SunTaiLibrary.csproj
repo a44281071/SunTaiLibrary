@@ -93,6 +93,7 @@
     <Compile Include="AppSingleInstance\SingleInstance.cs" />
     <Compile Include="Attached\BorderAttached.cs" />
     <Compile Include="Attached\ComboBoxAttached.cs" />
+    <Compile Include="Attached\ContentAttached.cs" />
     <Compile Include="Attached\FrameworkElementAttached.cs" />
     <Compile Include="Attached\HorizontalMouseScrollBehavior.cs" />
     <Compile Include="Attached\InteractivityItemsAttached.cs" />

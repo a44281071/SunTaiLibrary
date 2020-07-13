@@ -14,7 +14,7 @@ using System.Windows.Markup;
 [assembly: AssemblyCompany("Caritown")]
 [assembly: AssemblyProduct("SunTaiLibrary")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("Library for SamTi")]
 [assembly: AssemblyCulture("")]
 
 [assembly: XmlnsPrefix("http://www.suntai.org/library", "t3")]
@@ -59,7 +59,7 @@ using System.Windows.Markup;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.1.9")]
-[assembly: AssemblyFileVersion("1.0.1.9")]
+[assembly: AssemblyVersion("1.0.1.10")]
+[assembly: AssemblyFileVersion("1.0.1.10")]
 [assembly: Guid("23110EFC-4EEA-4EFB-AD34-D9121C0D57B7")]
 

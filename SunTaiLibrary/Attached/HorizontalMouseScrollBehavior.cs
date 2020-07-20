@@ -13,7 +13,7 @@ namespace SunTaiLibrary.Attached
 {
   /// <summary>
   /// Allows an <see cref="ItemsControl"/> to scroll horizontally by listening to the
-  /// <see cref="PreviewMouseWheel"/> event of its internal <see cref="ScrollViewer"/>.
+  /// PreviewMouseWheel event of its internal <see cref="ScrollViewer"/>.
   /// </summary>
   public class HorizontalMouseScrollBehavior : Behavior<ItemsControl>
   {

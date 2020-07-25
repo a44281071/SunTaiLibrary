@@ -1,4 +1,5 @@
-﻿using SunTaiLibrary.Helpers;
+﻿using Microsoft.Xaml.Behaviors;
+using SunTaiLibrary.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Interactivity;
 
 namespace SunTaiLibrary.Attached
 {
@@ -28,16 +28,6 @@ namespace SunTaiLibrary.Attached
     /// </summary>
     public bool IsInverted { get; set; }
 
-    /// <summary>
-    /// The ScrollViewer is not available in the visual tree until the control is loaded.
-    /// </summary>
-    protected override void OnAttached()
-    {
-      base.OnAttached();
-
-      AssociatedObject.Loaded += OnLoaded;
-    }
-
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
       AssociatedObject.Loaded -= OnLoaded;
@@ -50,6 +40,28 @@ namespace SunTaiLibrary.Attached
       }
     }
 
+    private void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+    {
+      var newOffset = IsInverted ?
+          ScrollViewer.HorizontalOffset + e.Delta :
+          ScrollViewer.HorizontalOffset - e.Delta;
+
+      ScrollViewer.ScrollToHorizontalOffset(newOffset);
+    }
+
+    /// <summary>
+    /// The ScrollViewer is not available in the visual tree until the control is loaded.
+    /// </summary>
+    protected override void OnAttached()
+    {
+      base.OnAttached();
+
+      AssociatedObject.Loaded += OnLoaded;
+    }
+
+    /// <summary>
+    /// remove event handler.
+    /// </summary>
     protected override void OnDetaching()
     {
       base.OnDetaching();
@@ -58,15 +70,6 @@ namespace SunTaiLibrary.Attached
       {
         ScrollViewer.PreviewMouseWheel -= OnPreviewMouseWheel;
       }
-    }
-
-    private void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
-    {
-      var newOffset = IsInverted ?
-          ScrollViewer.HorizontalOffset + e.Delta :
-          ScrollViewer.HorizontalOffset - e.Delta;
-
-      ScrollViewer.ScrollToHorizontalOffset(newOffset);
     }
   }
 }

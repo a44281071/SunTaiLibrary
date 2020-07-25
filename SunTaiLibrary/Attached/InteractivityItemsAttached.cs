@@ -18,22 +18,21 @@ namespace SunTaiLibrary.Attached
   /// <summary>
   /// Holder for interactivity entries.
   /// 支持在Style.Setters里设置附加行为。
-  /// <see cref="https://stackoverflow.com/questions/22321966/interaction-triggers-in-style-in-resourcedictionary-wpf"/>
   /// </summary> 
   public class InteractivityItemsAttached : FrameworkElement
   {
-    private List<System.Windows.Interactivity.Behavior> _behaviors;
-    private List<System.Windows.Interactivity.TriggerBase> _triggers;
+    private List<Microsoft.Xaml.Behaviors.Behavior> _behaviors;
+    private List<Microsoft.Xaml.Behaviors.TriggerBase> _triggers;
 
     /// <summary>
     /// Storage for triggers
     /// </summary>
-    public List<System.Windows.Interactivity.TriggerBase> Triggers
+    public List<Microsoft.Xaml.Behaviors.TriggerBase> Triggers
     {
       get
       {
         if (_triggers == null)
-          _triggers = new List<System.Windows.Interactivity.TriggerBase>();
+          _triggers = new List<Microsoft.Xaml.Behaviors.TriggerBase>();
         return _triggers;
       }
     }
@@ -41,12 +40,12 @@ namespace SunTaiLibrary.Attached
     /// <summary>
     /// Storage for Behaviors
     /// </summary>
-    public List<System.Windows.Interactivity.Behavior> Behaviors
+    public List<Microsoft.Xaml.Behaviors.Behavior> Behaviors
     {
       get
       {
         if (_behaviors == null)
-          _behaviors = new List<System.Windows.Interactivity.Behavior>();
+          _behaviors = new List<Microsoft.Xaml.Behaviors.Behavior>();
         return _behaviors;
       }
     }
@@ -78,8 +77,8 @@ namespace SunTaiLibrary.Attached
       dt.Seal();
 #endif
       var ih = (InteractivityItemsAttached)dt.LoadContent();
-      var bc = System.Windows.Interactivity.Interaction.GetBehaviors(d);
-      System.Windows.Interactivity.TriggerCollection tc = System.Windows.Interactivity.Interaction.GetTriggers(d);
+      var bc = Microsoft.Xaml.Behaviors.Interaction.GetBehaviors(d);
+      Microsoft.Xaml.Behaviors.TriggerCollection tc = Microsoft.Xaml.Behaviors.Interaction.GetTriggers(d);
 
       foreach (var behavior in ih.Behaviors)
         bc.Add(behavior);

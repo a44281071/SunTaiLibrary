@@ -66,6 +66,23 @@ namespace SunTaiLibrary.Controls
     public static readonly DependencyProperty VerticalImageAlignmentProperty =
         DependencyProperty.Register("VerticalImageAlignment", typeof(VerticalAlignment), typeof(ImageButton), new PropertyMetadata(VerticalAlignment.Stretch));
 
+
+    /// <summary>
+    /// Image host control Margin.
+    /// </summary>
+    public Thickness ImageMargin
+    {
+      get { return (Thickness)GetValue(ImageMarginProperty); }
+      set { SetValue(ImageMarginProperty, value); }
+    }
+
+    /// <summary>
+    /// Identifies the System.Windows.Thickness dependency property.
+    /// </summary>
+    public static readonly DependencyProperty ImageMarginProperty =
+        DependencyProperty.Register("ImageMargin", typeof(Thickness), typeof(ImageButton), new PropertyMetadata(new Thickness()));
+
+
     #endregion Alignment Properties
 
     #region Image Properties

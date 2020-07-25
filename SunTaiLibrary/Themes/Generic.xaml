@@ -109,6 +109,7 @@
                   SnapsToDevicePixels="True">
             <Grid Margin="{TemplateBinding Padding}">
               <Image x:Name="img"
+                     Margin="{TemplateBinding ImageMargin}"
                      HorizontalAlignment="{TemplateBinding HorizontalImageAlignment}"
                      VerticalAlignment="{TemplateBinding VerticalImageAlignment}"
                      Source="{TemplateBinding NormalImage}"

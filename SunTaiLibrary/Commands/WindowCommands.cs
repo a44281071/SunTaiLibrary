@@ -10,99 +10,72 @@ namespace SunTaiLibrary.Commands
 {
   public static class WindowCommands
   {
-    private static ICommand Close_Window_Command;
+    private static readonly Lazy<ICommand> closeWindow = new Lazy<ICommand>(CloseWindowCommand);
+    private static readonly Lazy<ICommand> minimizeWindow = new Lazy<ICommand>(MinimizeWindowCommand);
+    private static readonly Lazy<ICommand> restoreWindow = new Lazy<ICommand>(RestoreWindowCommand);
+    private static readonly Lazy<ICommand> maximizeWindow = new Lazy<ICommand>(MaximizeWindowCommand);
+
+    private static ICommand CloseWindowCommand() => new RelayCommand<DependencyObject>(
+      sender => GetWindow(sender)?.Close()
+    , sender => CanGetWindow(sender));
+
+    private static ICommand MinimizeWindowCommand() => new RelayCommand<DependencyObject>(
+      sender => GetWindow(sender)?.MinimizeWindow()
+    , sender => CanGetWindow(sender));
+
+    private static ICommand RestoreWindowCommand() => new RelayCommand<DependencyObject>(
+      sender => GetWindow(sender)?.RestoreWindow()
+    , sender => CanGetWindow(sender));
+
+    private static ICommand MaximizeWindowCommand() => new RelayCommand<DependencyObject>(
+      sender => GetWindow(sender)?.MaximizeWindow()
+    , sender => CanGetWindow(sender));
+
+    private static bool CanGetWindow(DependencyObject sender)
+    {
+      return sender != null && Window.GetWindow(sender) != null;
+    }
+
+    private static Window GetWindow(DependencyObject sender)
+    {
+      Window result = null;
+      if (sender != null)
+      {
+        result = Window.GetWindow(sender);
+      }
+      return result;
+    }
 
     /// <summary>
     /// Gets the command that close a <see cref="Window"/>.
     /// </summary>
     /// <value>
-    /// The clear text command.
+    /// The command.
     /// </value>
-    public static ICommand CloseWindowCommand
-    {
-      get
-      {
-        if (Close_Window_Command == null)
-        {
-          Close_Window_Command = new RelayCommand<DependencyObject>(sender =>
-          {
-            if (sender != null)
-            {
-              Window.GetWindow(sender).Close();
-            }
-          }, sender =>
-          {
-            return sender != null && Window.GetWindow(sender) != null;
-          });
-        }
-        return Close_Window_Command;
-      }
-    }
-
-    private static ICommand MiniMize_Window_Command;
+    public static ICommand CloseWindow => closeWindow.Value;
 
     /// <summary>
     /// Gets the command that minimize a <see cref="Window"/>.
     /// </summary>
     /// <value>
-    /// The clear text command.
+    /// The command.
     /// </value>
-    public static ICommand MiniMizeWindowCommand
-    {
-      get
-      {
-        if (MiniMize_Window_Command == null)
-        {
-          MiniMize_Window_Command = new RelayCommand<DependencyObject>(sender =>
-          {
-            if (sender != null)
-            {
-              Window.GetWindow(sender).WindowState = WindowState.Minimized;
-            }
-          }, sender =>
-          {
-            return sender != null && Window.GetWindow(sender) != null;
-          });
-        }
-        return Close_Window_Command;
-      }
-    }
-
-    private static ICommand Resize_Maximization_Window_Command;
+    public static ICommand MinimizeWindow => minimizeWindow.Value;
 
     /// <summary>
-    /// Gets the command that minimize a <see cref="Window"/>.
+    /// Gets the command that restore a <see cref="Window"/>.
     /// </summary>
     /// <value>
-    /// The clear text command.
+    /// The command.
     /// </value>
-    public static ICommand ResizeMaximizationWindowCommand
-    {
-      get
-      {
-        if (Resize_Maximization_Window_Command == null)
-        {
-          Resize_Maximization_Window_Command = new RelayCommand<DependencyObject>(sender =>
-          {
-            if (sender != null)
-            {
-              Window win = Window.GetWindow(sender);
-              if (win.WindowState == WindowState.Normal)
-              {
-                win.WindowState = WindowState.Maximized;
-              }
-              else
-              {
-                win.WindowState = WindowState.Normal;
-              }
-            }
-          }, sender =>
-          {
-            return sender != null && Window.GetWindow(sender) != null;
-          });
-        }
-        return Close_Window_Command;
-      }
-    }
+    public static ICommand RestoreWindow => restoreWindow.Value;
+
+    /// <summary>
+    /// Gets the command that maximize a <see cref="Window"/>.
+    /// </summary>
+    /// <value>
+    /// The command.
+    /// </value>
+    public static ICommand MaximizeWindow => maximizeWindow.Value;
   }
 }

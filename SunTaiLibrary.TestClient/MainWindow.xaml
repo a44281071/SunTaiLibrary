@@ -18,46 +18,62 @@
     <local:MainViewModel />
   </FrameworkElement.DataContext>
   <FrameworkElement.Resources>
-    <t3:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
+    <t3:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
   </FrameworkElement.Resources>
-  
+
   <Border>
     <ScrollViewer Margin="10">
       <WrapPanel>
-        <GroupBox  Header="EmumDisplay">
+        <GroupBox Header="WindowCommands">
+          <ItemsControl>
+            <Button Command="{x:Static t3:WindowCommands.MinimizeWindow}"
+                    CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}"
+                    Content="Min" />
+            <Button Command="{x:Static t3:WindowCommands.RestoreWindow}"
+                    CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}"
+                    Content="Restore" />
+            <Button Command="{x:Static t3:WindowCommands.MaximizeWindow}"
+                    CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}"
+                    Content="Max" />
+            <Button Command="{x:Static t3:WindowCommands.CloseWindow}"
+                    CommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}}"
+                    Content="Close" />
+          </ItemsControl>
+        </GroupBox>
+        <GroupBox Header="EmumDisplay">
           <ItemsControl ItemsSource="{Binding EnumItems}">
             <ItemsControl.ItemTemplate>
               <DataTemplate>
-                <TextBlock Text="{Binding Path=.,Converter={StaticResource EnumDescriptionConverter}}"/>
+                <TextBlock Text="{Binding Path=., Converter={StaticResource EnumDescriptionConverter}}" />
               </DataTemplate>
             </ItemsControl.ItemTemplate>
           </ItemsControl>
         </GroupBox>
         <GroupBox Header="Controls.ToggleImageButton">
           <t3:ToggleImageButton Width="50"
-                                  Height="30"
-                                  Margin="5"
-                                  CheckedImage="Resources/check_true.png"
-                                  HoverImage="Resources/check_hover.png"
-                                  IndeterminateImage="Resources/check_null.png"
-                                  NormalImage="Resources/check_false.png" />
+                                Height="30"
+                                Margin="5"
+                                CheckedImage="Resources/check_true.png"
+                                HoverImage="Resources/check_hover.png"
+                                IndeterminateImage="Resources/check_null.png"
+                                NormalImage="Resources/check_false.png" />
         </GroupBox>
         <GroupBox Header="Controls.RadioImageButton">
           <StackPanel Orientation="Horizontal">
             <t3:RadioImageButton Width="50"
-                                   Height="30"
-                                   Margin="5"
-                                   CheckedImage="Resources/check_true.png"
-                                   HoverImage="Resources/check_hover.png"
-                                   IndeterminateImage="Resources/check_null.png"
-                                   NormalImage="Resources/check_false.png" />
+                                 Height="30"
+                                 Margin="5"
+                                 CheckedImage="Resources/check_true.png"
+                                 HoverImage="Resources/check_hover.png"
+                                 IndeterminateImage="Resources/check_null.png"
+                                 NormalImage="Resources/check_false.png" />
             <t3:RadioImageButton Width="50"
-                                   Height="30"
-                                   Margin="5"
-                                   CheckedImage="Resources/check_true.png"
-                                   HoverImage="Resources/check_hover.png"
-                                   IndeterminateImage="Resources/check_null.png"
-                                   NormalImage="Resources/check_false.png" />
+                                 Height="30"
+                                 Margin="5"
+                                 CheckedImage="Resources/check_true.png"
+                                 HoverImage="Resources/check_hover.png"
+                                 IndeterminateImage="Resources/check_null.png"
+                                 NormalImage="Resources/check_false.png" />
           </StackPanel>
         </GroupBox>
         <GroupBox Header="Controls.ToastControl">
@@ -73,33 +89,33 @@
         <GroupBox Header="Controls.EnumImageButton">
           <StackPanel Orientation="Horizontal">
             <t3:EnumImageButton Command="{Binding ChangePower}"
-                                  CommandParameter="{x:Static local:PowerState.Off}"
-                                  MatchSource="{Binding Power}"
-                                  MatchTarget="{x:Static local:PowerState.Off}"
-                                  MatchedImage="Resources/btn-OFF-select.png"
-                                  NormalImage="Resources/btn-OFF-normal.png" />
+                                CommandParameter="{x:Static local:PowerState.Off}"
+                                MatchSource="{Binding Power}"
+                                MatchTarget="{x:Static local:PowerState.Off}"
+                                MatchedImage="Resources/btn-OFF-select.png"
+                                NormalImage="Resources/btn-OFF-normal.png" />
             <t3:EnumImageButton Command="{Binding ChangePower}"
-                                  CommandParameter="{x:Static local:PowerState.On}"
-                                  MatchSource="{Binding Power}"
-                                  MatchTarget="{x:Static local:PowerState.On}"
-                                  MatchedImage="Resources/btn-ON-select.png"
-                                  NormalImage="Resources/btn-ON-normal.png" />
+                                CommandParameter="{x:Static local:PowerState.On}"
+                                MatchSource="{Binding Power}"
+                                MatchTarget="{x:Static local:PowerState.On}"
+                                MatchedImage="Resources/btn-ON-select.png"
+                                NormalImage="Resources/btn-ON-normal.png" />
           </StackPanel>
         </GroupBox>
         <GroupBox Header="Controls.NineGridImage">
           <t3:NineGridImage Width="200"
-                              Height="42"
-                              Offsets="1,0,25,0"
-                              Source="Resources/bar-active2.png" />
+                            Height="42"
+                            Offsets="1,0,25,0"
+                            Source="Resources/bar-active2.png" />
         </GroupBox>
         <GroupBox Header="Controls.ImageButton">
           <t3:ImageButton Width="132"
-                            Height="90"
-                            Content="i'm content"
-                            HoverImage="Resources/btn-back-hover.png"
-                            IsEnabled="False"
-                            NormalImage="Resources/btn-back-normal.png"
-                            PressedImage="Resources/btn-back-pressed.png" />
+                          Height="90"
+                          Content="i'm content"
+                          HoverImage="Resources/btn-back-hover.png"
+                          IsEnabled="False"
+                          NormalImage="Resources/btn-back-normal.png"
+                          PressedImage="Resources/btn-back-pressed.png" />
         </GroupBox>
         <GroupBox Name="groupbox1"
                   Background="Transparent"

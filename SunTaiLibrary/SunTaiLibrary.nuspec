@@ -3,11 +3,11 @@
   <!--详情请参阅：快速入门：使用 Visual Studio 创建和发布包（.NET Framework、Windows）-->
   <!--https://docs.microsoft.com/zh-cn/nuget/quickstart/create-and-publish-a-package-using-visual-studio-net-framework-->
   <!--Nuget cli 样例：-->
-  <!--【打包】nuget pack SunTaiLibrary.csproj -Properties Configuration=Release -Version 1.0.2.1-->
-  <!--【上传】nuget push SunTaiLibrary.1.0.2.1.nupkg key1key2key3key4key5key6 -Source https://api.nuget.org/v3/index.json-->
+  <!--【打包】nuget pack SunTaiLibrary.csproj -Properties Configuration=Release -Version 1.0.2.2-->
+  <!--【上传】nuget push SunTaiLibrary.1.0.2.2.nupkg key1key2key3key4key5key6 -Source https://api.nuget.org/v3/index.json-->
   <metadata>
     <id>SunTaiLibrary</id>
-    <version>1.0.2.1</version>
+    <version>1.0.2.2</version>
     <title>suntai library for wpf</title>
     <authors>suntai,SamTi</authors>
     <owners>suntai</owners>

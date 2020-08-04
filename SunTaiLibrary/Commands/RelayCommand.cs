@@ -11,7 +11,7 @@ namespace SunTaiLibrary.Commands
   /// <summary>
   /// Simple relay command for internal use only.
   /// </summary>
-  internal class RelayCommand : ICommand
+  public class RelayCommand : ICommand
   {
     #region Fields
 

@@ -139,6 +139,7 @@
     <Compile Include="ExtensionMethods\ExtensionString.cs" />
     <Compile Include="ExtensionMethods\ExtensionWindow.cs" />
     <Compile Include="Helpers\LocalHelper.cs" />
+    <Compile Include="Helpers\UIElementHelper.cs" />
     <Compile Include="Helpers\VisualTreeHelperEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

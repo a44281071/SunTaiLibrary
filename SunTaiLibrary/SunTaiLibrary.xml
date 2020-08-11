@@ -1,0 +1,1351 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SunTaiLibrary</name>
+    </assembly>
+    <members>
+        <member name="T:SunTaiLibrary.SingleInstance`1">
+            <summary>
+            This class checks to make sure that only one instance of
+            this application is running at a time.
+            </summary>
+            <remarks>
+            Note: this class should be used with some caution, because it does no
+            security checking. For example, if one instance of an app that uses this class
+            is running as Administrator, any other instance, even if it is not
+            running as Administrator, can activate it with command line arguments.
+            For most apps, this will not be much of an issue.
+            </remarks>
+        </member>
+        <member name="F:SunTaiLibrary.SingleInstance`1.Delimiter">
+            <summary>
+            String delimiter used in channel names.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.SingleInstance`1.ChannelNameSuffix">
+            <summary>
+            Suffix to the channel name.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.SingleInstance`1.RemoteServiceName">
+            <summary>
+            Remote service name.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.SingleInstance`1.IpcProtocol">
+            <summary>
+            IPC protocol used (string).
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.SingleInstance`1.singleInstanceMutex">
+            <summary>
+            Application mutex.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.SingleInstance`1.channel">
+            <summary>
+            IPC channel for communications.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.SingleInstance`1.commandLineArgs">
+            <summary>
+            List of command line arguments for the application.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.SingleInstance`1.CommandLineArgs">
+            <summary>
+            Gets list of command line arguments for the application.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.SingleInstance`1.InitializeAsFirstInstance(System.String)">
+            <summary>
+            Checks if the instance of the application attempting to start is the first instance.
+            If not, activates the first instance.
+            </summary>
+            <returns>True if this is the first instance of the application.</returns>
+        </member>
+        <member name="M:SunTaiLibrary.SingleInstance`1.Cleanup">
+            <summary>
+            Cleans up single-instance code, clearing shared resources, mutexes, etc.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.SingleInstance`1.ActivateWindow(System.Diagnostics.Process)">
+            <summary>
+            激活指定进程的主窗体，使其成为当前窗体
+            </summary>
+            <param name="pProcess">进程</param>
+        </member>
+        <member name="M:SunTaiLibrary.SingleInstance`1.GetCommandLineArgs(System.String)">
+            <summary>
+            Gets command line args - for ClickOnce deployed applications, command line args may not be passed directly, they have to be retrieved.
+            </summary>
+            <returns>List of command line arg strings.</returns>
+        </member>
+        <member name="M:SunTaiLibrary.SingleInstance`1.CreateRemoteService(System.String)">
+            <summary>
+            Creates a remote service for communication.
+            </summary>
+            <param name="channelName">Application's IPC channel name.</param>
+        </member>
+        <member name="M:SunTaiLibrary.SingleInstance`1.SignalFirstInstance(System.String,System.Collections.Generic.IList{System.String})">
+            <summary>
+            Creates a client channel and obtains a reference to the remoting service exposed by the server -
+            in this case, the remoting service exposed by the first instance. Calls a function of the remoting service
+            class to pass on command line arguments from the second instance to the first and cause it to activate itself.
+            </summary>
+            <param name="channelName">Application's IPC channel name.</param>
+            <param name="args">
+            Command line arguments for the second instance, passed to the first instance to take appropriate action.
+            </param>
+        </member>
+        <member name="M:SunTaiLibrary.SingleInstance`1.ActivateFirstInstanceCallback(System.Object)">
+            <summary>
+            Callback for activating first instance of the application.
+            </summary>
+            <param name="arg">Callback argument.</param>
+            <returns>Always null.</returns>
+        </member>
+        <member name="M:SunTaiLibrary.SingleInstance`1.ActivateFirstInstance(System.Collections.Generic.IList{System.String})">
+            <summary>
+            Activates the first instance of the application with arguments from a second instance.
+            </summary>
+            <param name="args">List of arguments to supply the first instance of the application.</param>
+        </member>
+        <member name="T:SunTaiLibrary.SingleInstance`1.IPCRemoteService">
+            <summary>
+            Remoting service class which is exposed by the server i.e the first instance and called by the second instance
+            to pass on the command line arguments to the first instance and cause it to activate itself.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.SingleInstance`1.IPCRemoteService.InvokeFirstInstance(System.Collections.Generic.IList{System.String})">
+            <summary>
+            Activates the first instance of the application.
+            </summary>
+            <param name="args">List of arguments to pass to the first instance.</param>
+        </member>
+        <member name="M:SunTaiLibrary.SingleInstance`1.IPCRemoteService.InitializeLifetimeService">
+            <summary>
+            Remoting Object's ease expires after every 5 minutes by default. We need to override the InitializeLifetimeService class
+            to ensure that lease never expires.
+            </summary>
+            <returns>Always null.</returns>
+        </member>
+        <member name="T:SunTaiLibrary.NativeMethods.MessageHandler">
+            <summary>
+            Delegate declaration that matches WndProc signatures.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.NativeMethods.SetForegroundWindow(System.IntPtr)">
+            <summary>
+             该函数将创建指定窗口的线程设置到前台，并且激活该窗口。键盘输入转向该窗口，并为用户改各种可视的记号。
+             系统给创建前台窗口的线程分配的权限稍高于其他线程。
+            </summary>
+            <param name="hWnd">将被激活并被调入前台的窗口句柄</param>
+            <returns>如果窗口设入了前台，返回值为非零；如果窗口未被设入前台，返回值为零</returns>
+        </member>
+        <member name="M:SunTaiLibrary.NativeMethods.IsIconic(System.IntPtr)">
+            <summary>
+            确定给定窗口是否是最小化（图标化）的窗口
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.NativeMethods.OpenIcon(System.IntPtr)">
+            <summary>
+            恢复一个最小化的程序，并将其激活
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Attached.BorderAttached">
+            <summary>
+            add more properties for Border control.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Attached.BorderAttached.CornerRadiusProperty">
+            <summary>
+            为不支持圆角属性的控件，附加圆角描述
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Attached.ComboBoxAttached.IsFilterSearchProperty">
+            <summary>
+            为 ComboBox 提供搜索筛选功能的支持
+            <para>缺陷：只支持绑定到 “DisplayMemberPath” 属性，且只能解析单级，无法支持wpf的路径属性写法</para>
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Attached.ComboBoxAttached.ComboBox_KeyDown(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            输入字符，按下Enter，筛选符合条件的并展示结果
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Attached.ComboBoxAttached.ComboBox_DropDownClosed(System.Object,System.EventArgs)">
+            <summary>
+            当展示结果关闭时，初始化列表，防止被筛选的数据回不来了
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Attached.ContentAttached">
+            <summary>
+            add more properties for content or children.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Attached.ContentAttached.OrientationProperty">
+            <summary>
+            path and content children stacked.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Attached.ContentAttached.PathProperty">
+            <summary>
+            path geometry for content part.
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Attached.HorizontalMouseScrollBehavior">
+            <summary>
+            Allows an <see cref="T:System.Windows.Controls.ItemsControl"/> to scroll horizontally by listening to the
+            PreviewMouseWheel event of its internal <see cref="P:SunTaiLibrary.Attached.HorizontalMouseScrollBehavior.ScrollViewer"/>.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Attached.HorizontalMouseScrollBehavior.ScrollViewer">
+            <summary>
+            A reference to the internal ScrollViewer.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Attached.HorizontalMouseScrollBehavior.IsInverted">
+            <summary>
+            By default, scrolling down on the wheel translates to right, and up to left.
+            Set this to true to invert that translation.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Attached.HorizontalMouseScrollBehavior.OnAttached">
+            <summary>
+            The ScrollViewer is not available in the visual tree until the control is loaded.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Attached.HorizontalMouseScrollBehavior.OnDetaching">
+            <summary>
+            remove event handler.
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Attached.InteractivityTemplate">
+            <summary>
+            <see cref="T:System.Windows.FrameworkTemplate"/> for InteractivityElements instance
+            <remarks>Subclassed for forward compatibility, perhaps one day <see cref="T:System.Windows.FrameworkTemplate"/> </remarks>
+            <remarks>will not be partially internal</remarks>
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Attached.InteractivityItemsAttached">
+            <summary>
+            Holder for interactivity entries.
+            支持在Style.Setters里设置附加行为。
+            </summary> 
+        </member>
+        <member name="P:SunTaiLibrary.Attached.InteractivityItemsAttached.Triggers">
+            <summary>
+            Storage for triggers
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Attached.InteractivityItemsAttached.Behaviors">
+            <summary>
+            Storage for Behaviors
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Attached.PasswordAttached">
+            <summary>
+            用于支持PasswordBox的绑定
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Attached.SelectorAttached.EnableBringIntoViewOnSelectedProperty">
+            <summary>
+            启用当选择项更新时，确保该项在界面中显示。
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Attached.TextBoxAttached.OnAutoSelectAllChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            用于 TextBox 获取焦点时，自动全选内容
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Attached.TextBoxAttached.TextBox_PreviewMouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            鼠标点击时，如果是重新获取焦点，则忽略光标定位功能，防止全选功能失效
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Attached.TouchAttached.IsEnabledProperty">
+            <summary>
+            启用触摸滚动
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Attached.TreeViewItemAttached.IsBroughtIntoViewWhenSelectedProperty">
+            <summary>
+            启用当选择项更新时，确保该项在界面中显示。
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Commands.RelayCommand">
+            <summary>
+            Simple relay command.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Commands.RelayCommand.#ctor(System.Action)">
+            <summary>
+            Initializes a new instance of <see cref="T:SunTaiLibrary.Commands.RelayCommand"/>.
+            </summary>
+            <param name="execute">Delegate to execute when Execute is called on the command. </param>
+            <remarks><seealso cref="M:SunTaiLibrary.Commands.RelayCommand.CanExecute(System.Object)"/> will always return true.</remarks>
+        </member>
+        <member name="M:SunTaiLibrary.Commands.RelayCommand.#ctor(System.Action,System.Func{System.Boolean})">
+            <summary>
+            Initializes a new instance of <see cref="T:SunTaiLibrary.Commands.RelayCommand"/>.
+            </summary>
+            <param name="execute">The execution logic.</param>
+            <param name="canExecute">The execution status logic.</param>
+        </member>
+        <member name="M:SunTaiLibrary.Commands.RelayCommand.CanExecute(System.Object)">
+            <summary>
+            Defines the method that determines whether the command can execute in its current state.
+            </summary>
+            <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
+            <returns>
+            true if this command can be executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="E:SunTaiLibrary.Commands.RelayCommand.CanExecuteChanged">
+            <summary>
+            Occurs when changes occur that affect whether or not the command should execute.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Commands.RelayCommand.Execute(System.Object)">
+            <summary>
+            Defines the method to be called when the command is invoked.
+            </summary>
+            <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to <see langword="null" />.</param>
+        </member>
+        <member name="T:SunTaiLibrary.Commands.RelayCommand`1">
+            <summary>
+            Simple relay command.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:SunTaiLibrary.Commands.RelayCommand`1.#ctor(System.Action{`0})">
+            <summary>
+            Initializes a new instance of <see cref="T:SunTaiLibrary.Commands.RelayCommand`1"/>.
+            </summary>
+            <param name="execute">Delegate to execute when Execute is called on the command. </param>
+            <remarks><seealso cref="M:SunTaiLibrary.Commands.RelayCommand`1.CanExecute(System.Object)"/> will always return true.</remarks>
+        </member>
+        <member name="M:SunTaiLibrary.Commands.RelayCommand`1.#ctor(System.Action{`0},System.Predicate{`0})">
+            <summary>
+            Initializes a new instance of <see cref="T:SunTaiLibrary.Commands.RelayCommand`1"/>.
+            </summary>
+            <param name="execute">The execution logic.</param>
+            <param name="canExecute">The execution status logic.</param>
+        </member>
+        <member name="M:SunTaiLibrary.Commands.RelayCommand`1.CanExecute(System.Object)">
+            <summary>
+            Defines the method that determines whether the command can execute in its current state.
+            </summary>
+            <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
+            <returns>
+            true if this command can be executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="E:SunTaiLibrary.Commands.RelayCommand`1.CanExecuteChanged">
+            <summary>
+            Occurs when changes occur that affect whether or not the command should execute.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Commands.RelayCommand`1.Execute(System.Object)">
+            <summary>
+            Defines the method to be called when the command is invoked.
+            </summary>
+            <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to <see langword="null" />.</param>
+        </member>
+        <member name="T:SunTaiLibrary.Commands.TextCommands">
+            <summary>
+            Contains commands for text box types.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Commands.TextCommands.ClearTextBoxCommand">
+            <summary>
+            Gets the command that clears a <see cref="T:System.Windows.Controls.TextBox"/>.
+            </summary>
+            <value>
+            The clear text command.
+            </value>
+        </member>
+        <member name="P:SunTaiLibrary.Commands.TextCommands.ClearPasswordBoxCommand">
+            <summary>
+            Gets the command that clears a <see cref="T:System.Windows.Controls.PasswordBox"/>.
+            </summary>
+            <value>
+            The clear text command.
+            </value>
+        </member>
+        <member name="P:SunTaiLibrary.Commands.WindowCommands.CloseWindow">
+            <summary>
+            Gets the command that close a <see cref="T:System.Windows.Window"/>.
+            </summary>
+            <value>
+            The command.
+            </value>
+        </member>
+        <member name="P:SunTaiLibrary.Commands.WindowCommands.MinimizeWindow">
+            <summary>
+            Gets the command that minimize a <see cref="T:System.Windows.Window"/>.
+            </summary>
+            <value>
+            The command.
+            </value>
+        </member>
+        <member name="P:SunTaiLibrary.Commands.WindowCommands.RestoreWindow">
+            <summary>
+            Gets the command that restore a <see cref="T:System.Windows.Window"/>.
+            </summary>
+            <value>
+            The command.
+            </value>
+        </member>
+        <member name="P:SunTaiLibrary.Commands.WindowCommands.MaximizeWindow">
+            <summary>
+            Gets the command that maximize a <see cref="T:System.Windows.Window"/>.
+            </summary>
+            <value>
+            The command.
+            </value>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.BusyIndicator">
+            <summary>
+            支持显示“忙”状态的进度展示控件
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.BusyIndicator._displayAfterTimer">
+            <summary>
+                Timer used to delay the initial display and avoid flickering.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.BusyIndicator.OnApplyTemplate">
+            <summary>
+                Overrides the OnApplyTemplate method.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.BusyIndicator.IsContentVisible">
+            <summary>
+                Gets or sets a value indicating whether the BusyContent is visible.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.BusyIndicator.IsBusyProperty">
+            <summary>
+                Identifies the IsBusy dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.BusyIndicator.IsBusy">
+            <summary>
+                Gets or sets a value indicating whether the busy indicator should show.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.BusyIndicator.OnIsBusyChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+                IsBusyProperty property changed handler.
+            </summary>
+            <param name="d">BusyIndicator that changed its IsBusy.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.BusyIndicator.OnIsBusyChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+                IsBusyProperty property changed handler.
+            </summary>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.BusyIndicator.IsIndeterminateProperty">
+            <summary>
+                Identifies the BusyContent dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.BusyIndicator.IsIndeterminate">
+            <summary>
+                Gets or sets a value indicating the busy content to display to the user.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.BusyIndicator.MinValueProperty">
+            <summary>
+                Identifies the BusyContent dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.BusyIndicator.MinValue">
+            <summary>
+                Gets or sets a value indicating the busy content to display to the user.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.BusyIndicator.MaxValueProperty">
+            <summary>
+                Identifies the BusyContent dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.BusyIndicator.MaxValue">
+            <summary>
+                Gets or sets a value indicating the busy content to display to the user.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.BusyIndicator.CurrentProgressValueProperty">
+            <summary>
+                Identifies the BusyContent dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.BusyIndicator.CurrentProgressValue">
+            <summary>
+                Gets or sets a value indicating the busy content to display to the user.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.BusyIndicator.TitleProperty">
+            <summary>
+                Identifies the BusyContent dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.BusyIndicator.Title">
+            <summary>
+                Gets or sets a value indicating the busy content to display to the user.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.BusyIndicator.BusyContentProperty">
+            <summary>
+                Identifies the BusyContent dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.BusyIndicator.BusyContent">
+            <summary>
+                Gets or sets a value indicating the busy content to display to the user.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.BusyIndicator.BusyContentTemplateProperty">
+            <summary>
+                Identifies the BusyTemplate dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.BusyIndicator.BusyContentTemplate">
+            <summary>
+                Gets or sets a value indicating the template to use for displaying the busy content to the user.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.BusyIndicator.DisplayAfterProperty">
+            <summary>
+                Identifies the DisplayAfter dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.BusyIndicator.DisplayAfter">
+            <summary>
+                Gets or sets a value indicating how long to delay before displaying the busy content.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.BusyIndicator.FocusAfterBusyProperty">
+            <summary>
+                Identifies the FocusAfterBusy dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.BusyIndicator.FocusAfterBusy">
+            <summary>
+                Gets or sets a Control that should get focus when the busy indicator disapears.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.BusyIndicator.OverlayStyleProperty">
+            <summary>
+                Identifies the OverlayStyle dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.BusyIndicator.OverlayStyle">
+            <summary>
+                Gets or sets a value indicating the style to use for the overlay.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.BusyIndicator.ProgressBarStyleProperty">
+            <summary>
+                Identifies the ProgressBarStyle dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.BusyIndicator.ProgressBarStyle">
+            <summary>
+                Gets or sets a value indicating the style to use for the progress bar.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.BusyIndicator.DisplayAfterTimerElapsed(System.Object,System.EventArgs)">
+            <summary>
+            Handler for the DisplayAfterTimer.
+            </summary>
+            <param name="sender">Event sender.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.BusyIndicator.ChangeVisualState(System.Boolean)">
+            <summary>
+                Changes the control's visual state(s).
+            </summary>
+            <param name="useTransitions">True if state transitions should be used.</param>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.CaptionButton">
+            <summary>
+            ウィンドウのキャプション部分で使用するために最適化された <see cref="T:System.Windows.Controls.Button"/> コントロールを表します。
+            <see cref="!:https://github.com/Grabacr07/MetroRadiance"/>
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.CaptionButton.WindowAction">
+            <summary>
+            ボタンに割り当てるウィンドウ操作を取得または設定します。
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.ClippingBorder">
+            <Remarks>
+                As a side effect ClippingBorder will surpress any databinding or animation of
+                    its childs UIElement.Clip property until the child is removed from ClippingBorder
+            </Remarks>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.EnumImageButton">
+            <summary>
+            支持两个枚举值匹配并切换显示图片内容的图片按钮。
+            本控件一般用于支持异步操作，在不等待操作结果的情况下被动切换按钮显示图片。
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.EnumImageButton.IsMatched">
+            <summary>
+            只读依赖属性，标识源枚举值和目标枚举值是否已匹配
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.EnumImageButton.IsMatchedPropertyKey">
+            <summary>
+            获取一个值，标识源枚举值和目标枚举值是否已匹配
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.EnumImageButton.IsMatchedProperty">
+            <summary>
+            获取一个值，标识源枚举值和目标枚举值是否已匹配
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.EnumImageButton.MatchSource">
+            <summary>
+            要匹配的源枚举值
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.EnumImageButton.MatchSourceProperty">
+            <summary>
+            要匹配的源枚举值
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.EnumImageButton.MatchTarget">
+            <summary>
+            要匹配的目标枚举值
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.EnumImageButton.MatchTargetProperty">
+            <summary>
+            要匹配的目标枚举值
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.EnumImageButton.NormalImage">
+            <summary>
+            枚举源和目标未匹配时的图片
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.EnumImageButton.NormalImageProperty">
+            <summary>
+            枚举源和目标未匹配时的图片
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.EnumImageButton.MatchedImage">
+            <summary>
+            枚举源和目标匹配时的图片
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.EnumImageButton.MatchedImageProperty">
+            <summary>
+            枚举源和目标匹配时的图片
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.EnumImageButton.OnClick">
+            <summary>
+            如果状态已匹配，则忽略点击操作。
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.ImageButton">
+            <summary>
+            button with image.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.ImageButton.Stretch">
+            <summary>
+            Gets or sets a System.Windows.Media.Stretch enumeration value that describes
+            how the shape fills its allocated space.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ImageButton.StretchProperty">
+            <summary>
+            Identifies the System.Windows.Shapes.Shape.Stretch dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.ImageButton.HorizontalImageAlignment">
+            <summary>
+            Gets or sets the horizontal alignment of the control's image.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ImageButton.HorizontalImageAlignmentProperty">
+            <summary>
+            Identifies the System.Windows.FrameworkElement.HorizontalAlignment dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.ImageButton.VerticalImageAlignment">
+            <summary>
+            Gets or sets the vertical alignment of the control's image.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ImageButton.VerticalImageAlignmentProperty">
+            <summary>
+            Identifies the System.Windows.Controls.Control.VerticalContentAlignment dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.ImageButton.ImageMargin">
+            <summary>
+            Image host control Margin.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ImageButton.ImageMarginProperty">
+            <summary>
+            Identifies the System.Windows.Thickness dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.ImageButton.NormalImage">
+            <summary>
+            默认图片
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ImageButton.NormalImageProperty">
+            <summary>
+            默认图片
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.ImageButton.HoverImage">
+            <summary>
+            鼠标经过图片
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ImageButton.HoverImageProperty">
+            <summary>
+            鼠标经过图片
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.ImageButton.PressedImage">
+            <summary>
+            鼠标按下图片
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ImageButton.PressedImageProperty">
+            <summary>
+            鼠标按下图片
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.ImageButton.DisableImage">
+            <summary>
+            禁用控件
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ImageButton.DisableImageProperty">
+            <summary>
+            禁用控件
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.MarqueeCanvas">
+            <summary>
+            提供一个画布，实现了里面的内容从右向左飘过的跑马灯效果。
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.MarqueeCanvas.IsForcing">
+            <summary>
+            是否强制启用跑马灯效果。
+            默认不强制，表示子内容如果未被画布裁切，属于完整显示，则不启用跑马灯效果。
+            设置为强制，则不考虑大小，强制执行跑马灯效果。
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.MarqueeCanvas.SpeedRatio">
+            <summary>
+            一个大于 0 的有限值，指定此时间线的时间相对于其父级速度的前进速率。
+            其中 1 表示正常速度，2 表示双倍速度，0.5 为半速，依此类推。默认值为 1。
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.OptionalRadioButton">
+            <summary>
+            支持取消选择的单选按钮（当按钮选中时再次点击将取消选中）
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.OptionalRadioButton.IsOptional">
+            <summary>
+            是否启用当按钮选中时再次点击将取消选中（默认启用）
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.OptionalRadioButton.OnToggle">
+            <summary>
+            if checked, click will set to uncheck.
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.OutlineText">
+            <summary>
+            本文本块支持更多的文字特效，并可以防止中西文混合显示时水平渐变色按语言字体文件，导致色彩重置的问题。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.OutlineText.m_TextGeometry">
+            <summary>
+            文字几何形状
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.OutlineText.OnOutlineTextInvalidated(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            当依赖项属性改变文字无效时，创建新的空心文字对象来显示。
+            </summary>
+            <param name="d"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.OutlineText.OnRender(System.Windows.Media.DrawingContext)">
+            <summary>
+            重写绘制文字的方法。
+            </summary>
+            <param name="drawingContext">空心文字控件的绘制上下文。</param>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.OutlineText.CreateText">
+            <summary>
+            基于格式化文字创建文字的几何轮廓。
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.OutlineText.MaxTextWidth">
+            <summary>
+            指定将文本约束为特定宽度
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.OutlineText.MaxTextWidthProperty">
+            <summary>
+            指定将文本约束为特定宽度依赖属性
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.OutlineText.MaxTextHeight">
+            <summary>
+            指定将文本约束为特定高度
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.OutlineText.MaxTextHeightProperty">
+            <summary>
+            指定将文本约束为特定高度依赖属性
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.OutlineText.Bold">
+            <summary>
+            指定字体是否加粗。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.OutlineText.BoldProperty">
+            <summary>
+            指定字体是否加粗依赖属性。
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.OutlineText.Fill">
+            <summary>
+            指定填充字体的画刷颜色。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.OutlineText.FillProperty">
+            <summary>
+            指定填充字体的画刷颜色依赖属性。
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.OutlineText.Font">
+            <summary>
+            指定文字显示的字体。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.OutlineText.FontProperty">
+            <summary>
+            指定文字显示的字体依赖属性。
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.OutlineText.FontSize">
+            <summary>
+            指定字体大小。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.OutlineText.FontSizeProperty">
+            <summary>
+            指定字体大小依赖属性。
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.OutlineText.Italic">
+            <summary>
+            指定字体是否显示斜体字体样式。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.OutlineText.ItalicProperty">
+            <summary>
+            指定字体是否显示斜体字体样式依赖属性。
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.OutlineText.Stroke">
+            <summary>
+            指定绘制空心字体边框画刷的颜色。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.OutlineText.StrokeProperty">
+            <summary>
+            指定绘制空心字体边框画刷的颜色依赖属性。
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.OutlineText.StrokeThickness">
+            <summary>
+            指定空心字体边框大小。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.OutlineText.StrokeThicknessProperty">
+            <summary>
+            指定空心字体边框大小依赖属性。
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.OutlineText.Text">
+            <summary>
+            指定要显示的文字字符串。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.OutlineText.TextProperty">
+            <summary>
+            指定要显示的文字字符串依赖属性。
+             </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.OutlineText.AddChild(System.Object)">
+            <summary>
+            添加子对象。
+            </summary>
+            <param name="value">要添加的子对象。</param>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.OutlineText.AddText(System.String)">
+            <summary>
+            将节点的文字内容添加到对象。
+            </summary>
+            <param name="value">要添加到对象的文字。</param>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.RadioImageButton">
+            <summary>
+            radio image button.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.RadioImageButton.CheckedImage">
+            <summary>
+            display image for checked state 'True'.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.RadioImageButton.CheckedImageProperty">
+            <summary>
+            propdp display image for checked state 'True'.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.RadioImageButton.IndeterminateImage">
+            <summary>
+            display image for checked state 'Null".
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.RadioImageButton.IndeterminateImageProperty">
+            <summary>
+            propdp display image for checked state 'Null'.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.RadioImageButton.NormalImage">
+            <summary>
+            display image for checked state 'False'.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.RadioImageButton.NormalImageProperty">
+            <summary>
+            默认图片
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.RadioImageButton.HoverImage">
+            <summary>
+            鼠标经过图片
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.RadioImageButton.HoverImageProperty">
+            <summary>
+            鼠标经过图片
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.RadioImageButton.PressedImage">
+            <summary>
+            鼠标按下图片
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.RadioImageButton.PressedImageProperty">
+            <summary>
+            鼠标按下图片
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.RadioImageButton.DisableImage">
+            <summary>
+            禁用控件
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.RadioImageButton.DisableImageProperty">
+            <summary>
+            禁用控件
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.CaptionButtonMode">
+            <summary>
+            <see cref="!:https://github.com/Grabacr07/MetroRadiance"/>
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.InternalExtensions">
+            <summary>
+            <see cref="!:https://github.com/Grabacr07/MetroRadiance"/>
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.InternalExtensions.Invoke(SunTaiLibrary.Controls.WindowAction,System.Windows.FrameworkElement)">
+            <summary>
+            ウィンドウ操作を実行します。
+            </summary>
+            <param name="action">実行するウィンドウ操作。</param>
+            <param name="source">操作を実行しようとしている UI 要素。この要素をホストするウィンドウに対し、<paramref name="action"/> 操作が実行されます。</param>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.InternalExtensions.Compare(System.String,System.String)">
+            <summary>
+            現在の文字列と、指定した文字列を比較します。大文字と小文字は区別されません。
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.WindowAction">
+            <summary>
+            ウィンドウ操作を示す識別子を定義します。
+            <see cref="!:https://github.com/Grabacr07/MetroRadiance"/>
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.WindowAction.None">
+            <summary>
+            ウィンドウ操作は実行されません。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.WindowAction.Active">
+            <summary>
+            ウィンドウをアクティブ化します。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.WindowAction.Close">
+            <summary>
+            ウィンドウを閉じます。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.WindowAction.Normalize">
+            <summary>
+            ウィンドウを通常状態にします。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.WindowAction.Maximize">
+            <summary>
+            ウィンドウを最大化します。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.WindowAction.Minimize">
+            <summary>
+            ウィンドウを最小化します。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.WindowAction.OpenSystemMenu">
+            <summary>
+            ウィンドウのシステム メニューを開きます。
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.SystemButtons">
+            <summary>
+            自定义窗体右上角的功能按钮组（最小化，最大化，还原，关闭）
+            <see cref="!:https://github.com/Grabacr07/MetroRadiance"/>
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ToastControl.Fly_Duration">
+            <summary>
+            飞出飞入动画持续时间（100毫秒）
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ToastControl.Default_FlyTime">
+            <summary>
+            默认控件飞出延时（10秒后飞出）
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.ToastControl.FlyTime">
+            <summary>
+            控件飞出延时（毫秒）
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ToastControl.FlyTimeProperty">
+            <summary>
+            默认10秒后控件飞出，之后消失
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.ToastControl.FlyOut_Anime_Completed(System.Object,System.EventArgs)">
+            <summary>
+            飞出动画结束后，销毁自身。
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.ToastControl.OnVisualParentChanged(System.Windows.DependencyObject)">
+            <summary>
+            当从父级移除时，停止计时器，不再触发飞出动画。
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.ToastControl.OnFlyOut">
+            <summary>
+            触发飞出动画与事件
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.ToggleImageButton">
+            <summary>
+            3 state toggle image button.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.ToggleImageButton.CheckedImage">
+            <summary>
+            display image for checked state 'True'.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ToggleImageButton.CheckedImageProperty">
+            <summary>
+            propdp display image for checked state 'True'.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.ToggleImageButton.IndeterminateImage">
+            <summary>
+            display image for checked state 'Null".
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ToggleImageButton.IndeterminateImageProperty">
+            <summary>
+            propdp display image for checked state 'Null'.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.ToggleImageButton.NormalImage">
+            <summary>
+            display image for checked state 'False'.
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ToggleImageButton.NormalImageProperty">
+            <summary>
+            默认图片
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.ToggleImageButton.HoverImage">
+            <summary>
+            鼠标经过图片
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ToggleImageButton.HoverImageProperty">
+            <summary>
+            鼠标经过图片
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.ToggleImageButton.PressedImage">
+            <summary>
+            鼠标按下图片
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ToggleImageButton.PressedImageProperty">
+            <summary>
+            鼠标按下图片
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.ToggleImageButton.DisableImage">
+            <summary>
+            禁用控件
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.ToggleImageButton.DisableImageProperty">
+            <summary>
+            禁用控件
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Converters.BoolVisibilityConverter">
+            <summary>
+            【true：可见】【false：隐藏】【null：折叠】
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Converters.EnumDescriptionConverter">
+            <summary>
+            获取枚举的描述文字。
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Converters.EqualsConverter">
+            <summary>
+            判断传入的所有数据是否都一样。
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Converters.ReverseBoolConverter">
+            <summary>
+            反转Boolean的值。
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Converters.ValueToEqualsParameterConverter">
+            <summary>
+            判断传入的值，是否与指定的参数一致
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Helpers.LocalHelper.RunProcess(System.String,System.String)">
+            <summary>
+            打开或执行一个进程。
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Helpers.LocalHelper.DialogSaveFile">
+            <summary>
+            弹出保存文件窗体并返回文件保存路径。
+            </summary>
+            <returns>文件保存路径</returns>
+        </member>
+        <member name="M:SunTaiLibrary.Helpers.LocalHelper.DialogOpenOneFile(System.String)">
+            <summary>
+            弹出选择文件窗体并返回单一的文件路径。
+            </summary>
+            <param name="filter">筛选器</param>
+            <returns>选中的文件路径。</returns>
+        </member>
+        <member name="M:SunTaiLibrary.Helpers.LocalHelper.DialogOpenMultiFile(System.String)">
+            <summary>
+            弹出选择文件窗体并返回多个文件路径。
+            </summary>
+            <param name="filter">筛选器</param>
+            <returns>选中的文件路径。</returns>
+        </member>
+        <member name="M:SunTaiLibrary.Helpers.LocalHelper.GetTempFileStream">
+            <summary>
+            生成指定的临时文件，并返回该文件的操作流。
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Helpers.LocalHelper.CopyFileToTemp(System.String)">
+            <summary>
+            将指定的文件，复制一份放在临时目录。
+            </summary>
+            <param name="sourceFile">要备份复制的文件。</param>
+            <returns>临时目录中的备份复制文件。</returns>
+        </member>
+        <member name="M:SunTaiLibrary.Helpers.LocalHelper.CopyFileToTemp(System.IO.Stream)">
+            <summary>
+            将指定的文件流，复制一份放在临时目录。
+            </summary>
+            <param name="sourceFile">要备份复制的文件。</param>
+            <returns>临时目录中的备份复制文件。</returns>
+        </member>
+        <member name="T:SunTaiLibrary.Helpers.UIElementHelper">
+            <summary>
+            提供元素布局相关的辅助功能，比如布局计算，大小计算。
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Helpers.UIElementHelper.ChildScaleSize(System.Windows.Size,System.Double)">
+            <summary>
+            根据一个容器大小，计算出指定比例可展示子内容的最大大小。
+            </summary>
+            <param name="boundSize">容器大小</param>
+            <param name="scale">子内容大小比例。【如：16 / 9d】</param>
+            <returns>计算后的子内容大小</returns>
+        </member>
+        <member name="M:SunTaiLibrary.Helpers.VisualTreeHelperEx.FindVisualChild``1(System.Windows.DependencyObject)">
+            <summary>
+            Return the first visual child of element by type.
+            </summary>
+            <typeparam name="T">The type of the Child</typeparam>
+            <param name="obj">The parent Element</param>
+        </member>
+        <member name="T:System.Windows.MessageToast">
+            <summary>
+            通过UI线程，在当前活动窗体下方弹出通知消息的浮动框
+            </summary>
+        </member>
+        <member name="M:System.Windows.MessageToast.Show(System.Object,System.Double)">
+            <summary>
+            通过UI线程，在当前窗体显示 “弹出消息”，默认 10 秒后自动消失
+            <para>如果 自动消失时间 小于等于 0，则不会自动消失，只能通过鼠标点击隐藏</para>
+            </summary>
+            <param name="pMessage">要显示的内容</param>
+            <param name="pHideMessageSeconds">自动消失时间，默认 10 秒</param>
+        </member>
+        <member name="T:System.Windows.ExtensionMessageBox">
+            <summary>
+            为 System.Windows.MessageBox 相关的对象提供便捷方法
+            </summary>
+        </member>
+        <member name="M:System.Windows.ExtensionMessageBox.ToBoolean(System.Windows.MessageBoxResult)">
+            <summary>
+            将 模态框 的返回结果，转换为 Boolean 值，方便进行判断
+            <para>如果用户选择了 “确定”、“是”，会返回 True 值，其他情况返回 False</para>
+            </summary>
+            <param name="pResult">用户选择的值</param>
+            <returns>用户选择的值（Boolean形式）</returns>
+        </member>
+        <member name="T:System.ExtensionEnum">
+            <summary>
+            为 System.Enum 枚举扩展的方法
+            <para> 2014-10-30 周治 </para>
+            <para> 命名空间为 System </para>
+            </summary>
+        </member>
+        <member name="M:System.ExtensionEnum.GetEnumDescription(System.Enum,System.Boolean)">
+            <summary>
+            获取枚举类子项描述信息（DescriptionAttribute），一个参数表示返回失败结果的类型
+            </summary>
+            <param name="enumSubitem">一个枚举项常量</param>
+            <param name="isGetFallbackValue">true：如果获取不到则返回枚举项的定义名称。false：返回 String.Empty</param>
+        </member>
+        <member name="T:System.Linq.ExtensionIEnumerable">
+            <summary>
+            为 System.Collections.Generic.IEnumerable 集合扩展的方法
+            <para> 2014-07-29 周治 </para>
+            <para> 命名空间为 System.Linq </para>
+            </summary>
+        </member>
+        <member name="M:System.Linq.ExtensionIEnumerable.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            对 System.Collections.Generic.IEnumerable 的每个元素执行指定操作
+            </summary>
+            <typeparam name="T">列表中元素的类型</typeparam>
+            <param name="source">System.Collections.Generic.IEnumerable </param>
+            <param name="action">要对 System.Collections.Generic.IEnumerable  的每个元素执行的 System.Action 委托</param>
+            <exception cref="T:System.ArgumentNullException">action 参数为 null</exception>
+        </member>
+        <member name="M:System.Linq.ExtensionIEnumerable.ForFirst``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            获取 System.Collections.Generic.IEnumerable 的第一个元素，并对其执行指定操作，如果无匹配项则不进行操作
+            </summary>
+            <typeparam name="T">列表中元素的类型</typeparam>
+            <param name="source">System.Collections.Generic.IEnumerable </param>
+            <param name="action">要对 System.Collections.Generic.IEnumerable  的第一个元素执行的 System.Action 委托</param>
+            <exception cref="T:System.ArgumentNullException">action 参数为 null</exception>
+            <returns>第一个item，可能会返回 null</returns>
+        </member>
+        <member name="M:System.Linq.ExtensionIEnumerable.ForLast``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            获取 System.Collections.Generic.IEnumerable 的最后一个元素，并对其执行指定操作，如果无匹配项则不进行操作
+            </summary>
+            <typeparam name="T">列表中元素的类型</typeparam>
+            <param name="source">System.Collections.Generic.IEnumerable </param>
+            <param name="action">要对 System.Collections.Generic.IEnumerable  的最后一个元素执行的 System.Action 委托</param>
+            <exception cref="T:System.ArgumentNullException">action 参数为 null</exception>
+            <returns>最后一个item，可能会返回 null</returns>
+        </member>
+        <member name="T:System.Linq.Expressions.ExtensionLinqExpresstion">
+            <summary>
+            扩展方法 for <see cref="T:System.Linq.Expressions.Expression"/>.
+            </summary>
+        </member>
+        <member name="M:System.Linq.Expressions.ExtensionLinqExpresstion.GetMemberInfo(System.Linq.Expressions.Expression)">
+            <summary>
+            将lambda表达式树转换为 <see cref="T:System.Reflection.MemberInfo"/>.
+            </summary>
+            <param name="expression">要转换的 lambda表达式树</param>
+            <returns>有关成员特性的信息并提供对成员元数据的访问</returns>
+        </member>
+        <member name="T:System.ExtensionString">
+            <summary>
+            为 System.String 集合扩展的方法
+            <para> 2014-07-29 周治 </para>
+            <para> 命名空间为 System </para>
+            </summary>
+        </member>
+        <member name="M:System.ExtensionString.RemoveAllSpace(System.String)">
+            <summary>
+            移除字符串中所有的空格
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.ExtensionString.ContainsIgnoreCase(System.String,System.String)">
+            <summary>
+            返回一个值，该值指示指定的 System.String 对象是否出现在此字符串中
+            <para>忽略字符串的大小写</para>
+            </summary>
+            <param name="str">字符串，可以是任意值</param>
+            <param name="pString">要检索的内容</param>
+        </member>
+    </members>
+</doc>

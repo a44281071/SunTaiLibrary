@@ -5,7 +5,7 @@ using System.Windows;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SunTaiLibrary.Helpers
+namespace SunTaiLibrary
 {
   /// <summary>
   /// 提供元素布局相关的辅助功能，比如布局计算，大小计算。

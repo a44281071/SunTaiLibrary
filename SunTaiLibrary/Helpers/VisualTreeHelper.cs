@@ -15,8 +15,8 @@ namespace SunTaiLibrary
       for (int i = 0; i < System.Windows.Media.VisualTreeHelper.GetChildrenCount(obj); i++)
       {
         DependencyObject child = System.Windows.Media.VisualTreeHelper.GetChild(obj, i);
-        if (child != null && child is T)
-          return (T)child;
+        if (child != null && child is T t)
+          return t;
         else
         {
           T childOfChild = FindVisualChild<T>(child);

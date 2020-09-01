@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net45</TargetFramework>
     <UseWPF>true</UseWPF>
-    <Version>1.1.0.0</Version>
+    <Version>1.0.2.3</Version>
     <Authors>suntai,SamTi</Authors>
     <Copyright>MIT</Copyright>
     <PackageProjectUrl>https://github.com/a44281071/SunTaiLibrary</PackageProjectUrl>

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xaml.Behaviors;
-using SunTaiLibrary.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +31,7 @@ namespace SunTaiLibrary.Attached
     {
       AssociatedObject.Loaded -= OnLoaded;
 
-      ScrollViewer = VisualTreeHelperEx.FindVisualChild<ScrollViewer>(AssociatedObject);
+      ScrollViewer = VisualTreeHelper.FindVisualChild<ScrollViewer>(AssociatedObject);
 
       if (ScrollViewer != null)
       {

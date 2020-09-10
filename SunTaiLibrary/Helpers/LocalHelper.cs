@@ -2,25 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace SunTaiLibrary
 {
   public static class LocalHelper
   {
-    /// <summary>
-    /// 打开或执行一个进程。
-    /// </summary>
-    public static Process RunProcess(string name, string arguments = null)
-    {
-      var pp = new Process
-      {
-        StartInfo = new ProcessStartInfo(name, arguments)
-      };
-
-      pp.Start();
-      return pp;
-    }
-
     /// <summary>
     /// 弹出保存文件窗体并返回文件保存路径。
     /// </summary>
@@ -120,6 +107,16 @@ namespace SunTaiLibrary
         sourceStream.CopyTo(ws);
       }
       return result;
+    }
+
+    /// <summary>
+    /// copy a file async.
+    /// </summary>
+    public static async Task CopyToAsync(string source, string destination)
+    {
+      using FileStream sourceStream = File.Open(source, FileMode.Open);
+      using FileStream destinationStream = File.Create(destination);
+      await sourceStream.CopyToAsync(destinationStream);
     }
   }
 }

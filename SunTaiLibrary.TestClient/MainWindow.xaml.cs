@@ -42,5 +42,18 @@ namespace SunTaiLibrary.TestClient
       var b = SystemParameters.WorkArea;
       var c = 1;
     }
+
+    private void AddToCorrectGrid_Click(object sender, RoutedEventArgs e)
+    {
+      CorrectGrid1.Children.Add(new Button { Content = "A" });
+    }
+
+    private void RemoveFromCorrectGrid_Click(object sender, RoutedEventArgs e)
+    {
+      if (CorrectGrid1.Children.Count > 0)
+      {
+        CorrectGrid1.Children.RemoveAt(0);
+      }
+    }
   }
 }

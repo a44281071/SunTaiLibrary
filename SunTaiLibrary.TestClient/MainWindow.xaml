@@ -41,13 +41,19 @@
           </ItemsControl>
         </GroupBox>
         <GroupBox Header="CorrectGrid">
-          <t3:CorrectGrid>
-            <Button>A</Button>
-            <Button>B</Button>
-            <Button>C</Button>
-            <Button>D</Button>
-            <Button>E</Button>
-          </t3:CorrectGrid>
+          <DockPanel>
+            <StackPanel>
+              <Button Content="+" Click="AddToCorrectGrid_Click"/>
+              <Button Content="-" Click="RemoveFromCorrectGrid_Click"/>
+            </StackPanel>
+            <t3:CorrectGrid x:Name="CorrectGrid1">
+              <Button>A</Button>
+              <Button>B</Button>
+              <Button>C</Button>
+              <Button>D</Button>
+              <Button>E</Button>
+            </t3:CorrectGrid>
+          </DockPanel>
         </GroupBox>
         <GroupBox Header="EmumDisplay">
           <ItemsControl ItemsSource="{Binding EnumItems}">

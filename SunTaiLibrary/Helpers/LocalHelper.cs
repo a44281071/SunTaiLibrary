@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Security.Principal;
 using System.Threading.Tasks;
 
 namespace SunTaiLibrary
@@ -117,6 +118,27 @@ namespace SunTaiLibrary
       using FileStream sourceStream = File.Open(source, FileMode.Open);
       using FileStream destinationStream = File.Create(destination);
       await sourceStream.CopyToAsync(destinationStream);
+    }
+
+    /// <summary>
+    /// Tests whether the current user is a member of the Administrator's group.
+    /// </summary>
+    public static bool IsUserAnAdmin()
+    {
+      bool result = false;
+      try
+      {
+        using var identity = WindowsIdentity.GetCurrent();
+        var principal = new WindowsPrincipal(identity);
+        result = principal.IsInRole(WindowsBuiltInRole.Administrator);
+
+        // http://www.cnblogs.com/Interkey/p/RunAsAdmin.html
+      }
+      catch
+      {
+        // can not get. keep default value => false.
+      }
+      return result;
     }
   }
 }

@@ -77,7 +77,7 @@ namespace SunTaiLibrary.Commands
   /// Simple relay command.
   /// </summary>
   /// <typeparam name="T"></typeparam>
-  internal class RelayCommand<T> : ICommand where T : class
+  public class RelayCommand<T> : ICommand
   {
     /// <summary>
     /// Initializes a new instance of <see cref="RelayCommand{T}"/>.
@@ -116,7 +116,7 @@ namespace SunTaiLibrary.Commands
     [DebuggerStepThrough]
     public bool CanExecute(object parameter)
     {
-      return _CanExecute == null || _CanExecute(parameter as T);
+      return _CanExecute == null || _CanExecute((T)parameter);
     }
 
     ///<summary>
@@ -135,7 +135,7 @@ namespace SunTaiLibrary.Commands
 
     public void Execute(object parameter)
     {
-      _Execute(parameter as T);
+      _Execute((T)parameter);
     }
 
     #endregion ICommand Members

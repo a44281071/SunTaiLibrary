@@ -24,6 +24,14 @@
   <Border>
     <ScrollViewer Margin="10">
       <WrapPanel>
+        <GroupBox Header="Bind Action">
+          <ItemsControl>
+            <Button Click="{t3:Action BindEventAction}" Content="Event Method" />
+            <Button MouseEnter="{t3:Action BindCommandAction}" Content="Event Command" />
+            <Button Command="{t3:Action BindEventAction}" Content="Command Method" />
+            <Button Command="{t3:Action BindCommandAction}" Content="Command Command" />
+          </ItemsControl>
+        </GroupBox>
         <GroupBox Header="WindowCommands">
           <ItemsControl>
             <Button Command="{x:Static t3:WindowCommands.MinimizeWindow}"
@@ -43,8 +51,8 @@
         <GroupBox Header="CorrectGrid">
           <DockPanel>
             <StackPanel>
-              <Button Content="+" Click="AddToCorrectGrid_Click"/>
-              <Button Content="-" Click="RemoveFromCorrectGrid_Click"/>
+              <Button Click="AddToCorrectGrid_Click" Content="+" />
+              <Button Click="RemoveFromCorrectGrid_Click" Content="-" />
             </StackPanel>
             <t3:CorrectGrid x:Name="CorrectGrid1">
               <Button>A</Button>

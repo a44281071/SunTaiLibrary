@@ -25,6 +25,8 @@ namespace SunTaiLibrary.Dependencies
       if (UiContextHelper.InDesignMode) return ActionExtensionHelper.CreateEventHandler(eventHandlerType, (ss, ee) => Task.Yield());
 
       var ele = targetObject as FrameworkElement;
+      if (ele.DataContext == null) return DependencyProperty.UnsetValue;
+
       var dct = ele.DataContext.GetType();
       var dcm = dct.GetMember(path).FirstOrDefault();
       return dcm.MemberType switch

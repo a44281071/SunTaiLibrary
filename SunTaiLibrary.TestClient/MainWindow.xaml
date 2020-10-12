@@ -25,11 +25,20 @@
     <ScrollViewer Margin="10">
       <WrapPanel>
         <GroupBox Header="Bind Action">
-          <ItemsControl>
+          <ItemsControl FontSize="10">
             <Button Click="{t3:Action BindEventAction}" Content="Event Method" />
-            <Button MouseEnter="{t3:Action BindCommandAction}" Content="Event Command" />
+            <Button Content="Event Command" MouseEnter="{t3:Action BindCommandAction}" />
             <Button Command="{t3:Action BindEventAction}" Content="Command Method" />
             <Button Command="{t3:Action BindCommandAction}" Content="Command Command" />
+            <ContentControl Margin="0,3,0,0" Content="{Binding}">
+              <ContentControl.ContentTemplate>
+                <DataTemplate>
+                  <Border>
+                    <Button Click="{t3:Action BindEventAction}" Content="Template Event Method" />
+                  </Border>
+                </DataTemplate>
+              </ContentControl.ContentTemplate>
+            </ContentControl>
           </ItemsControl>
         </GroupBox>
         <GroupBox Header="WindowCommands">
@@ -72,7 +81,7 @@
             </ItemsControl.ItemTemplate>
           </ItemsControl>
         </GroupBox>
-        <GroupBox Header="Controls.ToggleImageButton">
+        <GroupBox Header="ToggleImageButton">
           <t3:ToggleImageButton Width="50"
                                 Height="30"
                                 Margin="5"
@@ -81,7 +90,7 @@
                                 IndeterminateImage="Resources/check_null.png"
                                 NormalImage="Resources/check_false.png" />
         </GroupBox>
-        <GroupBox Header="Controls.RadioImageButton">
+        <GroupBox Header="RadioImageButton">
           <StackPanel Orientation="Horizontal">
             <t3:RadioImageButton Width="50"
                                  Height="30"
@@ -99,7 +108,7 @@
                                  NormalImage="Resources/check_false.png" />
           </StackPanel>
         </GroupBox>
-        <GroupBox Header="Controls.ToastControl">
+        <GroupBox Header="ToastControl">
           <Grid>
             <StackPanel>
               <Button Click="ShowMessageToast_Click" Content="show message toast" />
@@ -109,7 +118,7 @@
             </StackPanel>
           </Grid>
         </GroupBox>
-        <GroupBox Header="Controls.EnumImageButton">
+        <GroupBox Header="EnumImageButton">
           <StackPanel Orientation="Horizontal">
             <t3:EnumImageButton Command="{Binding ChangePower}"
                                 CommandParameter="{x:Static local:PowerState.Off}"
@@ -125,13 +134,13 @@
                                 NormalImage="Resources/btn-ON-normal.png" />
           </StackPanel>
         </GroupBox>
-        <GroupBox Header="Controls.NineGridImage">
+        <GroupBox Header="NineGridImage">
           <t3:NineGridImage Width="200"
                             Height="42"
                             Offsets="1,0,25,0"
                             Source="Resources/bar-active2.png" />
         </GroupBox>
-        <GroupBox Header="Controls.ImageButton">
+        <GroupBox Header="ImageButton">
           <t3:ImageButton Width="132"
                           Height="90"
                           Content="i'm content"
@@ -142,7 +151,7 @@
         </GroupBox>
         <GroupBox Name="groupbox1"
                   Background="Transparent"
-                  Header="Control.BusyIndicator">
+                  Header="BusyIndicator">
           <t3:BusyIndicator CurrentProgressValue="50" IsBusy="{Binding Path=IsMouseOver, ElementName=groupbox1, Mode=OneWay}">
             <StackPanel>
               <TextBlock Text="hold here to busy." />
@@ -153,7 +162,7 @@
         </GroupBox>
         <GroupBox Width="250"
                   Height="80"
-                  Header="Controls.MarqueeCanvas">
+                  Header="MarqueeCanvas">
           <t3:MarqueeCanvas IsForcing="True">
             <TextBlock Background="Gray" Text="i'm text block." />
             <TextBox Canvas.Top="15"

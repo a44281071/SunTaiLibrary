@@ -23,9 +23,9 @@ namespace SunTaiLibrary.Dependencies
     {
       if (UiContextHelper.InDesignMode) return new RelayCommand(() => Task.Yield());
 
-      var ele = targetObject as FrameworkElement;
+      FrameworkElement ele = targetObject as FrameworkElement;
       if (ele == null) throw new NullReferenceException("target object did not type 'FrameworkElement'");
-      if (ele.DataContext == null) throw new NullReferenceException("target object did not have DataContext");
+      if (ele.DataContext == null) return DependencyProperty.UnsetValue;
 
       var dct = ele.DataContext.GetType();
       var dcm = dct.GetMember(path).FirstOrDefault();

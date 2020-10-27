@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows;
+using System.Xaml;
 
 namespace SunTaiLibrary.Dependencies
 {
@@ -26,8 +27,11 @@ namespace SunTaiLibrary.Dependencies
     public override object ProvideValue(IServiceProvider serviceProvider)
     {
       var pvt = serviceProvider.GetService<IProvideValueTarget>();
-      //var s2 = serviceProvider.GetService<IXamlTypeResolver>();
-      //var s3 = serviceProvider.GetService<IXamlSchemaContextProvider>();
+      //var s1 = (IRootObjectProvider)serviceProvider.GetService(typeof(IRootObjectProvider));
+      var s2 = serviceProvider.GetService<IXamlTypeResolver>();
+      var s3 = serviceProvider.GetService<IXamlSchemaContextProvider>();
+       
+      var sdf=  s3.SchemaContext;
 
       IActionTarget result = pvt.TargetProperty switch
       {
@@ -40,7 +44,7 @@ namespace SunTaiLibrary.Dependencies
         _ => throw new NotSupportedException($"Not support xaml attribute: {pvt.TargetProperty}")
       };
 
-      return result.ProvideValue();
+      return result.ProvideValue(serviceProvider);
     }
   }
 }

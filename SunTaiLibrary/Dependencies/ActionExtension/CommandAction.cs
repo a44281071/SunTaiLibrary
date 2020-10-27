@@ -12,18 +12,18 @@ namespace SunTaiLibrary.Dependencies
   {
     public CommandAction(object targetObject, string path)
     {
-      this.targetObject = targetObject;
+      this.targetObject = new WeakReference(targetObject);
       this.path = path;
     }
 
-    private readonly object targetObject;
+    private readonly WeakReference targetObject;
     private readonly string path;
 
-    public object ProvideValue()
+    public object ProvideValue(IServiceProvider serviceProvider)
     {
       if (UiContextHelper.InDesignMode) return new RelayCommand(() => Task.Yield());
 
-      FrameworkElement ele = targetObject as FrameworkElement;
+      FrameworkElement ele = targetObject.Target as FrameworkElement;
       if (ele == null) throw new NullReferenceException("target object did not type 'FrameworkElement'");
       if (ele.DataContext == null) return DependencyProperty.UnsetValue;
 

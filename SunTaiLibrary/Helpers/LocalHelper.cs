@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Security.AccessControl;
 using System.Security.Principal;
 using System.Threading.Tasks;
 
@@ -139,6 +140,48 @@ namespace SunTaiLibrary
         // can not get. keep default value => false.
       }
       return result;
+    }
+
+    /// <summary>
+    /// 给目录和子级添加Users用户组常见的控制的权限，防止后续操作出现权限不足的问题。
+    /// </summary>
+    public static DirectoryInfo AddUsersAccessRuleAllow(this DirectoryInfo directory)
+    {
+      if (directory is null) throw new ArgumentNullException(nameof(directory));
+
+      var security = directory.GetAccessControl();
+      //var fileFule = new FileSystemAccessRule("Users", FileSystemRights.Modify | FileSystemRights.ReadAndExecute | FileSystemRights.ListDirectory | FileSystemRights.Read | FileSystemRights.Write | FileSystemRights.ChangePermissions, AccessControlType.Allow);
+      var fileFule = new FileSystemAccessRule("Users", FileSystemRights.FullControl, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow);
+      security.ResetAccessRule(fileFule);
+      directory.SetAccessControl(security);
+      return directory;
+    }
+
+    /// <summary>
+    /// 给目录和子级添加Users用户组常见的控制的权限，防止后续操作出现权限不足的问题。
+    /// </summary>
+    public static DirectoryInfo AddUsersAccessRuleAllow(string directoryPath)
+    {
+      if (directoryPath is null) throw new ArgumentNullException(nameof(directoryPath));
+
+      var dir = new DirectoryInfo(directoryPath);
+      return AddUsersAccessRuleAllow(dir);
+    }
+
+    /// <summary>
+    /// 如果目录不存在，则创建目录。
+    /// 给目录和子级添加Users用户组常见的控制的权限，防止后续操作出现权限不足的问题。
+    /// </summary>
+    public static DirectoryInfo CreateDirectoryAndAddUsersAllow(string directoryPath)
+    {
+      if (directoryPath is null) throw new ArgumentNullException(nameof(directoryPath));
+
+      var dir = new DirectoryInfo(directoryPath);
+      if (!dir.Exists)
+      {
+        dir.Create();
+      }
+      return AddUsersAccessRuleAllow(dir);
     }
   }
 }

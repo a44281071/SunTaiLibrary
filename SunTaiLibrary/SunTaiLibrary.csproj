@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net45</TargetFramework>
     <UseWPF>true</UseWPF>
-    <Version>1.0.3.1</Version>
+    <Version>1.0.3.2</Version>
     <Authors>suntai,SamTi</Authors>
     <Copyright>MIT</Copyright>
     <PackageProjectUrl>https://github.com/a44281071/SunTaiLibrary</PackageProjectUrl>
@@ -16,7 +16,8 @@
     <Company>SamTi</Company>
     <PackageIcon>SunTai.jpg</PackageIcon>
     <LangVersion>8.0</LangVersion>
-    <AssemblyVersion>1.0.3.1</AssemblyVersion>
+    <AssemblyVersion>1.0.3.2</AssemblyVersion>
+    <FileVersion>1.0.3.2</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

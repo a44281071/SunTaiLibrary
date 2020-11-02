@@ -274,6 +274,59 @@
             启用当选择项更新时，确保该项在界面中显示。
             </summary>
         </member>
+        <member name="T:SunTaiLibrary.Commands.TextCommands">
+            <summary>
+            Contains commands for text box types.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Commands.TextCommands.ClearTextBoxCommand">
+            <summary>
+            Gets the command that clears a <see cref="T:System.Windows.Controls.TextBox"/>.
+            </summary>
+            <value>
+            The clear text command.
+            </value>
+        </member>
+        <member name="P:SunTaiLibrary.Commands.TextCommands.ClearPasswordBoxCommand">
+            <summary>
+            Gets the command that clears a <see cref="T:System.Windows.Controls.PasswordBox"/>.
+            </summary>
+            <value>
+            The clear text command.
+            </value>
+        </member>
+        <member name="P:SunTaiLibrary.Commands.WindowCommands.CloseWindow">
+            <summary>
+            Gets the command that close a <see cref="T:System.Windows.Window"/>.
+            </summary>
+            <value>
+            The command.
+            </value>
+        </member>
+        <member name="P:SunTaiLibrary.Commands.WindowCommands.MinimizeWindow">
+            <summary>
+            Gets the command that minimize a <see cref="T:System.Windows.Window"/>.
+            </summary>
+            <value>
+            The command.
+            </value>
+        </member>
+        <member name="P:SunTaiLibrary.Commands.WindowCommands.RestoreWindow">
+            <summary>
+            Gets the command that restore a <see cref="T:System.Windows.Window"/>.
+            </summary>
+            <value>
+            The command.
+            </value>
+        </member>
+        <member name="P:SunTaiLibrary.Commands.WindowCommands.MaximizeWindow">
+            <summary>
+            Gets the command that maximize a <see cref="T:System.Windows.Window"/>.
+            </summary>
+            <value>
+            The command.
+            </value>
+        </member>
         <member name="T:SunTaiLibrary.Commands.RelayCommand">
             <summary>
             Simple relay command.
@@ -352,59 +405,6 @@
             Defines the method to be called when the command is invoked.
             </summary>
             <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to <see langword="null" />.</param>
-        </member>
-        <member name="T:SunTaiLibrary.Commands.TextCommands">
-            <summary>
-            Contains commands for text box types.
-            </summary>
-        </member>
-        <member name="P:SunTaiLibrary.Commands.TextCommands.ClearTextBoxCommand">
-            <summary>
-            Gets the command that clears a <see cref="T:System.Windows.Controls.TextBox"/>.
-            </summary>
-            <value>
-            The clear text command.
-            </value>
-        </member>
-        <member name="P:SunTaiLibrary.Commands.TextCommands.ClearPasswordBoxCommand">
-            <summary>
-            Gets the command that clears a <see cref="T:System.Windows.Controls.PasswordBox"/>.
-            </summary>
-            <value>
-            The clear text command.
-            </value>
-        </member>
-        <member name="P:SunTaiLibrary.Commands.WindowCommands.CloseWindow">
-            <summary>
-            Gets the command that close a <see cref="T:System.Windows.Window"/>.
-            </summary>
-            <value>
-            The command.
-            </value>
-        </member>
-        <member name="P:SunTaiLibrary.Commands.WindowCommands.MinimizeWindow">
-            <summary>
-            Gets the command that minimize a <see cref="T:System.Windows.Window"/>.
-            </summary>
-            <value>
-            The command.
-            </value>
-        </member>
-        <member name="P:SunTaiLibrary.Commands.WindowCommands.RestoreWindow">
-            <summary>
-            Gets the command that restore a <see cref="T:System.Windows.Window"/>.
-            </summary>
-            <value>
-            The command.
-            </value>
-        </member>
-        <member name="P:SunTaiLibrary.Commands.WindowCommands.MaximizeWindow">
-            <summary>
-            Gets the command that maximize a <see cref="T:System.Windows.Window"/>.
-            </summary>
-            <value>
-            The command.
-            </value>
         </member>
         <member name="T:SunTaiLibrary.Controls.BusyIndicator">
             <summary>
@@ -588,6 +588,11 @@
                 As a side effect ClippingBorder will surpress any databinding or animation of
                     its childs UIElement.Clip property until the child is removed from ClippingBorder
             </Remarks>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.CorrectGrid">
+            <summary>
+            均分空间，让子级内容尽量的达到最大大小。
+            </summary>
         </member>
         <member name="T:SunTaiLibrary.Controls.EnumImageButton">
             <summary>
@@ -1173,56 +1178,93 @@
             判断传入的值，是否与指定的参数一致
             </summary>
         </member>
-        <member name="M:SunTaiLibrary.Helpers.LocalHelper.RunProcess(System.String,System.String)">
-            <summary>
-            打开或执行一个进程。
-            </summary>
-        </member>
-        <member name="M:SunTaiLibrary.Helpers.LocalHelper.DialogSaveFile">
+        <member name="M:SunTaiLibrary.LocalHelper.DialogSaveFile">
             <summary>
             弹出保存文件窗体并返回文件保存路径。
             </summary>
             <returns>文件保存路径</returns>
         </member>
-        <member name="M:SunTaiLibrary.Helpers.LocalHelper.DialogOpenOneFile(System.String)">
+        <member name="M:SunTaiLibrary.LocalHelper.DialogOpenOneFile(System.String)">
             <summary>
             弹出选择文件窗体并返回单一的文件路径。
             </summary>
             <param name="filter">筛选器</param>
             <returns>选中的文件路径。</returns>
         </member>
-        <member name="M:SunTaiLibrary.Helpers.LocalHelper.DialogOpenMultiFile(System.String)">
+        <member name="M:SunTaiLibrary.LocalHelper.DialogOpenMultiFile(System.String)">
             <summary>
             弹出选择文件窗体并返回多个文件路径。
             </summary>
             <param name="filter">筛选器</param>
             <returns>选中的文件路径。</returns>
         </member>
-        <member name="M:SunTaiLibrary.Helpers.LocalHelper.GetTempFileStream">
+        <member name="M:SunTaiLibrary.LocalHelper.GetTempFileStream">
             <summary>
             生成指定的临时文件，并返回该文件的操作流。
             </summary>
         </member>
-        <member name="M:SunTaiLibrary.Helpers.LocalHelper.CopyFileToTemp(System.String)">
+        <member name="M:SunTaiLibrary.LocalHelper.CopyFileToTemp(System.String)">
             <summary>
             将指定的文件，复制一份放在临时目录。
             </summary>
             <param name="sourceFile">要备份复制的文件。</param>
             <returns>临时目录中的备份复制文件。</returns>
         </member>
-        <member name="M:SunTaiLibrary.Helpers.LocalHelper.CopyFileToTemp(System.IO.Stream)">
+        <member name="M:SunTaiLibrary.LocalHelper.CopyFileToTemp(System.IO.Stream)">
             <summary>
             将指定的文件流，复制一份放在临时目录。
             </summary>
             <param name="sourceFile">要备份复制的文件。</param>
             <returns>临时目录中的备份复制文件。</returns>
         </member>
-        <member name="T:SunTaiLibrary.Helpers.UIElementHelper">
+        <member name="M:SunTaiLibrary.LocalHelper.CopyToAsync(System.String,System.String)">
+            <summary>
+            copy a file async.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.LocalHelper.IsUserAnAdmin">
+            <summary>
+            Tests whether the current user is a member of the Administrator's group.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.LocalHelper.AddUsersAccessRuleAllow(System.IO.DirectoryInfo)">
+            <summary>
+            给目录和子级添加Users用户组常见的控制的权限，防止后续操作出现权限不足的问题。
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.LocalHelper.AddUsersAccessRuleAllow(System.String)">
+            <summary>
+            给目录和子级添加Users用户组常见的控制的权限，防止后续操作出现权限不足的问题。
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.LocalHelper.CreateDirectoryAndAddUsersAllow(System.String)">
+            <summary>
+            如果目录不存在，则创建目录。
+            给目录和子级添加Users用户组常见的控制的权限，防止后续操作出现权限不足的问题。
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Helpers.ProcessHelper.RunProcess(System.String,System.String)">
+            <summary>
+            打开或执行一个进程。
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Helpers.ProcessHelper.ExplorerSelect(System.String)">
+            <summary>
+            Open a window view with the specified folder, file or application selected.
+            </summary>
+            <param name="curFullFilename">folder, file or application</param>
+        </member>
+        <member name="P:SunTaiLibrary.UiContextHelper.InDesignMode">
+            <summary>
+            Gets a value indicating whether design mode is currently active.
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.UIElementHelper">
             <summary>
             提供元素布局相关的辅助功能，比如布局计算，大小计算。
             </summary>
         </member>
-        <member name="M:SunTaiLibrary.Helpers.UIElementHelper.ChildScaleSize(System.Windows.Size,System.Double)">
+        <member name="M:SunTaiLibrary.UIElementHelper.ChildScaleSize(System.Windows.Size,System.Double)">
             <summary>
             根据一个容器大小，计算出指定比例可展示子内容的最大大小。
             </summary>
@@ -1230,12 +1272,32 @@
             <param name="scale">子内容大小比例。【如：16 / 9d】</param>
             <returns>计算后的子内容大小</returns>
         </member>
-        <member name="M:SunTaiLibrary.Helpers.VisualTreeHelperEx.FindVisualChild``1(System.Windows.DependencyObject)">
+        <member name="M:SunTaiLibrary.VisualTreeHelper.FindVisualChild``1(System.Windows.DependencyObject)">
             <summary>
             Return the first visual child of element by type.
             </summary>
             <typeparam name="T">The type of the Child</typeparam>
             <param name="obj">The parent Element</param>
+        </member>
+        <member name="M:SunTaiLibrary.VisualTreeHelper.FindAncestor``1(System.Windows.DependencyObject)">
+            <summary>
+            Return the ancestor of element by type.
+            </summary>
+            <typeparam name="T">The type of the Ancestor</typeparam>
+            <param name="obj">The child Element</param>
+        </member>
+        <member name="M:SunTaiLibrary.VisualTreeHelper.GetSelfAndAncestors(System.Windows.DependencyObject)">
+            <summary>
+            This method will use the VisualTreeHelper.GetParent method to do a depth first walk up
+            the visual tree and return all ancestors of the specified object, including the object itself.
+            </summary>
+            <param name="dependencyObject">The object in the visual tree to find ancestors of.</param>
+            <returns>Returns itself an all ancestors in the visual tree.</returns>
+        </member>
+        <member name="M:SunTaiLibrary.Win32Helper.IsUserAnAdmin">
+            <summary>
+            Tests whether the current user is a member of the Administrator's group.
+            </summary>
         </member>
         <member name="T:System.Windows.MessageToast">
             <summary>

@@ -1,11 +1,13 @@
 ﻿<Application x:Class="SunTaiLibrary.TestClient.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:SunTaiLibrary.TestClient"
-             StartupUri="MainWindow.xaml">
+             xmlns:local="clr-namespace:SunTaiLibrary.TestClient">
   <Application.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+          <local:AppBootstrapper x:Key="bootstrapper" />
+        </ResourceDictionary>
         <ResourceDictionary Source="/SunTaiLibrary;component/Themes/Light.xaml" />
         <ResourceDictionary Source="/SunTaiLibrary;component/Themes/Accents/Blue.xaml" />
         <ResourceDictionary Source="/SunTaiLibrary;component/Themes/SamTiStyle.xaml" />

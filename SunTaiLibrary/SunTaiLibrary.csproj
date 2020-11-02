@@ -19,6 +19,10 @@
     <AssemblyVersion>1.0.3.1</AssemblyVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\Repos\SunTaiLibrary\SunTaiLibrary\SunTaiLibrary.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="System.Runtime.Remoting" />
   </ItemGroup>

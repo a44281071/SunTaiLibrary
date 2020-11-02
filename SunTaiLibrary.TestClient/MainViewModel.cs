@@ -59,15 +59,18 @@ namespace SunTaiLibrary.TestClient
       MessageToast.Show("BindEventAction");
     }
 
-    public void CommandBindingExecuted()
+    public async Task CommandBindingExecuted()
     {
+      MessageToast.Show("Ctrl+S CommandBindingExecuting...");
+      await Task.Delay(1000);
       MessageToast.Show("Ctrl+S CommandBindingExecuted");
+
     }
     public void CommandBindingExecuted2()
     {
       MessageToast.Show("Delete CommandBindingExecuted");
     }
-    
+
     #endregion Bind_Method
   }
 }

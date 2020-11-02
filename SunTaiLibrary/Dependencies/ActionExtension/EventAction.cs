@@ -21,10 +21,10 @@ namespace SunTaiLibrary.Dependencies
     private readonly string path;
     private readonly Type eventHandlerType;
 
-    public object ProvideValue(IServiceProvider serviceProvider)
-    {
-      if (UiContextHelper.InDesignMode) return ActionExtensionHelper.CreateEventHandler(eventHandlerType, (ss, ee) => Task.Yield());
+    private Action<object, object> memberHandler;
 
+    private void LoadMember(IServiceProvider serviceProvider)
+    {
       FrameworkElement ele = targetObject.Target as FrameworkElement;
       if (ele == null)
       {
@@ -34,26 +34,33 @@ namespace SunTaiLibrary.Dependencies
       }
       // ensure dataContext.
       object data = ele?.DataContext;
-      if (data == null) return DependencyProperty.UnsetValue;
-
-      var dct = data.GetType();
-      var dcm = dct.GetMember(path).FirstOrDefault();
-
-      //if (dcm == null) throw new NullReferenceException($"Can not find member '{path}' in DataContext {}");
-
-      return dcm?.MemberType switch
+      if (data != null)
       {
-        MemberTypes.Property => ActionExtensionHelper.CreateEventHandler(eventHandlerType, (ss, ee) =>
+        var dct = data.GetType();
+        var member = dct.GetMember(path).FirstOrDefault();
+        if (member is PropertyInfo pi)
         {
-          var cmd = (dcm as PropertyInfo).GetValue(data) as ICommand;
-          cmd.Execute(ele);
-        }),
-        MemberTypes.Method => ActionExtensionHelper.CreateEventHandler(eventHandlerType, (ss, ee) =>
+          if (pi.GetValue(data) is ICommand cmd)
+          {
+            memberHandler = new Action<object, object>((ss, ee) => cmd.Execute(ele));
+          }
+        }
+        else if (member is MethodInfo mi)
         {
-          (dcm as MethodInfo).Invoke(data, null);
-        }),
-        _ => throw new NotSupportedException($"Can not find object member to bind. Path = {path}, DataContext = {dct}")
-      };
+          memberHandler = new Action<object, object>((ss, ee) => mi.Invoke(data, null));
+        }
+      }
+    }
+
+    public object ProvideValue(IServiceProvider serviceProvider)
+    {
+      if (UiContextHelper.InDesignMode) return ActionExtensionHelper.CreateEventHandler(eventHandlerType, (ss, ee) => Task.Yield());
+
+      return ActionExtensionHelper.CreateEventHandler(eventHandlerType, (ss, ee) =>
+      {
+        if (memberHandler == null) LoadMember(serviceProvider);
+        memberHandler?.Invoke(ss, ee);
+      });
     }
   }
 }

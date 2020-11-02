@@ -1,4 +1,4 @@
-﻿<Window x:Class="SunTaiLibrary.TestClient.MainWindow"
+﻿<Window x:Class="SunTaiLibrary.TestClient.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -25,22 +25,13 @@
     <ScrollViewer Margin="10">
       <WrapPanel>
         <GroupBox Header="Bind Action">
-          <UIElement.CommandBindings>
-            <CommandBinding Command="{x:Static ApplicationCommands.Save}" Executed="{t3:Action CommandBindingExecuted}" />
-          </UIElement.CommandBindings>
           <ItemsControl FontSize="10">
-            <ContentControl Content="{Binding}">
-              <ContentControl.ContentTemplate>
-                <DataTemplate>
-                  <Border>
-                    <Border.CommandBindings>
-                      <CommandBinding Command="{x:Static ApplicationCommands.Delete}" Executed="{t3:Action CommandBindingExecuted2}" />
-                    </Border.CommandBindings>
-                    <TextBlock Text="Ctrl+S to execute save." />
-                  </Border>
-                </DataTemplate>
-              </ContentControl.ContentTemplate>
-            </ContentControl>
+            <Button Content="[Ctrl+S] [Delete]">
+              <Button.CommandBindings>
+                <CommandBinding Command="{x:Static ApplicationCommands.Delete}" Executed="{t3:Action CommandBindingExecuted2}" />
+                <CommandBinding Command="{x:Static ApplicationCommands.Save}" Executed="{t3:Action CommandBindingExecuted}" />
+              </Button.CommandBindings>
+            </Button>
             <Button Click="{t3:Action BindEventAction}" Content="Event Method" />
             <Button Content="Event Command" MouseEnter="{t3:Action BindCommandAction}" />
             <Button Command="{t3:Action BindEventAction}" Content="Command Method" />

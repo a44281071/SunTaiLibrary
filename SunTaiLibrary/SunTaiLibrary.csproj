@@ -3,18 +3,20 @@
   <PropertyGroup>
     <TargetFramework>net45</TargetFramework>
     <UseWPF>true</UseWPF>
-    <Version>1.0.2.3</Version>
+    <Version>1.0.3.1</Version>
     <Authors>suntai,SamTi</Authors>
     <Copyright>MIT</Copyright>
     <PackageProjectUrl>https://github.com/a44281071/SunTaiLibrary</PackageProjectUrl>
     <RepositoryUrl>https://github.com/a44281071/SunTaiLibrary</RepositoryUrl>
     <PackageTags>suntai SamTi library wpf control helper</PackageTags>
-    <PackageReleaseNotes>SunTaiLibrary SDK-style project.</PackageReleaseNotes>
+    <PackageReleaseNotes>- add event to action binding extension.
+- add more helper.</PackageReleaseNotes>
     <Description>suntai library for wpf</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>SamTi</Company>
     <PackageIcon>SunTai.jpg</PackageIcon>
     <LangVersion>8.0</LangVersion>
+    <AssemblyVersion>1.0.3.1</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

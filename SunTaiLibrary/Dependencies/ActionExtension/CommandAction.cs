@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Xaml;
 
 namespace SunTaiLibrary.Dependencies
 {
@@ -18,28 +19,46 @@ namespace SunTaiLibrary.Dependencies
 
     private readonly WeakReference targetObject;
     private readonly string path;
+    private Action memberHandler;
+
+    private void LoadMember(IServiceProvider serviceProvider)
+    {
+      FrameworkElement ele = targetObject.Target as FrameworkElement;
+      if (ele == null)
+      {
+        // not a FrameworkElement xaml element, get root parent.
+        var rootObjectProvider = serviceProvider.GetService<IRootObjectProvider>();
+        ele = rootObjectProvider?.RootObject as FrameworkElement;
+      }
+      // ensure dataContext.
+      object data = ele?.DataContext;
+      if (data != null)
+      {
+        var dct = data.GetType();
+        var member = dct.GetMember(path).FirstOrDefault();
+        if (member is PropertyInfo pi)
+        {
+          if (pi.GetValue(data) is ICommand cmd)
+          {
+            memberHandler = new Action(() => cmd.Execute(ele));
+          }
+        }
+        else if (member is MethodInfo mi)
+        {
+          memberHandler = new Action(() => mi.Invoke(data, new object[] { }));
+        }
+      }
+    }
 
     public object ProvideValue(IServiceProvider serviceProvider)
     {
       if (UiContextHelper.InDesignMode) return new RelayCommand(() => Task.Yield());
 
-      FrameworkElement ele = targetObject.Target as FrameworkElement;
-      if (ele == null) throw new NullReferenceException("target object did not type 'FrameworkElement'");
-      if (ele.DataContext == null) return DependencyProperty.UnsetValue;
-
-      var dct = ele.DataContext.GetType();
-      var dcm = dct.GetMember(path).FirstOrDefault();
-      if (dcm == null) throw new NullReferenceException($"target object is did have member '{path}'");
-
-      return dcm.MemberType switch
+      return new RelayCommand(() =>
       {
-        MemberTypes.Property => (dcm as PropertyInfo).GetValue(ele.DataContext) as ICommand,
-        MemberTypes.Method => new RelayCommand(() =>
-        {
-          (dcm as MethodInfo).Invoke(ele.DataContext, null);
-        }),
-        _ => throw new NotSupportedException($"Can not find object member to bind. Path = {path}, DataContext = {dct}")
-      };
+        if (memberHandler == null) LoadMember(serviceProvider);
+        memberHandler?.Invoke();
+      });
     }
   }
 }

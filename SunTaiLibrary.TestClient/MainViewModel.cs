@@ -64,13 +64,22 @@ namespace SunTaiLibrary.TestClient
       MessageToast.Show("Ctrl+S CommandBindingExecuting...");
       await Task.Delay(1000);
       MessageToast.Show("Ctrl+S CommandBindingExecuted");
-
     }
+
     public void CommandBindingExecuted2()
     {
       MessageToast.Show("Delete CommandBindingExecuted");
     }
 
     #endregion Bind_Method
+
+    #region ElementBinding
+
+    public void InvokeF4Key()
+    {
+      MessageToast.Show("InvokeF4Key");
+    }
+
+    #endregion ElementBinding
   }
 }

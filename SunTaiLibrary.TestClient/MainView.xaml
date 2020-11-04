@@ -31,6 +31,9 @@
                 <CommandBinding Command="{x:Static ApplicationCommands.Delete}" Executed="{t3:Action CommandBindingExecuted2}" />
                 <CommandBinding Command="{x:Static ApplicationCommands.Save}" Executed="{t3:Action CommandBindingExecuted}" />
               </Button.CommandBindings>
+              <Button.InputBindings>
+                <KeyBinding Key="F4" Command="{t3:Action InvokeF4Key}"/>
+              </Button.InputBindings>
             </Button>
             <Button Click="{t3:Action BindEventAction}" Content="Event Method" />
             <Button Content="Event Command" MouseEnter="{t3:Action BindCommandAction}" />

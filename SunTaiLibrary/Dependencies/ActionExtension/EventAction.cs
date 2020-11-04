@@ -47,7 +47,7 @@ namespace SunTaiLibrary.Dependencies
         }
         else if (member is MethodInfo mi)
         {
-          memberHandler = new Action<object, object>((ss, ee) => mi.Invoke(data, null));
+          memberHandler = new Action<object, object>((ss, ee) => mi.Invoke(data, new object[] { }));
         }
       }
     }

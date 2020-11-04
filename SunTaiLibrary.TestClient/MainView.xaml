@@ -26,7 +26,7 @@
       <WrapPanel>
         <GroupBox Header="Bind Action">
           <ItemsControl FontSize="10">
-            <Button Content="[Ctrl+S] [Delete]">
+            <Button Content="[F4] [Ctrl+S] [Delete]">
               <Button.CommandBindings>
                 <CommandBinding Command="{x:Static ApplicationCommands.Delete}" Executed="{t3:Action CommandBindingExecuted2}" />
                 <CommandBinding Command="{x:Static ApplicationCommands.Save}" Executed="{t3:Action CommandBindingExecuted}" />

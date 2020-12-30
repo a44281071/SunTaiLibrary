@@ -9,7 +9,7 @@
     <PackageProjectUrl>https://github.com/a44281071/SunTaiLibrary</PackageProjectUrl>
     <RepositoryUrl>https://github.com/a44281071/SunTaiLibrary</RepositoryUrl>
     <PackageTags>suntai SamTi library wpf control helper</PackageTags>
-    <PackageReleaseNotes>- add event to action binding extension.
+    <PackageReleaseNotes>- fix correct grid panel mesure size bug.
 - add more helper.</PackageReleaseNotes>
     <Description>suntai library for wpf</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

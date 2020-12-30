@@ -28,14 +28,21 @@ namespace SunTaiLibrary.Controls
 
       var childConstraint = new Size(availableSize.Width / columns, availableSize.Height / rows);
 
-      // Measure the child.
+      double maxChildDesiredWidth = 0.0;
+      double maxChildDesiredHeight = 0.0;
+
       for (int i = 0; i < count; ++i)
       {
         UIElement child = InternalChildren[i];
         child.Measure(childConstraint);
+
+        Size childDesiredSize = child.DesiredSize;
+
+        if (maxChildDesiredWidth < childDesiredSize.Width) { maxChildDesiredWidth = childDesiredSize.Width; }
+        if (maxChildDesiredHeight < childDesiredSize.Height) { maxChildDesiredHeight = childDesiredSize.Height; }
       }
 
-      return base.MeasureOverride(availableSize);
+      return new Size((maxChildDesiredWidth * columns), (maxChildDesiredHeight * rows));
     }
 
     protected override Size ArrangeOverride(Size finalSize)
@@ -47,7 +54,6 @@ namespace SunTaiLibrary.Controls
       for (int i = 0; i < InternalChildren.Count; i++)
       {
         var child = InternalChildren[i];
-
         child.Arrange(childBounds);
 
         if (child.Visibility != Visibility.Collapsed)

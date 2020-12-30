@@ -36,8 +36,7 @@ namespace SunTaiLibrary.TestClient
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-      var b = SystemParameters.WorkArea;
-      var c = 1;
+     
     }
 
     private void AddToCorrectGrid_Click(object sender, RoutedEventArgs e)

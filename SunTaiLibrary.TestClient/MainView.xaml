@@ -69,8 +69,8 @@
         <GroupBox Header="CorrectGrid">
           <DockPanel>
             <StackPanel>
-              <Button Click="AddToCorrectGrid_Click" Content="+" />
-              <Button Click="RemoveFromCorrectGrid_Click" Content="-" />
+              <RepeatButton Click="AddToCorrectGrid_Click" Content="+" />
+              <RepeatButton Click="RemoveFromCorrectGrid_Click" Content="-" />
             </StackPanel>
             <t3:CorrectGrid x:Name="CorrectGrid1">
               <Button>A</Button>

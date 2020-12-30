@@ -12,6 +12,8 @@ namespace SunTaiLibrary.Attached
   /// </summary>
   public static class BorderAttached
   {
+    #region CornerRadiusProperty
+
     private static CornerRadius Default_CornerRadius = new CornerRadius(0);
 
     public static CornerRadius GetCornerRadius(DependencyObject obj)
@@ -29,5 +31,7 @@ namespace SunTaiLibrary.Attached
     /// </summary>
     public static readonly DependencyProperty CornerRadiusProperty =
         DependencyProperty.RegisterAttached("CornerRadius", typeof(CornerRadius), typeof(BorderAttached), new PropertyMetadata(Default_CornerRadius));
+
+    #endregion CornerRadiusProperty
   }
 }

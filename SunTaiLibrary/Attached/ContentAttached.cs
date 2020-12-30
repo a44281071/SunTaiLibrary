@@ -67,6 +67,8 @@ namespace SunTaiLibrary.Attached
 
     #endregion Path
 
+    #region CheckedPathProperty
+
     public static Geometry GetCheckedPath(DependencyObject obj)
     {
       return (Geometry)obj.GetValue(CheckedPathProperty);
@@ -79,6 +81,8 @@ namespace SunTaiLibrary.Attached
 
     public static readonly DependencyProperty CheckedPathProperty =
        DependencyProperty.RegisterAttached("CheckedPath", typeof(Geometry), typeof(ContentAttached), new PropertyMetadata());
+
+    #endregion CheckedPathProperty
 
     #region PathMargin
 
@@ -198,5 +202,112 @@ namespace SunTaiLibrary.Attached
         DependencyProperty.RegisterAttached("PathStretch", typeof(Stretch), typeof(ContentAttached), new PropertyMetadata(Stretch.Uniform));
 
     #endregion PathStretch
+
+    #region TopContent
+
+    public static object GetTopContent(DependencyObject obj)
+    {
+      return obj.GetValue(TopContentProperty);
+    }
+
+    public static void SetTopContent(DependencyObject obj, object value)
+    {
+      obj.SetValue(TopContentProperty, value);
+    }
+
+    public static readonly DependencyProperty TopContentProperty =
+        DependencyProperty.RegisterAttached("TopContent", typeof(object), typeof(ContentAttached), new PropertyMetadata());
+
+    public static string GetTopContentStringFormat(DependencyObject obj)
+    {
+      return (string)obj.GetValue(TopContentStringFormatProperty);
+    }
+
+    public static void SetTopContentStringFormat(DependencyObject obj, string value)
+    {
+      obj.SetValue(TopContentStringFormatProperty, value);
+    }
+
+    public static readonly DependencyProperty TopContentStringFormatProperty =
+        DependencyProperty.RegisterAttached("TopContentStringFormat", typeof(string), typeof(ContentAttached), new PropertyMetadata());
+
+    public static DataTemplate GetTopContentTemplate(DependencyObject obj)
+    {
+      return (DataTemplate)obj.GetValue(TopContentTemplateProperty);
+    }
+
+    public static void SetTopContentTemplate(DependencyObject obj, DataTemplate value)
+    {
+      obj.SetValue(TopContentTemplateProperty, value);
+    }
+
+    public static readonly DependencyProperty TopContentTemplateProperty =
+        DependencyProperty.RegisterAttached("TopContentTemplate", typeof(DataTemplate), typeof(ContentAttached), new PropertyMetadata());
+
+    public static DataTemplateSelector GetTopContentTemplateSelector(DependencyObject obj)
+    {
+      return (DataTemplateSelector)obj.GetValue(TopContentTemplateSelectorProperty);
+    }
+
+    public static void SetTopContentTemplateSelector(DependencyObject obj, DataTemplateSelector value)
+    {
+      obj.SetValue(TopContentTemplateSelectorProperty, value);
+    }
+
+    public static readonly DependencyProperty TopContentTemplateSelectorProperty =
+        DependencyProperty.RegisterAttached("TopContentTemplateSelector", typeof(DataTemplateSelector), typeof(ContentAttached), new PropertyMetadata());
+
+    #endregion TopContent
+
+    #region CheckedContent
+
+    public static object GetCheckedContent(DependencyObject obj)
+    {
+      return obj.GetValue(CheckedContentProperty);
+    }
+
+    public static void SetCheckedContent(DependencyObject obj, object value)
+    {
+      obj.SetValue(CheckedContentProperty, value);
+    }
+
+    public static readonly DependencyProperty CheckedContentProperty =
+        DependencyProperty.RegisterAttached("CheckedContent", typeof(object), typeof(ContentAttached), new PropertyMetadata());
+
+    #endregion CheckedContent
+
+    #region NormalImage
+
+    public static ImageSource GetNormalImage(DependencyObject obj)
+    {
+      return (ImageSource)obj.GetValue(NormalImageProperty);
+    }
+
+    public static void SetNormalImage(DependencyObject obj, ImageSource value)
+    {
+      obj.SetValue(NormalImageProperty, value);
+    }
+
+    public static readonly DependencyProperty NormalImageProperty =
+        DependencyProperty.RegisterAttached("NormalImage", typeof(ImageSource), typeof(ContentAttached), new PropertyMetadata());
+
+    #endregion NormalImage
+
+    #region CheckedImage
+
+    public static ImageSource GetCheckedImage(DependencyObject obj)
+    {
+      return (ImageSource)obj.GetValue(CheckedImageProperty);
+    }
+
+    public static void SetCheckedImage(DependencyObject obj, ImageSource value)
+    {
+      obj.SetValue(CheckedImageProperty, value);
+    }
+
+    public static readonly DependencyProperty CheckedImageProperty =
+        DependencyProperty.RegisterAttached("CheckedImage", typeof(ImageSource), typeof(ContentAttached), new PropertyMetadata());
+
+    #endregion CheckedImage
   }
 }

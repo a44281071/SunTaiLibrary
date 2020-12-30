@@ -9,6 +9,28 @@ namespace SunTaiLibrary.Attached
 {
   public static class TextBoxAttached
   {
+    #region PlaceholderProperty
+
+    public static string GetPlaceholder(DependencyObject obj)
+    {
+      return (string)obj.GetValue(PlaceholderProperty);
+    }
+
+    public static void SetPlaceholder(DependencyObject obj, object value)
+    {
+      obj.SetValue(PlaceholderProperty, value);
+    }
+
+    public static readonly DependencyProperty PlaceholderProperty =
+        DependencyProperty.RegisterAttached("Placeholder"
+            , typeof(string)
+            , typeof(TextBoxAttached)
+            , new PropertyMetadata());
+
+    #endregion PlaceholderProperty
+
+    #region AutoSelectAllProperty
+
     public static readonly DependencyProperty AutoSelectAllProperty =
         DependencyProperty.RegisterAttached(
         "AutoSelectAll",
@@ -50,7 +72,7 @@ namespace SunTaiLibrary.Attached
     /// <summary>
     /// 鼠标点击时，如果是重新获取焦点，则忽略光标定位功能，防止全选功能失效
     /// </summary>
-    static void TextBox_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    private static void TextBox_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
       var textBox = sender as TextBox;
 
@@ -69,5 +91,7 @@ namespace SunTaiLibrary.Attached
         textBox.SelectAll();
       }
     }
+
+    #endregion AutoSelectAllProperty
   }
 }

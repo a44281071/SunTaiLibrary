@@ -244,6 +244,26 @@
             Storage for Behaviors
             </summary>
         </member>
+        <member name="M:SunTaiLibrary.Attached.MouseAttached.GetIsHorizontalScroll(System.Windows.DependencyObject)">
+            <summary>
+            鼠标在列表中滚动时，更改为水平滚动。
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Attached.MouseAttached.SetIsHorizontalScroll(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            鼠标在列表中滚动时，更改为水平滚动。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Attached.MouseAttached.IsHorizontalScrollProperty">
+            <summary>
+            鼠标在列表中滚动时，更改为水平滚动。
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Attached.MouseAttached.IsHorizontalScrollChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            鼠标在列表中滚动时，更改为水平滚动。
+            </summary>
+        </member>
         <member name="T:SunTaiLibrary.Attached.PasswordAttached">
             <summary>
             用于支持PasswordBox的绑定
@@ -405,6 +425,14 @@
             Defines the method to be called when the command is invoked.
             </summary>
             <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to <see langword="null" />.</param>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.BlocksPanel">
+            <summary>
+                用以代替Grid
+            </summary>
+            <remarks>
+                当不需要Grid的行、列分隔等功能时建议用此轻量级类代替
+            </remarks>
         </member>
         <member name="T:SunTaiLibrary.Controls.BusyIndicator">
             <summary>
@@ -1178,6 +1206,15 @@
             判断传入的值，是否与指定的参数一致
             </summary>
         </member>
+        <member name="M:SunTaiLibrary.ImageHelper.FromPath(System.String,SunTaiLibrary.ImageType)">
+            <summary>
+            根据文件路径加载图片资源，这样可以解决文件一直占用的问题。
+            </summary>
+            <param name="imageFilePath">图片文件</param>
+            <param name="imageType">加载方式，它会影响图片资源加载的大小</param>
+            <exception cref="T:System.IO.FileNotFoundException">图片文件不存在</exception>
+            <returns>图片资源</returns>
+        </member>
         <member name="M:SunTaiLibrary.LocalHelper.DialogSaveFile">
             <summary>
             弹出保存文件窗体并返回文件保存路径。
@@ -1299,6 +1336,11 @@
             Tests whether the current user is a member of the Administrator's group.
             </summary>
         </member>
+        <member name="T:SunTaiLibrary.AsyncLock">
+            <summary>
+            <see cref="!:https://github.com/neosmart/AsyncLock"/>
+            </summary>
+        </member>
         <member name="T:System.Windows.MessageToast">
             <summary>
             通过UI线程，在当前活动窗体下方弹出通知消息的浮动框
@@ -1324,6 +1366,11 @@
             </summary>
             <param name="pResult">用户选择的值</param>
             <returns>用户选择的值（Boolean形式）</returns>
+        </member>
+        <member name="M:System.ExceptionExtension.ToMessageLines(System.Exception)">
+            <summary>
+            返回异常信息。包含内部错误信息。
+            </summary>
         </member>
         <member name="T:System.ExtensionEnum">
             <summary>
@@ -1408,6 +1455,18 @@
             </summary>
             <param name="str">字符串，可以是任意值</param>
             <param name="pString">要检索的内容</param>
+        </member>
+        <member name="M:System.Threading.Tasks.TaskExtension.TimeoutAfter(System.Threading.Tasks.Task,System.Int32)">
+            <summary>
+            Task with time out.
+            </summary>
+            <exception cref="T:System.TimeoutException"/>
+        </member>
+        <member name="M:System.Threading.Tasks.TaskExtension.TimeoutAfter``1(System.Threading.Tasks.Task{``0},System.Int32)">
+            <summary>
+            Task with time out.
+            </summary>
+            <exception cref="T:System.TimeoutException"/>
         </member>
     </members>
 </doc>

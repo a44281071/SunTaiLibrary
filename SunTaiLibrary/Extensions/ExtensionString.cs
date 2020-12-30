@@ -33,6 +33,5 @@ namespace System
 
             return str.ToLower().Contains(value.ToLower());
         }
-
     }
 }

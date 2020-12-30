@@ -70,6 +70,5 @@ namespace System.Linq
             }
             return lastT;
         }
-
     }
 }

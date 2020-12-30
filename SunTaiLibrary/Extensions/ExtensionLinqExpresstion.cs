@@ -34,6 +34,4 @@ namespace System.Linq.Expressions
             return memberExpression.Member;
         }
     }
-
-
 }

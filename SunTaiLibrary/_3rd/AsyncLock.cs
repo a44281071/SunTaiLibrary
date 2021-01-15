@@ -7,128 +7,184 @@ using System.Threading.Tasks;
 
 namespace SunTaiLibrary
 {
-    /// <summary>
-    /// <see cref="https://github.com/neosmart/AsyncLock"/>
-    /// </summary>
-    public class AsyncLock
+  /// <summary>
+  /// <see cref="https://github.com/neosmart/AsyncLock"/>
+  /// </summary>
+  public class AsyncLock
+  {
+    private SemaphoreSlim _reentrancy = new SemaphoreSlim(1, 1);
+    private int _reentrances = 0;
+
+    // We are using this SemaphoreSlim like a posix condition variable.
+    // We only want to wake waiters, one or more of whom will try to obtain
+    // a different lock to do their thing. So long as we can guarantee no
+    // wakes are missed, the number of awakees is not important.
+    // Ideally, this would be "friend" for access only from InnerLock, but
+    // whatever.
+    internal SemaphoreSlim _retry = new SemaphoreSlim(0, 1);
+
+    private const long UnlockedId = 0x00; // "owning" task id when unlocked
+    internal long _owningId = UnlockedId;
+    private static long AsyncStackCounter = 0;
+
+    // An AsyncLocal<T> is not really the task-based equivalent to a ThreadLocal<T>, in that
+    // it does not track the async flow (as the documentation describes) but rather it is
+    // associated with a stack snapshot. Mutation of the AsyncLocal in an await call does
+    // not change the value observed by the parent when the call returns, so if you want to
+    // use it as a persistent async flow identifier, the value needs to be set at the outer-
+    // most level and never touched internally.
+    private static readonly AsyncLocal<long> _asyncId = new AsyncLocal<long>();
+
+    private static long AsyncId => _asyncId.Value;
+
+    public AsyncLock()
     {
-        private readonly object _reentrancy = new object();
-        private int _reentrances = 0;
-        //We are using this SemaphoreSlim like a posix condition variable
-        //we only want to wake waiters, one or more of whom will try to obtain a different lock to do their thing
-        //so long as we can guarantee no wakes are missed, the number of awakees is not important
-        //ideally, this would be "friend" for access only from InnerLock, but whatever.
-        internal SemaphoreSlim _retry = new SemaphoreSlim(0, 1);
-        //We do not have System.Threading.Thread.* on .NET Standard without additional dependencies
-        //Work around is easy: create a new ThreadLocal<T> with a random value and this is our thread id :)
-        private static readonly long UnlockedThreadId = 0; //"owning" thread id when unlocked
-        internal long _owningId = UnlockedThreadId;
-        private static int _globalThreadCounter;
-        private static readonly ThreadLocal<int> _threadId = new ThreadLocal<int>(() => Interlocked.Increment(ref _globalThreadCounter));
-        //We generate a unique id from the thread ID combined with the task ID, if any
-        public static long ThreadId => (long)(((ulong)_threadId.Value) << 32) | ((uint)(Task.CurrentId ?? 0));
-
-        struct InnerLock : IDisposable
-        {
-            private readonly AsyncLock _parent;
-#if DEBUG
-            private bool _disposed;
-#endif
-
-            internal InnerLock(AsyncLock parent)
-            {
-                _parent = parent;
-#if DEBUG
-                _disposed = false;
-#endif
-            }
-
-            internal async Task ObtainLockAsync()
-            {
-                while (!TryEnter())
-                {
-                    //we need to wait for someone to leave the lock before trying again
-                    await _parent._retry.WaitAsync();
-                }
-            }
-
-            internal async Task ObtainLockAsync(CancellationToken ct)
-            {
-                while (!TryEnter())
-                {
-                    //we need to wait for someone to leave the lock before trying again
-                    await _parent._retry.WaitAsync(ct);
-                }
-            }
-
-            internal void ObtainLock()
-            {
-                while (!TryEnter())
-                {
-                    //we need to wait for someone to leave the lock before trying again
-                    _parent._retry.Wait();
-                }
-            }
-
-            private bool TryEnter()
-            {
-                lock (_parent._reentrancy)
-                {
-                    Debug.Assert((_parent._owningId == UnlockedThreadId) == (_parent._reentrances == 0));
-                    if (_parent._owningId != UnlockedThreadId && _parent._owningId != AsyncLock.ThreadId)
-                    {
-                        //another thread currently owns the lock
-                        return false;
-                    }
-                    //we can go in
-                    Interlocked.Increment(ref _parent._reentrances);
-                    _parent._owningId = AsyncLock.ThreadId;
-                    return true;
-                }
-            }
-
-            public void Dispose()
-            {
-#if DEBUG
-                Debug.Assert(!_disposed);
-                _disposed = true;
-#endif
-                lock (_parent._reentrancy)
-                {
-                    Interlocked.Decrement(ref _parent._reentrances);
-                    if (_parent._reentrances == 0)
-                    {
-                        //the owning thread is always the same so long as we are in a nested stack call
-                        //we reset the owning id to null only when the lock is fully unlocked
-                        _parent._owningId = UnlockedThreadId;
-                        if (_parent._retry.CurrentCount == 0)
-                        {
-                            _parent._retry.Release();
-                        }
-                    }
-                }
-            }
-        }
-
-        public IDisposable Lock()
-        {
-            var @lock = new InnerLock(this);
-            @lock.ObtainLock();
-            return @lock;
-        }
-
-        public async Task<IDisposable> LockAsync()
-        {
-            var @lock = new InnerLock(this);
-            await @lock.ObtainLockAsync();
-            return @lock;
-        }
-
-        public async Task<IDisposable> LockAsync(CancellationToken ct)
-        {
-            var @lock = new InnerLock(this);
-            await @lock.ObtainLockAsync(ct);
-            return @lock;
-        }
     }
+
+#if !DEBUG
+        readonly
+#endif
+
+    private struct InnerLock : IDisposable
+    {
+      private readonly AsyncLock _parent;
+#if DEBUG
+      private bool _disposed;
+#endif
+
+      internal InnerLock(AsyncLock parent)
+      {
+        _parent = parent;
+#if DEBUG
+        _disposed = false;
+#endif
+      }
+
+      internal async Task<IDisposable> ObtainLockAsync(CancellationToken ct = default)
+      {
+        while (!await TryEnterAsync())
+        {
+          // We need to wait for someone to leave the lock before trying again.
+          await _parent._retry.WaitAsync(ct);
+        }
+        return this;
+      }
+
+      internal IDisposable ObtainLock()
+      {
+        while (!TryEnter())
+        {
+          // We need to wait for someone to leave the lock before trying again.
+          _parent._retry.Wait();
+        }
+        return this;
+      }
+
+      private async Task<bool> TryEnterAsync()
+      {
+        await _parent._reentrancy.WaitAsync();
+        return InnerTryEnter();
+      }
+
+      private bool TryEnter()
+      {
+        _parent._reentrancy.Wait();
+        return InnerTryEnter();
+      }
+
+      private bool InnerTryEnter()
+      {
+        try
+        {
+          Debug.Assert((_parent._owningId == UnlockedId) == (_parent._reentrances == 0));
+          if (_parent._owningId == UnlockedId)
+          {
+            // Obtain a new async stack ID
+            //_asyncId.Value = Interlocked.Increment(ref AsyncLock.AsyncStackCounter);
+            _parent._owningId = AsyncLock.AsyncId;
+          }
+          else if (_parent._owningId != AsyncLock.AsyncId)
+          {
+            // Another thread currently owns the lock
+            return false;
+          }
+#if DEBUG
+          else
+          {
+            // Nested re-entrance
+            System.Diagnostics.Debugger.Break();
+          }
+#endif
+          // We can go in
+          Interlocked.Increment(ref _parent._reentrances);
+          return true;
+        }
+        finally
+        {
+          _parent._reentrancy.Release();
+        }
+      }
+
+      public void Dispose()
+      {
+#if DEBUG
+        Debug.Assert(!_disposed);
+        _disposed = true;
+#endif
+        var @this = this;
+        Task.Run(async () =>
+        {
+          await @this._parent._reentrancy.WaitAsync();
+          try
+          {
+            Interlocked.Decrement(ref @this._parent._reentrances);
+            if (@this._parent._reentrances == 0)
+            {
+              // The owning thread is always the same so long as we
+              // are in a nested stack call. We reset the owning id
+              // only when the lock is fully unlocked.
+              @this._parent._owningId = UnlockedId;
+              if (@this._parent._retry.CurrentCount == 0)
+              {
+                @this._parent._retry.Release();
+              }
+            }
+          }
+          finally
+          {
+            @this._parent._reentrancy.Release();
+          }
+        });
+      }
+    }
+
+    // Make sure InnerLock.LockAsync() does not use await, because an async function triggers a snapshot of
+    // the AsyncLocal value.
+    public Task<IDisposable> LockAsync()
+    {
+      return LockAsync(CancellationToken.None);
+    }
+
+    // Make sure InnerLock.LockAsync() does not use await, because an async function triggers a snapshot of
+    // the AsyncLocal value.
+    public Task<IDisposable> LockAsync(CancellationToken ct)
+    {
+      if (AsyncId == 0)
+      {
+        _asyncId.Value = Interlocked.Increment(ref AsyncLock.AsyncStackCounter);
+      }
+      var @lock = new InnerLock(this);
+      return @lock.ObtainLockAsync(ct);
+    }
+
+    public IDisposable Lock()
+    {
+      if (AsyncId == 0)
+      {
+        _asyncId.Value = Interlocked.Increment(ref AsyncLock.AsyncStackCounter);
+      }
+      var @lock = new InnerLock(this);
+      return @lock.ObtainLock();
+    }
+  }
 }

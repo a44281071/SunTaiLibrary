@@ -31,5 +31,25 @@ namespace SunTaiLibrary.Helpers
     {
       return Process.Start("Explorer.exe", "/select," + curFullFilename);
     }
+
+    /// <summary>
+    /// 激活指定进程的主窗体，使其成为当前窗体
+    /// </summary>
+    /// <param name="pProcess">进程</param>
+    public static void ActivateWindow(this Process pProcess)
+    {
+      if (null == pProcess) return;
+
+      IntPtr mainWindowHandle = pProcess.MainWindowHandle;
+      if (mainWindowHandle != IntPtr.Zero)
+      {
+        Win32Helper.SetForegroundWindow(mainWindowHandle);
+
+        if (Win32Helper.IsIconic(mainWindowHandle))
+        {
+          Win32Helper.OpenIcon(mainWindowHandle);
+        }
+      }
+    }
   }
 }

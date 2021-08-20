@@ -87,6 +87,7 @@ namespace SunTaiLibrary.Attached
     {
       var ele = (Selector)sender;
       ele.SelectedIndex = -1;
+      ele.Focus();
     }
 
     #endregion SelectNoneWhenClickBlankArea

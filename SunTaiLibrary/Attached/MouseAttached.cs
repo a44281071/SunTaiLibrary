@@ -50,7 +50,7 @@ namespace SunTaiLibrary.Attached
                 else
                 {
                     dfe.Loaded -= Element_Loaded;
-                    var bar = SunTaiLibrary.VisualTreeHelper.FindVisualChild<ScrollViewer>(dfe);
+                    var bar = SunTaiLibrary.VisualTreeHelperEx.FindVisualChild<ScrollViewer>(dfe);
                     if (bar != null)
                     {
                         bar.PreviewMouseWheel -= ScrollBar_PreviewMouseWheel;
@@ -61,7 +61,7 @@ namespace SunTaiLibrary.Attached
 
         private static void Element_Loaded(object sender, RoutedEventArgs e)
         {
-            var bar = SunTaiLibrary.VisualTreeHelper.FindVisualChild<ScrollViewer>(sender as DependencyObject);
+            var bar = SunTaiLibrary.VisualTreeHelperEx.FindVisualChild<ScrollViewer>(sender as DependencyObject);
             if (bar != null)
             {
                 bar.PreviewMouseWheel += ScrollBar_PreviewMouseWheel;

@@ -5,11 +5,14 @@
 # All files
 [*]
 indent_style = space
+indent_size = 4
 
 # xml files
 [*.xml]
 indent_size = 2
+[*.xaml]
+indent_size = 2
 
 # cs files
 [*.cs]
-indent_size = 2
+indent_size = 4

@@ -30,8 +30,8 @@ namespace SunTaiLibrary.Dependencies
       //var s1 = (IRootObjectProvider)serviceProvider.GetService(typeof(IRootObjectProvider));
       var s2 = serviceProvider.GetService<IXamlTypeResolver>();
       var s3 = serviceProvider.GetService<IXamlSchemaContextProvider>();
-       
-      var sdf=  s3.SchemaContext;
+
+      var sdf = s3.SchemaContext;
 
       IActionTarget result = pvt.TargetProperty switch
       {

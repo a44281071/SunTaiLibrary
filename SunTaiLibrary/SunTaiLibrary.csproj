@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
     <UseWPF>true</UseWPF>
-    <Version>1.0.4.0</Version>
+    <Version>1.0.5.0</Version>
     <Authors>suntai,SamTi</Authors>
     <Copyright>MIT</Copyright>
     <PackageProjectUrl>https://github.com/a44281071/SunTaiLibrary</PackageProjectUrl>
@@ -17,9 +17,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>SamTi</Company>
     <PackageIcon>SunTai.jpg</PackageIcon>
-    <LangVersion>8.0</LangVersion>
-    <AssemblyVersion>1.0.4.0</AssemblyVersion>
-    <FileVersion>1.0.4.0</FileVersion>
+    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

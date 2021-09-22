@@ -1291,6 +1291,12 @@
             </summary>
             <param name="curFullFilename">folder, file or application</param>
         </member>
+        <member name="M:SunTaiLibrary.Helpers.ProcessHelper.ActivateWindow(System.Diagnostics.Process)">
+            <summary>
+            激活指定进程的主窗体，使其成为当前窗体
+            </summary>
+            <param name="pProcess">进程</param>
+        </member>
         <member name="P:SunTaiLibrary.UiContextHelper.InDesignMode">
             <summary>
             Gets a value indicating whether design mode is currently active.
@@ -1334,6 +1340,24 @@
         <member name="M:SunTaiLibrary.Win32Helper.IsUserAnAdmin">
             <summary>
             Tests whether the current user is a member of the Administrator's group.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Win32Helper.SetForegroundWindow(System.IntPtr)">
+            <summary>
+             该函数将创建指定窗口的线程设置到前台，并且激活该窗口。键盘输入转向该窗口，并为用户改各种可视的记号。
+             系统给创建前台窗口的线程分配的权限稍高于其他线程。
+            </summary>
+            <param name="hWnd">将被激活并被调入前台的窗口句柄</param>
+            <returns>如果窗口设入了前台，返回值为非零；如果窗口未被设入前台，返回值为零</returns>
+        </member>
+        <member name="M:SunTaiLibrary.Win32Helper.IsIconic(System.IntPtr)">
+            <summary>
+            确定给定窗口是否是最小化（图标化）的窗口
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Win32Helper.OpenIcon(System.IntPtr)">
+            <summary>
+            恢复一个最小化的程序，并将其激活
             </summary>
         </member>
         <member name="T:SunTaiLibrary.AsyncLock">
@@ -1422,6 +1446,24 @@
             <exception cref="T:System.ArgumentNullException">action 参数为 null</exception>
             <returns>最后一个item，可能会返回 null</returns>
         </member>
+        <member name="M:System.Linq.ExtensionIEnumerable.Merge``1(System.Collections.Generic.IEnumerable{``0},``0[])">
+            <summary>
+            返回一个合并后的序列，用于临时快速的为列表补充某一些项。
+            </summary>
+        </member>
+        <member name="M:System.Linq.ExtensionIEnumerable.ExcludeNull``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            返回一个排除null引用的序列。
+            </summary>
+        </member>
+        <member name="M:System.Linq.ExtensionIEnumerable.ClearWith``1(System.Collections.Generic.ICollection{``0},System.Action{``0})">
+            <summary>
+            对列表内的每个对象都执行指定的自定义清理操作，并清空列表。
+            </summary>
+            <param name="source">要清空的列表</param>
+            <param name="destruction">要执行的自定义清理操作</param>
+            <returns>清空的列表</returns>
+        </member>
         <member name="T:System.Linq.Expressions.ExtensionLinqExpresstion">
             <summary>
             扩展方法 for <see cref="T:System.Linq.Expressions.Expression"/>.
@@ -1467,6 +1509,56 @@
             Task with time out.
             </summary>
             <exception cref="T:System.TimeoutException"/>
+        </member>
+        <member name="M:System.Threading.Tasks.TaskExtension.InvokeAsync``2(System.Func{``0,``1,System.Threading.Tasks.Task},``0,``1)">
+            <summary>
+            raise event async.
+            </summary>
+        </member>
+        <member name="T:ELab.Widgets.Controls.RatioBox">
+            <summary>
+            支持让子级以指定的比例布局大小的容器。
+            </summary>
+        </member>
+        <member name="P:ELab.Widgets.Controls.RatioBox.Ratio">
+            <summary>
+            为子级指定一个布局比例。
+            </summary>
+        </member>
+        <member name="F:ELab.Widgets.Controls.RatioBox.RatioProperty">
+            <summary>
+            为子级指定一个布局比例。
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
         </member>
     </members>
 </doc>

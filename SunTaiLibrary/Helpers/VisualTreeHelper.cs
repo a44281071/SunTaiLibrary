@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace SunTaiLibrary
 {
-  public static class VisualTreeHelper
+  public static class VisualTreeHelperEx
   {
     /// <summary>
     /// Return the first visual child of element by type.

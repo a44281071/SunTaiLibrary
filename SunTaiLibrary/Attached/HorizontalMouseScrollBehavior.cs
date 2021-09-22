@@ -31,7 +31,7 @@ namespace SunTaiLibrary.Attached
     {
       AssociatedObject.Loaded -= OnLoaded;
 
-      ScrollViewer = VisualTreeHelper.FindVisualChild<ScrollViewer>(AssociatedObject);
+      ScrollViewer = VisualTreeHelperEx.FindVisualChild<ScrollViewer>(AssociatedObject);
 
       if (ScrollViewer != null)
       {

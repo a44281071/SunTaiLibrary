@@ -21,6 +21,6 @@ namespace SunTaiLibrary.Controls
             DependencyProperty.RegisterAttached("DisplayRatio"
                 , typeof(double)
                 , typeof(DisplayRatioAttached)
-                , new PropertyMetadata(1d));
+                , new PropertyMetadata(-1d));
     }
 }

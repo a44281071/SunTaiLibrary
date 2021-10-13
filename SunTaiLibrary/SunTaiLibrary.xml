@@ -622,6 +622,161 @@
             均分空间，让子级内容尽量的达到最大大小。
             </summary>
         </member>
+        <member name="T:SunTaiLibrary.Controls.DiagramCanvas">
+            <summary>
+            A Canvas which manages dragging/UpdateZOrder of the UIElements it contains.
+            <seealso cref="!:https://www.codeproject.com/Articles/15354/Dragging-Elements-in-a-Canvas"/>
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.DiagramCanvas.#ctor">
+            <summary>
+            Initializes a new instance of drag DiagramCanvas.  UIElements in
+            the DiagramCanvas will immediately be draggable by the user.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.DiagramCanvas.AllowDragging">
+            <summary>
+            Gets/sets whether elements in the DragCanvas should be draggable by the user.
+            The default value is true.  This is a dependency property.
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.DiagramCanvas.AllowDragOutOfView">
+            <summary>
+            Gets/sets whether the user should be able to drag elements in the DragCanvas out of
+            the viewable area.  The default value is false.  This is a dependency property.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.DiagramCanvas.BringToFront(System.Windows.UIElement)">
+            <summary>
+            Assigns the element a z-index which will ensure that
+            it is in front of every other element in the Canvas.
+            The z-index of every element whose z-index is between
+            the element's old and new z-index will have its z-index
+            decremented by one.
+            </summary>
+            <param name="targetElement">
+            The element to be sent to the front of the z-order.
+            </param>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.DiagramCanvas.SendToBack(System.Windows.UIElement)">
+            <summary>
+            Assigns the element a z-index which will ensure that
+            it is behind every other element in the Canvas.
+            The z-index of every element whose z-index is between
+            the element's old and new z-index will have its z-index
+            incremented by one.
+            </summary>
+            <param name="targetElement">
+            The element to be sent to the back of the z-order.
+            </param>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.DiagramCanvas.ElementBeingDragged">
+            <summary>
+            Returns the UIElement currently being dragged, or null.
+            </summary>
+            <remarks>
+            Note to inheritors: This property exposes a protected
+            setter which should be used to modify the drag element.
+            </remarks>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.DiagramCanvas.FindCanvasChild(System.Windows.DependencyObject)">
+            <summary>
+            Walks up the visual tree starting with the specified DependencyObject,
+            looking for a UIElement which is a child of the Canvas.  If a suitable
+            element is not found, null is returned.  If the 'depObj' object is a
+            UIElement in the Canvas's Children collection, it will be returned.
+            </summary>
+            <param name="depObj">
+            A DependencyObject from which the search begins.
+            </param>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.DiagramCanvas.CalculateDragElementRect(System.Double,System.Double)">
+            <summary>
+            Returns a Rect which describes the bounds of the element being dragged.
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.DiagramCanvas.ResolveOffset(System.Double,System.Double,System.Boolean@)">
+            <summary>
+            Determines one component of a UIElement's location
+            within a Canvas (either the horizontal or vertical offset).
+            </summary>
+            <param name="side1">
+            The value of an offset relative to a default side of the
+            Canvas (i.e. top or left).
+            </param>
+            <param name="side2">
+            The value of the offset relative to the other side of the
+            Canvas (i.e. bottom or right).
+            </param>
+            <param name="useSide1">
+            Will be set to true if the returned value should be used
+            for the offset from the side represented by the 'side1'
+            parameter.  Otherwise, it will be set to false.
+            </param>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.DiagramCanvas.UpdateZOrder(System.Windows.UIElement,System.Boolean)">
+            <summary>
+            Helper method used by the BringToFront and SendToBack methods.
+            </summary>
+            <param name="element">
+            The element to bring to the front or send to the back.
+            </param>
+            <param name="bringToFront">
+            Pass true if calling from BringToFront, else false.
+            </param>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.DiagramListBox.DiagramWidth">
+            <summary>
+            固定画布大小，用于辅助计算显示大小和它的缩放比例。
+            默认值按照 1080p 计算（1920 X 1080）
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.DiagramListBox.DiagramWidthProperty">
+            <summary>
+            固定画布大小，用于辅助计算显示大小和它的缩放比例。
+            默认值按照 1080p 计算（1920 X 1080）
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.DiagramListBox.DiagramHeight">
+            <summary>
+            固定画布大小，用于辅助计算显示大小和它的缩放比例。
+            默认值按照 1080p 计算（1920 X 1080）
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.DiagramListBox.DiagramHeightProperty">
+            <summary>
+            固定画布大小，用于辅助计算显示大小和它的缩放比例。
+            默认值按照 1080p 计算（1920 X 1080）
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.DiagramListBox.GetContainerForItemOverride">
+            <summary>
+            生成列表项控件
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.DiagramListBoxItem.AfterMouseLeftButtonDownEvent">
+            <summary>
+            为了防止列表项吃掉鼠标左键事件，造成左键拖拽失效。
+            当然列表项内的元素还是可以吃掉事件的，比如 Button。
+            </summary>
+        </member>
+        <member name="E:SunTaiLibrary.Controls.DiagramListBoxItem.AfterMouseLeftButtonDown">
+            <summary>
+            为了防止列表项吃掉鼠标左键事件，造成左键拖拽失效。
+            当然列表项内的元素还是可以吃掉事件的，比如 Button。
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.DiagramListBoxItem.OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            为了防止列表项吃掉鼠标左键事件，造成左键拖拽失效。
+            当然列表项内的元素还是可以吃掉事件的，比如 Button。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.DisplayRatioAttached.DisplayRatioProperty">
+            <summary>
+            【-1：不保持比例】【other：宽高保持比例】
+            </summary>
+        </member>
         <member name="T:SunTaiLibrary.Controls.EnumImageButton">
             <summary>
             支持两个枚举值匹配并切换显示图片内容的图片按钮。
@@ -1315,21 +1470,21 @@
             <param name="scale">子内容大小比例。【如：16 / 9d】</param>
             <returns>计算后的子内容大小</returns>
         </member>
-        <member name="M:SunTaiLibrary.VisualTreeHelper.FindVisualChild``1(System.Windows.DependencyObject)">
+        <member name="M:SunTaiLibrary.VisualTreeHelperEx.FindVisualChild``1(System.Windows.DependencyObject)">
             <summary>
             Return the first visual child of element by type.
             </summary>
             <typeparam name="T">The type of the Child</typeparam>
             <param name="obj">The parent Element</param>
         </member>
-        <member name="M:SunTaiLibrary.VisualTreeHelper.FindAncestor``1(System.Windows.DependencyObject)">
+        <member name="M:SunTaiLibrary.VisualTreeHelperEx.FindAncestor``1(System.Windows.DependencyObject)">
             <summary>
             Return the ancestor of element by type.
             </summary>
             <typeparam name="T">The type of the Ancestor</typeparam>
             <param name="obj">The child Element</param>
         </member>
-        <member name="M:SunTaiLibrary.VisualTreeHelper.GetSelfAndAncestors(System.Windows.DependencyObject)">
+        <member name="M:SunTaiLibrary.VisualTreeHelperEx.GetSelfAndAncestors(System.Windows.DependencyObject)">
             <summary>
             This method will use the VisualTreeHelper.GetParent method to do a depth first walk up
             the visual tree and return all ancestors of the specified object, including the object itself.

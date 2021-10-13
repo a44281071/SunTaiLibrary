@@ -1,42 +1,43 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
-  <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
-    <UseWPF>true</UseWPF>
-    <Version>1.0.5.0</Version>
-    <Authors>suntai,SamTi</Authors>
-    <Copyright>MIT</Copyright>
-    <PackageProjectUrl>https://github.com/a44281071/SunTaiLibrary</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/a44281071/SunTaiLibrary</RepositoryUrl>
-    <PackageTags>suntai SamTi library wpf control helper</PackageTags>
-    <PackageReleaseNotes>
-      - fix correct grid panel mesure size bug.
-      - add more helper.
-    </PackageReleaseNotes>
-    <Description>suntai library for wpf</Description>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Company>SamTi</Company>
-    <PackageIcon>SunTai.jpg</PackageIcon>
-    <LangVersion>9.0</LangVersion>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net461</TargetFramework>
+        <UseWPF>true</UseWPF>
+        <Version>1.0.6.0</Version>
+        <Authors>suntai,SamTi</Authors>
+        <Copyright>MIT</Copyright>
+        <PackageProjectUrl>https://github.com/a44281071/SunTaiLibrary</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/a44281071/SunTaiLibrary</RepositoryUrl>
+        <PackageTags>suntai SamTi library wpf control helper</PackageTags>
+        <PackageReleaseNotes>
+            - new control: Diagram Canvas|List|Item.
+            - fix correct grid panel mesure size bug.
+            - add more helper.
+        </PackageReleaseNotes>
+        <Description>suntai library for wpf</Description>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Company>SamTi</Company>
+        <PackageIcon>SunTai.jpg</PackageIcon>
+        <LangVersion>9.0</LangVersion>
+    </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>D:\Repos\SunTaiLibrary\SunTaiLibrary\SunTaiLibrary.xml</DocumentationFile>
-  </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <DocumentationFile>D:\Repos\SunTaiLibrary\SunTaiLibrary\SunTaiLibrary.xml</DocumentationFile>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Reference Include="System.Runtime.Remoting" />
-  </ItemGroup>
+    <ItemGroup>
+        <Reference Include="System.Runtime.Remoting" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\Documents\SunTai.jpg">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+        <None Include="..\Documents\SunTai.jpg">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+        </None>
+    </ItemGroup>
 
 </Project>

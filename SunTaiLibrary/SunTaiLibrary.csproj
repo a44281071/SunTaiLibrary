@@ -3,16 +3,14 @@
     <PropertyGroup>
         <TargetFramework>net461</TargetFramework>
         <UseWPF>true</UseWPF>
-        <Version>1.0.6.0</Version>
+        <Version>1.0.6.1</Version>
         <Authors>suntai,SamTi</Authors>
         <Copyright>MIT</Copyright>
         <PackageProjectUrl>https://github.com/a44281071/SunTaiLibrary</PackageProjectUrl>
         <RepositoryUrl>https://github.com/a44281071/SunTaiLibrary</RepositoryUrl>
         <PackageTags>suntai SamTi library wpf control helper</PackageTags>
         <PackageReleaseNotes>
-            - new control: Diagram Canvas|List|Item.
-            - fix correct grid panel mesure size bug.
-            - add more helper.
+          - Diagram control: fix lost control default style.
         </PackageReleaseNotes>
         <Description>suntai library for wpf</Description>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

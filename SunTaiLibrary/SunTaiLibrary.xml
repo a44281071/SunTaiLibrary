@@ -1361,6 +1361,16 @@
             判断传入的值，是否与指定的参数一致
             </summary>
         </member>
+        <member name="T:SunTaiLibrary.Converters.ViewBoxScaleTransformInverseConverter">
+            <summary>
+            反转 ViewBox 控件的缩放值，还原控件本身大小
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Converters.ViewBoxScaleTransformInverseConverter.Convert(System.Object[],System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            当 ViewBox 大小改变时，重新计算缩放，然后得到反向缩放值，用来还原本身的大小
+            </summary>
+        </member>
         <member name="M:SunTaiLibrary.ImageHelper.FromPath(System.String,SunTaiLibrary.ImageType)">
             <summary>
             根据文件路径加载图片资源，这样可以解决文件一直占用的问题。

@@ -9,7 +9,7 @@ namespace SunTaiLibrary.Converters
     /// <summary>
     /// 反转 ViewBox 控件的缩放值，还原控件本身大小
     /// </summary>
-    internal class ViewBoxScaleTransformInverseConverter : IMultiValueConverter
+    public class ViewBoxScaleTransformInverseConverter : IMultiValueConverter
     {
         /// <summary>
         /// 当 ViewBox 大小改变时，重新计算缩放，然后得到反向缩放值，用来还原本身的大小

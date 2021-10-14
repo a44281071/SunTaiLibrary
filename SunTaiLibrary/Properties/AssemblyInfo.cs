@@ -2,6 +2,7 @@
 using System.Windows.Markup;
 
 [assembly: XmlnsPrefix("http://www.suntai.org/library", "t3")]
+[assembly: XmlnsDefinition("http://www.suntai.org/library", "SunTaiLibrary")]
 [assembly: XmlnsDefinition("http://www.suntai.org/library", "SunTaiLibrary.Controls")]
 [assembly: XmlnsDefinition("http://www.suntai.org/library", "SunTaiLibrary.Converters")]
 [assembly: XmlnsDefinition("http://www.suntai.org/library", "SunTaiLibrary.Dependencies")]

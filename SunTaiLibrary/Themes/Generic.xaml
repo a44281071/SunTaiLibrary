@@ -865,4 +865,21 @@
       </Setter.Value>
     </Setter>
   </Style>
+
+  <Style TargetType="{x:Type cc:FolderBrowser}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type cc:FolderBrowser}">
+          <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+            <DockPanel>
+              <Button Content="浏览(_B)" DockPanel.Dock="Right" Name="PART_BrowseButton" />
+              <TextBox  IsReadOnly="{TemplateBinding IsReadonly}" Text="{TemplateBinding Text}" />
+            </DockPanel>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 </ResourceDictionary>

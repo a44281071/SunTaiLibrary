@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ELab.Widgets.Controls
+namespace SunTaiLibrary.Controls
 {
     /// <summary>
     /// 支持让子级以指定的比例布局大小的容器。

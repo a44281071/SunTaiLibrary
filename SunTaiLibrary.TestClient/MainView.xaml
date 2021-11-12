@@ -26,6 +26,20 @@
       <WrapPanel>
         <GroupBox Width="300"
                   Height="200"
+                  Header="比例指定">
+          <t3:FolderBrowser Margin="5" 
+                            IsReadonly="True"
+                            Text="{Binding SaveFolder}" VerticalAlignment="Center"/>
+        </GroupBox>
+        <GroupBox Width="300"
+                  Height="200"
+                  Header="比例指定">
+          <t3:RatioBox Ratio="1.3333">
+            <TextBlock Background="AliceBlue" Text="4:3" />
+          </t3:RatioBox>
+        </GroupBox>
+        <GroupBox Width="300"
+                  Height="200"
                   Header="DiagramList">
           <t3:DiagramListBox Background="Black">
             <t3:DiagramListBoxItem Name="item1"

@@ -843,6 +843,36 @@
             如果状态已匹配，则忽略点击操作。
             </summary>
         </member>
+        <member name="T:SunTaiLibrary.Controls.FolderBrowser">
+            <summary>
+            用于确定一个目录路径，一般用于配置保存位置。
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.FolderBrowser.BrowseButton">
+            <summary>
+            模板定义的浏览按钮
+            </summary>
+        </member>
+        <member name="M:SunTaiLibrary.Controls.FolderBrowser.BrowseButtonElement_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            点击浏览按钮后，确认一个目录位置，并保持选择的目录。
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.FolderBrowser.Text">
+            <summary>
+            显示当前文件路径
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.FolderBrowser.TextProperty">
+            <summary>
+            显示当前文件路径
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.FolderBrowser.IsReadonly">
+            <summary>
+            【false：默认值，可以手动修改文本框内容】【true：不可以修改文本框内容，只能通过选择目录操作】
+            </summary>
+        </member>
         <member name="T:SunTaiLibrary.Controls.ImageButton">
             <summary>
             button with image.
@@ -1165,6 +1195,21 @@
         <member name="F:SunTaiLibrary.Controls.RadioImageButton.DisableImageProperty">
             <summary>
             禁用控件
+            </summary>
+        </member>
+        <member name="T:SunTaiLibrary.Controls.RatioBox">
+            <summary>
+            支持让子级以指定的比例布局大小的容器。
+            </summary>
+        </member>
+        <member name="P:SunTaiLibrary.Controls.RatioBox.Ratio">
+            <summary>
+            为子级指定一个布局比例。
+            </summary>
+        </member>
+        <member name="F:SunTaiLibrary.Controls.RatioBox.RatioProperty">
+            <summary>
+            为子级指定一个布局比例。
             </summary>
         </member>
         <member name="T:SunTaiLibrary.Controls.CaptionButtonMode">
@@ -1678,21 +1723,6 @@
         <member name="M:System.Threading.Tasks.TaskExtension.InvokeAsync``2(System.Func{``0,``1,System.Threading.Tasks.Task},``0,``1)">
             <summary>
             raise event async.
-            </summary>
-        </member>
-        <member name="T:ELab.Widgets.Controls.RatioBox">
-            <summary>
-            支持让子级以指定的比例布局大小的容器。
-            </summary>
-        </member>
-        <member name="P:ELab.Widgets.Controls.RatioBox.Ratio">
-            <summary>
-            为子级指定一个布局比例。
-            </summary>
-        </member>
-        <member name="F:ELab.Widgets.Controls.RatioBox.RatioProperty">
-            <summary>
-            为子级指定一个布局比例。
             </summary>
         </member>
         <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">

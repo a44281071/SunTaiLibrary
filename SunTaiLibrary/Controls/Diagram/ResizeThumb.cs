@@ -8,321 +8,321 @@ using System.Windows.Media;
 
 namespace SunTaiLibrary.Controls
 {
-  public class ResizeThumb : Thumb
-  {
-    private FrameworkElement parent;
-
-    public ResizeThumb()
+    public class ResizeThumb : Thumb
     {
-      DragDelta += ResizeThumb_DragDelta;
+        private FrameworkElement parent;
 
-      Loaded += (s, _) =>
-      {
-        if (TargetElement is FrameworkElement ele)
+        public ResizeThumb()
         {
-          parent = VisualTreeHelper.GetParent(ele) as FrameworkElement;
-          if (DisplayRatio != -1)
-          {
-            ele.Height = (double)ele.ActualWidth / DisplayRatio;
-          }
+            DragDelta += ResizeThumb_DragDelta;
+
+            Loaded += (s, _) =>
+            {
+                if (TargetElement is FrameworkElement ele)
+                {
+                    parent = VisualTreeHelper.GetParent(ele) as FrameworkElement;
+                    if (DisplayRatio != -1)
+                    {
+                        ele.Height = (double)ele.ActualWidth / DisplayRatio;
+                    }
+                }
+            };
         }
-      };
-    }
 
-    private void ResizeThumb_DragDelta(object sender, DragDeltaEventArgs e)
-    {
-      if (TargetElement is FrameworkElement ele)
-      {
-        double deltaVertical = 0;
-        double deltaHorizontal = 0;
-        double height, width;
-        Vector offset = VisualTreeHelper.GetOffset(ele);
-
-        if (DisplayRatio > Double.Epsilon)
+        private void ResizeThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
-          switch (DragDirection)
-          {
-            case DragDirection.TopLeft:
-              if (Math.Abs(e.HorizontalChange) <= Math.Abs(e.VerticalChange))
-              {
-                deltaHorizontal = Math.Min(e.HorizontalChange, ele.ActualWidth - ele.MinWidth);
-                width = ele.ActualWidth - deltaHorizontal;
-                height = (double)width / DisplayRatio;
+            if (TargetElement is FrameworkElement ele)
+            {
+                double deltaVertical = 0;
+                double deltaHorizontal = 0;
+                double height, width;
+                Vector offset = VisualTreeHelper.GetOffset(ele);
 
-                if (offset.X + deltaHorizontal <= 0
-                    || offset.Y + ele.ActualHeight - height <= 0)
-                  break;
-                Canvas.SetLeft(ele, offset.X + deltaHorizontal);
-                Canvas.SetTop(ele, offset.Y + ele.ActualHeight - height);
-                ele.Width = width;
-                ele.Height = height;
-              }
-              else
-              {
-                deltaVertical = Math.Min(e.VerticalChange, ele.ActualHeight - ele.MinHeight);
+                if (DisplayRatio > Double.Epsilon)
+                {
+                    switch (DragDirection)
+                    {
+                        case DragDirection.TopLeft:
+                            if (Math.Abs(e.HorizontalChange) <= Math.Abs(e.VerticalChange))
+                            {
+                                deltaHorizontal = Math.Min(e.HorizontalChange, ele.ActualWidth - ele.MinWidth);
+                                width = ele.ActualWidth - deltaHorizontal;
+                                height = (double)width / DisplayRatio;
 
-                height = ele.ActualHeight - deltaVertical;
-                width = height * DisplayRatio;
+                                if (offset.X + deltaHorizontal <= 0
+                                    || offset.Y + ele.ActualHeight - height <= 0)
+                                    break;
+                                Canvas.SetLeft(ele, offset.X + deltaHorizontal);
+                                Canvas.SetTop(ele, offset.Y + ele.ActualHeight - height);
+                                ele.Width = width;
+                                ele.Height = height;
+                            }
+                            else
+                            {
+                                deltaVertical = Math.Min(e.VerticalChange, ele.ActualHeight - ele.MinHeight);
 
-                if (offset.Y + deltaVertical <= 0
-                    || ele.ActualWidth - width + offset.X <= 0)
-                  break;
-                Canvas.SetTop(ele, offset.Y + deltaVertical);
-                Canvas.SetLeft(ele, offset.X + ele.ActualWidth - width);
-                ele.Height = height;
-                ele.Width = width;
-              }
-              break;
+                                height = ele.ActualHeight - deltaVertical;
+                                width = height * DisplayRatio;
 
-            case DragDirection.TopCenter:
-              deltaVertical = Math.Min(e.VerticalChange, ele.ActualHeight - ele.MinHeight);
+                                if (offset.Y + deltaVertical <= 0
+                                    || ele.ActualWidth - width + offset.X <= 0)
+                                    break;
+                                Canvas.SetTop(ele, offset.Y + deltaVertical);
+                                Canvas.SetLeft(ele, offset.X + ele.ActualWidth - width);
+                                ele.Height = height;
+                                ele.Width = width;
+                            }
+                            break;
 
-              height = ele.ActualHeight - deltaVertical;
-              width = height * DisplayRatio;
+                        case DragDirection.TopCenter:
+                            deltaVertical = Math.Min(e.VerticalChange, ele.ActualHeight - ele.MinHeight);
 
-              if (offset.Y + deltaVertical <= 0
-                  || ele.ActualWidth - width + offset.X <= 0)
-                break;
-              Canvas.SetTop(ele, offset.Y + deltaVertical);
-              Canvas.SetLeft(ele, offset.X + ele.ActualWidth - width);
-              ele.Height = height;
-              ele.Width = width;
-              break;
+                            height = ele.ActualHeight - deltaVertical;
+                            width = height * DisplayRatio;
 
-            case DragDirection.TopRight:
-              if (Math.Abs(e.HorizontalChange) <= Math.Abs(e.VerticalChange))
-              {
-                deltaHorizontal = Math.Min(-e.HorizontalChange, ele.ActualWidth - ele.MinWidth);
-                width = ele.ActualWidth - deltaHorizontal;
-                height = (double)width / DisplayRatio;
+                            if (offset.Y + deltaVertical <= 0
+                                || ele.ActualWidth - width + offset.X <= 0)
+                                break;
+                            Canvas.SetTop(ele, offset.Y + deltaVertical);
+                            Canvas.SetLeft(ele, offset.X + ele.ActualWidth - width);
+                            ele.Height = height;
+                            ele.Width = width;
+                            break;
 
-                if (offset.X + deltaHorizontal <= 0
-                    || width >= parent.ActualWidth - offset.X)
-                  break;
-                Canvas.SetTop(ele, offset.Y + ele.ActualHeight - height);
-                ele.Width = width;
-                ele.Height = height;
-              }
-              else
-              {
-                deltaVertical = Math.Min(e.VerticalChange, ele.ActualHeight - ele.MinHeight);
+                        case DragDirection.TopRight:
+                            if (Math.Abs(e.HorizontalChange) <= Math.Abs(e.VerticalChange))
+                            {
+                                deltaHorizontal = Math.Min(-e.HorizontalChange, ele.ActualWidth - ele.MinWidth);
+                                width = ele.ActualWidth - deltaHorizontal;
+                                height = (double)width / DisplayRatio;
 
-                height = ele.ActualHeight - deltaVertical;
-                width = height * DisplayRatio;
+                                if (offset.X + deltaHorizontal <= 0
+                                    || width >= parent.ActualWidth - offset.X)
+                                    break;
+                                Canvas.SetTop(ele, offset.Y + ele.ActualHeight - height);
+                                ele.Width = width;
+                                ele.Height = height;
+                            }
+                            else
+                            {
+                                deltaVertical = Math.Min(e.VerticalChange, ele.ActualHeight - ele.MinHeight);
 
-                if (offset.Y + deltaVertical <= 0
-                    || width >= parent.ActualWidth - offset.X)
-                  break;
-                Canvas.SetTop(ele, offset.Y + deltaVertical);
-                ele.Height = height;
-                ele.Width = width;
-              }
-              break;
+                                height = ele.ActualHeight - deltaVertical;
+                                width = height * DisplayRatio;
 
-            case DragDirection.MiddleLeft:
-              deltaHorizontal = Math.Min(e.HorizontalChange, ele.ActualWidth - ele.MinWidth);
-              width = ele.ActualWidth - deltaHorizontal;
-              height = (double)width / DisplayRatio;
+                                if (offset.Y + deltaVertical <= 0
+                                    || width >= parent.ActualWidth - offset.X)
+                                    break;
+                                Canvas.SetTop(ele, offset.Y + deltaVertical);
+                                ele.Height = height;
+                                ele.Width = width;
+                            }
+                            break;
 
-              if (offset.X + deltaHorizontal <= 0
-                  || height >= parent.ActualHeight - offset.Y)
-                break;
-              Canvas.SetLeft(ele, offset.X + deltaHorizontal);
-              ele.Width = width;
-              ele.Height = height;
-              break;
+                        case DragDirection.MiddleLeft:
+                            deltaHorizontal = Math.Min(e.HorizontalChange, ele.ActualWidth - ele.MinWidth);
+                            width = ele.ActualWidth - deltaHorizontal;
+                            height = (double)width / DisplayRatio;
 
-            case DragDirection.MiddleCenter:
-              break;
+                            if (offset.X + deltaHorizontal <= 0
+                                || height >= parent.ActualHeight - offset.Y)
+                                break;
+                            Canvas.SetLeft(ele, offset.X + deltaHorizontal);
+                            ele.Width = width;
+                            ele.Height = height;
+                            break;
 
-            case DragDirection.MiddleRight:
-              deltaHorizontal = Math.Min(-e.HorizontalChange, ele.ActualWidth - ele.MinWidth);
-              width = ele.ActualWidth - deltaHorizontal;
-              height = (double)width / DisplayRatio;
+                        case DragDirection.MiddleCenter:
+                            break;
 
-              if (width >= parent.ActualWidth - offset.X
-                  || height >= parent.ActualHeight - offset.Y)
-                break;
-              ele.Width = width;
-              ele.Height = height;
-              break;
+                        case DragDirection.MiddleRight:
+                            deltaHorizontal = Math.Min(-e.HorizontalChange, ele.ActualWidth - ele.MinWidth);
+                            width = ele.ActualWidth - deltaHorizontal;
+                            height = (double)width / DisplayRatio;
 
-            case DragDirection.BottomLeft:
-              if (Math.Abs(e.HorizontalChange) <= Math.Abs(e.VerticalChange))
-              {
-                deltaHorizontal = Math.Min(e.HorizontalChange, ele.ActualWidth - ele.MinWidth);
-                width = ele.ActualWidth - deltaHorizontal;
-                height = (double)width / DisplayRatio;
+                            if (width >= parent.ActualWidth - offset.X
+                                || height >= parent.ActualHeight - offset.Y)
+                                break;
+                            ele.Width = width;
+                            ele.Height = height;
+                            break;
 
-                if (offset.X + deltaHorizontal <= 0
-                    || height >= parent.ActualHeight - offset.Y)
-                  break;
-                Canvas.SetLeft(ele, offset.X + deltaHorizontal);
-                ele.Width = width;
-                ele.Height = height;
-              }
-              else
-              {
-                deltaVertical = Math.Min(-e.VerticalChange, ele.ActualHeight - ele.MinHeight);
+                        case DragDirection.BottomLeft:
+                            if (Math.Abs(e.HorizontalChange) <= Math.Abs(e.VerticalChange))
+                            {
+                                deltaHorizontal = Math.Min(e.HorizontalChange, ele.ActualWidth - ele.MinWidth);
+                                width = ele.ActualWidth - deltaHorizontal;
+                                height = (double)width / DisplayRatio;
 
-                height = ele.ActualHeight - deltaVertical;
-                width = height * DisplayRatio;
+                                if (offset.X + deltaHorizontal <= 0
+                                    || height >= parent.ActualHeight - offset.Y)
+                                    break;
+                                Canvas.SetLeft(ele, offset.X + deltaHorizontal);
+                                ele.Width = width;
+                                ele.Height = height;
+                            }
+                            else
+                            {
+                                deltaVertical = Math.Min(-e.VerticalChange, ele.ActualHeight - ele.MinHeight);
 
-                if (offset.Y + deltaVertical <= 0
-                    || height >= parent.ActualHeight - offset.Y)
-                  break;
-                Canvas.SetLeft(ele, offset.X + ele.ActualWidth - width);
-                ele.Height = height;
-                ele.Width = width;
-              }
-              break;
+                                height = ele.ActualHeight - deltaVertical;
+                                width = height * DisplayRatio;
 
-            case DragDirection.BottomCenter:
-              deltaVertical = Math.Min(-e.VerticalChange, ele.ActualHeight - ele.MinHeight);
+                                if (offset.Y + deltaVertical <= 0
+                                    || height >= parent.ActualHeight - offset.Y)
+                                    break;
+                                Canvas.SetLeft(ele, offset.X + ele.ActualWidth - width);
+                                ele.Height = height;
+                                ele.Width = width;
+                            }
+                            break;
 
-              height = ele.ActualHeight - deltaVertical;
-              width = height * DisplayRatio;
+                        case DragDirection.BottomCenter:
+                            deltaVertical = Math.Min(-e.VerticalChange, ele.ActualHeight - ele.MinHeight);
 
-              if (width >= parent.ActualWidth - offset.X
-                  || height >= parent.ActualHeight - offset.Y)
-                break;
-              ele.Height = height;
-              ele.Width = width;
-              break;
+                            height = ele.ActualHeight - deltaVertical;
+                            width = height * DisplayRatio;
 
-            case DragDirection.BottomRight:
-              if (Math.Abs(e.HorizontalChange) <= Math.Abs(e.VerticalChange))
-              {
-                deltaHorizontal = Math.Min(-e.HorizontalChange, ele.ActualWidth - ele.MinWidth);
-                width = ele.ActualWidth - deltaHorizontal;
-                height = (double)width / DisplayRatio;
+                            if (width >= parent.ActualWidth - offset.X
+                                || height >= parent.ActualHeight - offset.Y)
+                                break;
+                            ele.Height = height;
+                            ele.Width = width;
+                            break;
 
-                if (height >= parent.ActualHeight - offset.Y
-                    || width >= parent.ActualWidth - offset.X)
-                  break;
-                ele.Width = width;
-                ele.Height = height;
-              }
-              else
-              {
-                deltaVertical = Math.Min(-e.VerticalChange, ele.ActualHeight - ele.MinHeight);
+                        case DragDirection.BottomRight:
+                            if (Math.Abs(e.HorizontalChange) <= Math.Abs(e.VerticalChange))
+                            {
+                                deltaHorizontal = Math.Min(-e.HorizontalChange, ele.ActualWidth - ele.MinWidth);
+                                width = ele.ActualWidth - deltaHorizontal;
+                                height = (double)width / DisplayRatio;
 
-                height = ele.ActualHeight - deltaVertical;
-                width = height * DisplayRatio;
+                                if (height >= parent.ActualHeight - offset.Y
+                                    || width >= parent.ActualWidth - offset.X)
+                                    break;
+                                ele.Width = width;
+                                ele.Height = height;
+                            }
+                            else
+                            {
+                                deltaVertical = Math.Min(-e.VerticalChange, ele.ActualHeight - ele.MinHeight);
 
-                if (height >= parent.ActualHeight - offset.Y
-                    || width >= parent.ActualWidth - offset.X)
-                  break;
-                ele.Height = height;
-                ele.Width = width;
-              }
-              break;
+                                height = ele.ActualHeight - deltaVertical;
+                                width = height * DisplayRatio;
 
-            default:
-              break;
-          }
+                                if (height >= parent.ActualHeight - offset.Y
+                                    || width >= parent.ActualWidth - offset.X)
+                                    break;
+                                ele.Height = height;
+                                ele.Width = width;
+                            }
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (VerticalAlignment)
+                    {
+                        case VerticalAlignment.Bottom:
+                            deltaVertical = Math.Min(-e.VerticalChange,
+                                ele.ActualHeight - ele.MinHeight);
+                            if (ele.ActualHeight - deltaVertical <= parent.ActualHeight - offset.Y)
+                            {
+                                ele.Height = ele.ActualHeight - deltaVertical;
+                            }
+                            break;
+
+                        case VerticalAlignment.Top:
+                            deltaVertical = Math.Min(e.VerticalChange,
+                                ele.ActualHeight - ele.MinHeight);
+                            if (offset.Y + deltaVertical > 0)
+                            {
+                                Canvas.SetTop(ele, Canvas.GetTop(ele) + deltaVertical);
+                                ele.Height = ele.ActualHeight - deltaVertical;
+                            }
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    switch (HorizontalAlignment)
+                    {
+                        case HorizontalAlignment.Left:
+                            deltaHorizontal = Math.Min(e.HorizontalChange,
+                                ele.ActualWidth - ele.MinWidth);
+                            if (offset.X + deltaHorizontal > 0)
+                            {
+                                Canvas.SetLeft(ele, Canvas.GetLeft(ele) + deltaHorizontal);
+                                ele.Width = ele.ActualWidth - deltaHorizontal;
+                            }
+
+                            break;
+
+                        case HorizontalAlignment.Right:
+                            deltaHorizontal = Math.Min(-e.HorizontalChange,
+                                ele.ActualWidth - ele.MinWidth);
+                            if (ele.ActualWidth - deltaHorizontal < parent.ActualWidth - offset.X)
+                            {
+                                ele.Width = ele.ActualWidth - deltaHorizontal;
+                            }
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            }
         }
-        else
+
+        #region Property TargetElement
+
+        public FrameworkElement TargetElement
         {
-          switch (VerticalAlignment)
-          {
-            case VerticalAlignment.Bottom:
-              deltaVertical = Math.Min(-e.VerticalChange,
-                  ele.ActualHeight - ele.MinHeight);
-              if (ele.Height - deltaVertical <= parent.ActualHeight - offset.Y)
-              {
-                ele.Height -= deltaVertical;
-              }
-              break;
-
-            case VerticalAlignment.Top:
-              deltaVertical = Math.Min(e.VerticalChange,
-                  ele.ActualHeight - ele.MinHeight);
-              if (offset.Y + deltaVertical > 0)
-              {
-                Canvas.SetTop(ele, Canvas.GetTop(ele) + deltaVertical);
-                ele.Height -= deltaVertical;
-              }
-              break;
-
-            default:
-              break;
-          }
-
-          switch (HorizontalAlignment)
-          {
-            case HorizontalAlignment.Left:
-              deltaHorizontal = Math.Min(e.HorizontalChange,
-                  ele.ActualWidth - ele.MinWidth);
-              if (offset.X + deltaHorizontal > 0)
-              {
-                Canvas.SetLeft(ele, Canvas.GetLeft(ele) + deltaHorizontal);
-                ele.Width -= deltaHorizontal;
-              }
-
-              break;
-
-            case HorizontalAlignment.Right:
-              deltaHorizontal = Math.Min(-e.HorizontalChange,
-                  ele.ActualWidth - ele.MinWidth);
-              if (ele.Width - deltaHorizontal < parent.ActualWidth - offset.X)
-              {
-                ele.Width -= deltaHorizontal;
-              }
-              break;
-
-            default:
-              break;
-          }
+            get { return (FrameworkElement)GetValue(TargetElementProperty); }
+            set { SetValue(TargetElementProperty, value); }
         }
-      }
-    }
 
-    #region Property TargetElement
+        public static readonly DependencyProperty TargetElementProperty =
+            DependencyProperty.Register("TargetElement"
+              , typeof(FrameworkElement)
+              , typeof(ResizeThumb)
+              , new PropertyMetadata(null));
 
-    public FrameworkElement TargetElement
-    {
-      get { return (FrameworkElement)GetValue(TargetElementProperty); }
-      set { SetValue(TargetElementProperty, value); }
-    }
+        #endregion Property TargetElement
 
-    public static readonly DependencyProperty TargetElementProperty =
-        DependencyProperty.Register("TargetElement"
-          , typeof(FrameworkElement)
-          , typeof(ResizeThumb)
-          , new PropertyMetadata(null));
+        #region Property DisplayRatio
 
-    #endregion Property TargetElement
-
-    #region Property DisplayRatio
-
-    public double DisplayRatio
-    {
-      get { return (double)GetValue(DisplayRatioProperty); }
-      set { SetValue(DisplayRatioProperty, value); }
-    }
-
-    public static readonly DependencyProperty DisplayRatioProperty =
-        DependencyProperty.Register("DisplayRatio"
-          , typeof(double)
-          , typeof(ResizeThumb)
-          , new PropertyMetadata(1d, new PropertyChangedCallback(OnDisplayRatioPropertyChanged)));
-
-    private static void OnDisplayRatioPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
-    {
-      if (obj is ResizeThumb rt)
-      {
-        if (rt.TargetElement is FrameworkElement ele && rt.DisplayRatio > Double.Epsilon)
+        public double DisplayRatio
         {
-          if (rt.parent != null && ele.ActualHeight >= rt.parent.ActualHeight)
-            return;
-          ele.Height = (double)ele.ActualWidth / rt.DisplayRatio;
+            get { return (double)GetValue(DisplayRatioProperty); }
+            set { SetValue(DisplayRatioProperty, value); }
         }
-      }
+
+        public static readonly DependencyProperty DisplayRatioProperty =
+            DependencyProperty.Register("DisplayRatio"
+              , typeof(double)
+              , typeof(ResizeThumb)
+              , new PropertyMetadata(1d, new PropertyChangedCallback(OnDisplayRatioPropertyChanged)));
+
+        private static void OnDisplayRatioPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        {
+            if (obj is ResizeThumb rt)
+            {
+                if (rt.TargetElement is FrameworkElement ele && rt.DisplayRatio > Double.Epsilon)
+                {
+                    if (rt.parent != null && ele.ActualHeight >= rt.parent.ActualHeight)
+                        return;
+                    ele.Height = (double)ele.ActualWidth / rt.DisplayRatio;
+                }
+            }
+        }
+
+        public DragDirection DragDirection { get; set; }
+
+        #endregion Property DisplayRatio
     }
-
-    public DragDirection DragDirection { get; set; }
-
-    #endregion Property DisplayRatio
-  }
 }

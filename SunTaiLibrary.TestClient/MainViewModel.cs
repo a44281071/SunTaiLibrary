@@ -17,7 +17,7 @@ namespace SunTaiLibrary.TestClient
             BindCommandAction = new RelayCommand(OnBindCommandAction);
 
             // test not defined.
-            EnumItems.Add((PowerState)233);
+            //EnumItems.Add((PowerState)233);
         }
 
         #region Bind_Data

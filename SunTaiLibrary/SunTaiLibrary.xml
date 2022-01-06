@@ -1708,6 +1708,18 @@
             <param name="str">字符串，可以是任意值</param>
             <param name="pString">要检索的内容</param>
         </member>
+        <member name="T:System.IO.FileInfoExtension">
+            <summary>
+            More append methods for <see cref="T:System.IO.FileInfo"/>.
+            </summary>
+        </member>
+        <member name="M:System.IO.FileInfoExtension.OpenAppend(System.IO.FileInfo)">
+            <summary>
+            Opens the file if it exists and seeks to the end of the file, or creates a new file. 
+            </summary>
+            <param name="file">file need to open.</param>
+            <returns>A file opened in the append mode, with write access and unshared.</returns>
+        </member>
         <member name="M:System.Threading.Tasks.TaskExtension.TimeoutAfter(System.Threading.Tasks.Task,System.Int32)">
             <summary>
             Task with time out.

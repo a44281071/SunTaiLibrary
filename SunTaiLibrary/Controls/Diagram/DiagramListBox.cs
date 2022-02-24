@@ -11,6 +11,10 @@ using System.Windows.Data;
 
 namespace SunTaiLibrary.Controls
 {
+    /// <summary>
+    /// list box for diagram items in special canvas. 
+    /// items can move and zoom in canvas panel.
+    /// </summary>
     public class DiagramListBox : ListBox
     {
         static DiagramListBox()

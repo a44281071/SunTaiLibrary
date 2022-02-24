@@ -20,10 +20,11 @@
         <Company>SamTi</Company>
         <PackageIcon>SunTai.jpg</PackageIcon>
         <LangVersion>9.0</LangVersion>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-        <DocumentationFile>D:\Repos\SunTaiLibrary\SunTaiLibrary\SunTaiLibrary.xml</DocumentationFile>
+        <DocumentationFile></DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>

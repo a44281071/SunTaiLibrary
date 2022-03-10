@@ -4,16 +4,17 @@
         <TargetFramework>net461</TargetFramework>
         <UseWPF>true</UseWPF>
         <UseWindowsForms>true</UseWindowsForms>
-        <Version>1.0.6.4</Version>
+        <Version>1.0.6.5</Version>
         <Authors>suntai,SamTi</Authors>
         <Copyright>MIT</Copyright>
         <PackageProjectUrl>https://github.com/a44281071/SunTaiLibrary</PackageProjectUrl>
         <RepositoryUrl>https://github.com/a44281071/SunTaiLibrary</RepositoryUrl>
         <PackageTags>suntai SamTi library wpf control helper</PackageTags>
         <PackageReleaseNotes>
-          - fix RatioBox control name space.
-          - Diagram control: small change default style.
-          - ViewBoxScaleTransformInverseConverter: pulic class.
+            - add Buzy scope, helpfull to BusyIndicator.
+            - fix RatioBox control name space.
+            - Diagram control: small change default style.
+            - ViewBoxScaleTransformInverseConverter: pulic class.
         </PackageReleaseNotes>
         <Description>suntai library for wpf</Description>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

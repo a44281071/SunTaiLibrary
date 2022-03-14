@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
     <PropertyGroup>
-        <TargetFramework>net461</TargetFramework>
+        <!--<TargetFramework>net461</TargetFramework>-->
+        <TargetFrameworks>net461;net472;net48</TargetFrameworks>
         <UseWPF>true</UseWPF>
         <UseWindowsForms>true</UseWindowsForms>
         <Version>1.0.6.5</Version>

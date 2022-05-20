@@ -15,41 +15,40 @@ using System.Windows.Shapes;
 
 namespace SunTaiLibrary.TestClient
 {
-  public partial class MainView : Window
-  {
-    public MainView()
+    public partial class MainView : Window
     {
-      InitializeComponent();
-    }
+        public MainView()
+        {
+            InitializeComponent();
+        }
 
-    private void ShowMessageToast_Click(object sender, RoutedEventArgs e)
-    {
-      System.Windows.MessageToast.Show("I'm message toast, time is " + DateTime.Now.ToString());
-    }
+        private void ShowMessageToast_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageToast.Show("I'm message toast, time is " + DateTime.Now.ToString());
+        }
 
-    private void ToastControl_FlyOut(object sender, RoutedEventArgs e)
-    {
-      //var ele = sender as Control;
-      //var ep = ele.Parent as Panel;
-      //ep.Children.Remove(ele);
-    }
+        private void ToastControl_FlyOut(object sender, RoutedEventArgs e)
+        {
+            //var ele = sender as Control;
+            //var ep = ele.Parent as Panel;
+            //ep.Children.Remove(ele);
+        }
 
-    private void Window_Loaded(object sender, RoutedEventArgs e)
-    {
-     
-    }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+        }
 
-    private void AddToCorrectGrid_Click(object sender, RoutedEventArgs e)
-    {
-      CorrectGrid1.Children.Add(new Button { Content = "A" });
-    }
+        private void AddToCorrectGrid_Click(object sender, RoutedEventArgs e)
+        {
+            CorrectGrid1.Children.Add(new Button { Content = "A" });
+        }
 
-    private void RemoveFromCorrectGrid_Click(object sender, RoutedEventArgs e)
-    {
-      if (CorrectGrid1.Children.Count > 0)
-      {
-        CorrectGrid1.Children.RemoveAt(0);
-      }
+        private void RemoveFromCorrectGrid_Click(object sender, RoutedEventArgs e)
+        {
+            if (CorrectGrid1.Children.Count > 0)
+            {
+                CorrectGrid1.Children.RemoveAt(0);
+            }
+        }
     }
-  }
 }

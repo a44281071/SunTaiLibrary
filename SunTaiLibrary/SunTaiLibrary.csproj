@@ -12,6 +12,7 @@
     <RepositoryUrl>https://github.com/a44281071/SunTaiLibrary</RepositoryUrl>
     <PackageTags>suntai SamTi library wpf control helper</PackageTags>
     <PackageReleaseNotes>
+      - Add 2 controls: ZoomContentControl | VirtualizingTilePanel.
       - support netcoreapp3.1;net5.0-windows;net6.0-windows.
       - add Buzy scope, helpfull to BusyIndicator.
       - fix RatioBox control name space.

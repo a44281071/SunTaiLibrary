@@ -39,7 +39,6 @@ namespace SunTaiLibrary.Controls
 
         private static void AllowDraggingPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Trace.TraceInformation("AllowDraggingPropertyChanged " + e.NewValue);
         }
 
         #endregion Static Constructor
@@ -257,7 +256,6 @@ namespace SunTaiLibrary.Controls
             // Cache the mouse cursor location.
             origCursorLocation = e.GetPosition(this);
 
-            Trace.TraceInformation($"OnMouseLeftButtonDown() source = {e.Source}, OriginalSource = {e.OriginalSource}");
             // Walk up the visual tree from the element that was clicked,
             // looking for an element that is a direct child of the Canvas.
             ElementBeingDragged = FindCanvasChild(e.OriginalSource as DependencyObject);

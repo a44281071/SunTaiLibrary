@@ -10,35 +10,35 @@ namespace SunTaiLibrary
     /// <summary>
     /// 表示这个对象带着一个忙状态标记
     /// </summary>
-    public interface IHasBuzyScope
+    public interface IHasBusyScope
     {
         /// <summary>
         /// 指示自己当前是否繁忙。
         /// 【true：繁忙状态】【false：空闲状态】
         /// </summary>
-        public BuzyScope Buzy { get; }
+        public BusyScope Busy { get; }
     }
 
     /// <summary>
     /// 忙状态标记。
     /// </summary>
-    public class BuzyScope : INotifyPropertyChanged
+    public class BusyScope : INotifyPropertyChanged
     {
-        bool _IsBuzy = false;
+        bool _IsBusy = false;
 
         /// <summary>
         /// 指示自己当前是否繁忙。
         /// 【true：繁忙状态】【false：空闲状态】
         /// </summary>
-        public bool IsBuzy
+        public bool IsBusy
         {
-            get => _IsBuzy;
+            get => _IsBusy;
             private set
             {
-                if (value != _IsBuzy)
+                if (value != _IsBusy)
                 {
-                    _IsBuzy = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsBuzy)));
+                    _IsBusy = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsBusy)));
                 }
             }
         }
@@ -51,17 +51,17 @@ namespace SunTaiLibrary
         /// <summary>
         /// 获取一个忙域，这个域释放前，会一直处于忙状态。
         /// </summary>
-        public IDisposable BeginScope() => new BuzyLifeScope(this);
+        public IDisposable BeginScope() => new BusyLifeScope(this);
 
-        private class BuzyLifeScope : IDisposable
+        private class BusyLifeScope : IDisposable
         {
-            public BuzyLifeScope(BuzyScope buzyScope)
+            public BusyLifeScope(BusyScope busyScope)
             {
-                buzyScope.IsBuzy = true;
-                this.buzyScope = new(buzyScope);
+                busyScope.IsBusy = true;
+                this.busyScope = new(busyScope);
             }
 
-            private readonly WeakReference<BuzyScope> buzyScope;
+            private readonly WeakReference<BusyScope> busyScope;
             private bool disposedValue;
 
             protected virtual void Dispose(bool disposing)
@@ -70,9 +70,9 @@ namespace SunTaiLibrary
                 {
                     if (disposing)
                     {
-                        if (buzyScope.TryGetTarget(out var scope))
+                        if (busyScope.TryGetTarget(out var scope))
                         {
-                            scope.IsBuzy = false;
+                            scope.IsBusy = false;
                         }
                     }
 
@@ -80,7 +80,7 @@ namespace SunTaiLibrary
                 }
             }
 
-            //~BuzyLifeScope()
+            //~BusyLifeScope()
             //{
             //    // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
             //    Dispose(disposing: false);

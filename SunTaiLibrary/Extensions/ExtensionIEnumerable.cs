@@ -119,5 +119,21 @@ namespace System.Linq
             source.Clear();
             return source;
         }
+
+        /// <summary>
+        /// IsNullOrEmpty
+        /// </summary>
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> source)
+        {
+            return source is null || !source.Any();
+        }
+
+        /// <summary>
+        /// HaveItems
+        /// </summary>
+        public static bool HaveItems<T>(this IEnumerable<T> source)
+        {
+            return source is not null && source.Any();
+        }
     }
 }

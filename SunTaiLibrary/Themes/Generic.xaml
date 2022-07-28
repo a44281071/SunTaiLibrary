@@ -706,6 +706,7 @@
       </Setter.Value>
     </Setter>
   </Style>
+  
   <Style TargetType="{x:Type cc:DiagramListBoxItem}">
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="MinHeight" Value="50" />
@@ -825,6 +826,7 @@
           <ControlTemplate.Triggers>
             <MultiDataTrigger>
               <MultiDataTrigger.Conditions>
+                <Condition Binding="{Binding Path=IsReadOnly, RelativeSource={x:Static RelativeSource.Self}}" Value="False" />
                 <Condition Binding="{Binding Path=IsSelected, RelativeSource={x:Static RelativeSource.Self}}" Value="True" />
               </MultiDataTrigger.Conditions>
               <Setter TargetName="thumb4" Property="Visibility" Value="Visible" />

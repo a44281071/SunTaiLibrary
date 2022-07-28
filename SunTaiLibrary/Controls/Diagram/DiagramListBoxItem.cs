@@ -5,12 +5,34 @@ using System.Windows.Input;
 
 namespace SunTaiLibrary.Controls
 {
+    /// <summary>
+    /// DiagramListBoxItem
+    /// </summary>
     public class DiagramListBoxItem : ListBoxItem
     {
         static DiagramListBoxItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DiagramListBoxItem), new FrameworkPropertyMetadata(typeof(DiagramListBoxItem)));
         }
+
+        #region IsReadOnly
+
+        /// <summary>
+        /// IsReadOnly
+        /// </summary>
+        public bool IsReadOnly
+        {
+            get { return (bool)GetValue(IsReadOnlyProperty); }
+            set { SetValue(IsReadOnlyProperty, value); }
+        }
+
+        /// <summary>
+        /// IsReadOnly
+        /// </summary>
+        public static readonly DependencyProperty IsReadOnlyProperty =
+            DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(DiagramListBoxItem), new PropertyMetadata(false));
+
+        #endregion IsReadOnly
 
         #region 鼠标左键事件
 

@@ -9,61 +9,88 @@ using System.Windows.Media;
 
 namespace SunTaiLibrary.Controls
 {
-  /// <Remarks>
-  ///     As a side effect ClippingBorder will surpress any databinding or animation of
-  ///         its childs UIElement.Clip property until the child is removed from ClippingBorder
-  /// </Remarks>
-  public class ClippingBorder : Border
-  {
-    private RectangleGeometry _clipRect = new RectangleGeometry();
-    private object _oldClip;
-
-    protected override void OnRender(DrawingContext dc)
+    /// <Remarks>
+    ///     As a side effect ClippingBorder will surpress any databinding or animation of
+    ///         its childs UIElement.Clip property until the child is removed from ClippingBorder.
+    /// Thanks [Javier Suárez] for RoundRectangleGeometry.
+    /// </Remarks>
+    public class ClippingBorder : Border
     {
-      OnApplyChildClip();
-      base.OnRender(dc);
-    }
-
-    public override UIElement Child
-    {
-      get
-      {
-        return base.Child;
-      }
-      set
-      {
-        if (this.Child != value)
+        /// <summary>
+        /// create a radius reactangle geometry for clip.
+        /// </summary>
+        /// <see href="https://github.com/xamarin/Xamarin.Forms/pull/11851"/>
+        /// <param name="rect">contennt bound</param>
+        /// <returns>a geometry for clip.</returns>
+        private Geometry CreateRoundRectangleGeometry(Rect rect)
         {
-          if (this.Child != null)
-          {
-            // Restore original clipping
-            this.Child.SetValue(UIElement.ClipProperty, _oldClip);
-          }
+            var roundedRectGeometry = new GeometryGroup
+            {
+                FillRule = FillRule.Nonzero
+            };
 
-          if (value != null)
-          {
-            _oldClip = value.ReadLocalValue(UIElement.ClipProperty);
-          }
-          else
-          {
-            // If we dont set it to null we could leak a Geometry object
-            _oldClip = null;
-          }
+            if (CornerRadius.TopLeft > 0)
+                roundedRectGeometry.Children.Add(
+                    new EllipseGeometry(new Point(rect.Location.X + CornerRadius.TopLeft, rect.Location.Y + CornerRadius.TopLeft), rect.Location.Y + CornerRadius.TopLeft, rect.Location.Y + CornerRadius.TopLeft));
 
-          base.Child = value;
+            if (CornerRadius.TopRight > 0)
+                roundedRectGeometry.Children.Add(
+                    new EllipseGeometry(new Point(rect.Location.X + rect.Width - CornerRadius.TopRight, rect.Location.Y + CornerRadius.TopRight), CornerRadius.TopRight, CornerRadius.TopRight));
+
+            if (CornerRadius.BottomRight > 0)
+                roundedRectGeometry.Children.Add(
+                    new EllipseGeometry(new Point(rect.Location.X + rect.Width - CornerRadius.BottomRight, rect.Location.Y + rect.Height - CornerRadius.BottomRight), CornerRadius.BottomRight, CornerRadius.BottomRight));
+
+            if (CornerRadius.BottomLeft > 0)
+                roundedRectGeometry.Children.Add(
+                    new EllipseGeometry(new Point(rect.Location.X + CornerRadius.BottomLeft, rect.Location.Y + rect.Height - CornerRadius.BottomLeft), CornerRadius.BottomLeft, CornerRadius.BottomLeft));
+
+            var pathFigure = new PathFigure
+            {
+                IsClosed = true,
+                StartPoint = new Point(rect.Location.X + CornerRadius.TopLeft, rect.Location.Y),
+                Segments = new PathSegmentCollection
+                {
+                    new LineSegment { Point = new Point(rect.Location.X + rect.Width - CornerRadius.TopRight, rect.Location.Y) },
+                    new LineSegment { Point = new Point(rect.Location.X + rect.Width, rect.Location.Y + CornerRadius.TopRight) },
+                    new LineSegment { Point = new Point(rect.Location.X + rect.Width, rect.Location.Y + rect.Height - CornerRadius.BottomRight) },
+                    new LineSegment { Point = new Point(rect.Location.X + rect.Width - CornerRadius.BottomRight, rect.Location.Y + rect.Height) },
+                    new LineSegment { Point = new Point(rect.Location.X + CornerRadius.BottomLeft, rect.Location.Y + rect.Height) },
+                    new LineSegment { Point = new Point(rect.Location.X, rect.Location.Y + rect.Height - CornerRadius.BottomLeft) },
+                    new LineSegment { Point = new Point(rect.Location.X, rect.Location.Y + CornerRadius.TopLeft) }
+                }
+            };
+
+            var pathFigureCollection = new PathFigureCollection
+            {
+                pathFigure
+            };
+
+            roundedRectGeometry.Children.Add(new PathGeometry(pathFigureCollection, FillRule.Nonzero, null));
+
+            return roundedRectGeometry;
         }
-      }
-    }
 
-    protected virtual void OnApplyChildClip()
-    {
-      UIElement child = this.Child;
-      if (child != null)
-      {
-        _clipRect.RadiusX = _clipRect.RadiusY = Math.Max(0.0, this.CornerRadius.TopLeft - (this.BorderThickness.Left * 0.5));
-        _clipRect.Rect = new Rect(Child.RenderSize);
-        child.Clip = _clipRect;
-      }
+        /// <summary>
+        /// Apply Clip
+        /// </summary>
+        protected virtual void OnApplyClip()
+        {
+            UIElement child = this.Child;
+            if (child != null)
+            {
+                var rect = new Rect(RenderSize);
+                Clip = CreateRoundRectangleGeometry(rect);
+            }
+        }
+
+        /// <summary>
+        /// OnRenderSizeChanged
+        /// </summary>
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+        {
+            OnApplyClip();
+            base.OnRenderSizeChanged(sizeInfo);
+        }
     }
-  }
 }

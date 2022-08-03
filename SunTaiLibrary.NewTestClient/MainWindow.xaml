@@ -33,10 +33,9 @@
   <ScrollViewer>
     <WrapPanel>
       <GroupBox Margin="3" Header="ClippingBorder">
-        <t3:ClippingBorder CornerRadius="8">
-          <Rectangle Width="50"
-                     Height="30"
-                     Fill="Gray" />
+        <t3:ClippingBorder CornerRadius="0,0,24,0" Background="Pink">
+          <Button Width="80"                 
+                  Background="Gray" />
         </t3:ClippingBorder>
       </GroupBox>
       <GroupBox Width="300"
@@ -101,9 +100,9 @@
           </GroupBox>
         </StackPanel>
       </GroupBox>
-      <GroupBox Header="MaskBox_Display"
-                 Width="200"
-                Height="200">
+      <GroupBox Width="200"
+                Height="200"
+                Header="MaskBox_Display">
         <t3:MaskBox BottomMask="{Binding ElementName=maskbox_Bottom, Path=Value}"
                     IsMaskEnabled="{Binding ElementName=maskbox_IsMask, Path=IsChecked}"
                     LeftMask="{Binding ElementName=maskbox_Left, Path=Value}"

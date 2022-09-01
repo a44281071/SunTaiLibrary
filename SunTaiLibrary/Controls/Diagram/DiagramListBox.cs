@@ -60,6 +60,37 @@ namespace SunTaiLibrary.Controls
 
         #endregion 设计器宽高
 
+
+        #region Item拖动自动对齐并显示标线
+        /// <summary>
+        /// Item拖动自动对齐并显示标线
+        /// </summary>
+        public bool ItemAlignToDrag
+        {
+            get { return (bool)GetValue(ItemAlignToDragProperty); }
+            set { SetValue(ItemAlignToDragProperty, value); }
+        }
+
+        public static readonly DependencyProperty ItemAlignToDragProperty =
+            DependencyProperty.Register("ItemAlignToDrag", typeof(bool), typeof(DiagramListBox), new PropertyMetadata(false));
+
+
+        /// <summary>
+        /// 自动对齐像素范围
+        /// </summary>
+        public double ItemAlignToDragScope
+        {
+            get { return (double)GetValue(ItemAlignToDragScopeProperty); }
+            set { SetValue(ItemAlignToDragScopeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ItemAlignToDragScope.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ItemAlignToDragScopeProperty =
+            DependencyProperty.Register("ItemAlignToDragScope", typeof(double), typeof(DiagramListBox), new PropertyMetadata(10d));
+
+
+        #endregion
+
         /// <summary>
         /// 生成列表项控件
         /// </summary>

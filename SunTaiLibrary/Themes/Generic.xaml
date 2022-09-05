@@ -706,7 +706,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  
+
   <Style TargetType="{x:Type cc:DiagramListBoxItem}">
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="MinHeight" Value="50" />
@@ -857,6 +857,8 @@
             <Viewbox>
               <cc:DiagramCanvas Width="{TemplateBinding DiagramWidth}"
                                 Height="{TemplateBinding DiagramHeight}"
+                                AlignToChildren="{TemplateBinding ItemAlignToDrag}"
+                                AlignToChildrenScope="{TemplateBinding ItemAlignToDragScope}"
                                 AllowDragOutOfView="False"
                                 Background="{TemplateBinding Background}"
                                 ClipToBounds="True"

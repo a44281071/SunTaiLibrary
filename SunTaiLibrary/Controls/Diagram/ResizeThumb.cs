@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
+using System.Xml.Linq;
 
 namespace SunTaiLibrary.Controls
 {
@@ -12,10 +17,23 @@ namespace SunTaiLibrary.Controls
     {
         private FrameworkElement parent;
 
+        public double AutoAlignScope
+        {
+            get { return (double)GetValue(AutoAlignScopeProperty); }
+            set { SetValue(AutoAlignScopeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AutoAlignScope.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AutoAlignScopeProperty =
+            DependencyProperty.Register("AutoAlignScope", typeof(double), typeof(ResizeThumb), new PropertyMetadata(10d));
+
+
+
         public ResizeThumb()
         {
             DragDelta += ResizeThumb_DragDelta;
 
+            PreviewMouseLeftButtonUp += ResizeThumb_MouseLeftButtonUp;
             Loaded += (s, _) =>
             {
                 if (TargetElement is FrameworkElement ele)
@@ -29,10 +47,39 @@ namespace SunTaiLibrary.Controls
             };
         }
 
+        private void ResizeThumb_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var canvas = parent as Canvas;
+            if (canvas is null) return;
+            canvas.ClearAlignLine();
+        }
+
         private void ResizeThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             if (TargetElement is FrameworkElement ele)
             {
+                //获取可对齐的点
+                var canvas = parent as Canvas;
+                if (canvas is null) return;
+                canvas.ClearAlignLine();
+                List<Point> points = new List<Point>();
+                foreach (FrameworkElement ctrl in canvas.Children)
+                {
+                    if (ctrl != TargetElement)
+                    {
+                        //左上角的点
+                        Point itemtl = new Point(Canvas.GetLeft(ctrl), Canvas.GetTop(ctrl));
+                        //左下角的点
+                        Point itembl = new Point(Canvas.GetLeft(ctrl), Canvas.GetTop(ctrl) + ctrl.ActualHeight);
+                        //右上角的点
+                        Point itemtr = new Point(Canvas.GetLeft(ctrl) + ctrl.ActualWidth, Canvas.GetTop(ctrl));
+                        //右下角的点
+                        Point itembr = new Point(Canvas.GetLeft(ctrl) + ctrl.ActualWidth, Canvas.GetTop(ctrl) + ctrl.ActualHeight);
+
+                        points.AddRange(new Point[] { itemtl, itemtr, itembl, itembr });
+                    }
+                }
+
                 double deltaVertical = 0;
                 double deltaHorizontal = 0;
                 double height, width;
@@ -275,6 +322,92 @@ namespace SunTaiLibrary.Controls
                             break;
                     }
                 }
+
+                #region 拖拽大小自动对齐并显示对齐标签
+                //计算是否显示对齐线
+                bool needSetLAlign = false;
+                bool needSetTAlign = false;
+                //左
+                var lAlign = points.FirstOrDefault(x => Math.Abs(x.X - Canvas.GetLeft(TargetElement)) <= AutoAlignScope);
+                if (lAlign != default)
+                {
+                    double px = lAlign.X - Canvas.GetLeft(TargetElement);
+                    if (px != 0)
+                    {
+                        var layer = AdornerLayer.GetAdornerLayer(canvas);
+                        layer.Add(new SelectionAlignLine(canvas, lAlign, new Point(lAlign.X, Canvas.GetTop(TargetElement) + TargetElement.Height)));
+                        if (px > 0)
+                        {
+                            TargetElement.Width -= px;
+                        }
+                        else if (px < 0)
+                        {
+                            TargetElement.Width += Math.Abs(px);
+                        }
+                        needSetLAlign = true;
+                        Canvas.SetLeft(TargetElement, lAlign.X);
+                    }
+                }
+
+                //顶
+                var tAlign = points.FirstOrDefault(x => Math.Abs(x.Y - Canvas.GetTop(TargetElement)) <= AutoAlignScope);
+                if (tAlign != default)
+                {
+                    double px = tAlign.Y - Canvas.GetTop(TargetElement);
+                    if (px != 0) 
+                    {
+                        if (px > 0)
+                        {
+                            TargetElement.Height -= px;
+                        }
+                        else if (px < 0)
+                        {
+                            TargetElement.Height += Math.Abs(px);
+                        }
+                        var layer = AdornerLayer.GetAdornerLayer(canvas);
+                        layer.Add(new SelectionAlignLine(canvas, tAlign, new Point(Canvas.GetLeft(TargetElement) + TargetElement.Width, tAlign.Y)));
+                        Canvas.SetTop(TargetElement, tAlign.Y);
+                        needSetTAlign = true;
+                    }
+                }
+
+                //右
+                var rAlign = points.FirstOrDefault(x => (x.X -(Canvas.GetLeft(TargetElement) + TargetElement.ActualWidth) <= AutoAlignScope && x.X - (Canvas.GetLeft(TargetElement) + TargetElement.ActualWidth) > 0)
+                || ((Canvas.GetLeft(TargetElement) + TargetElement.ActualWidth)-x.X<= AutoAlignScope && (Canvas.GetLeft(TargetElement) + TargetElement.ActualWidth) - x.X>0));
+                if (rAlign != default)
+                {
+                    //不是向右拉不执行对齐
+                    if((DragDirection ^ DragDirection.BottomRight) != 0|| (DragDirection ^ DragDirection.MiddleRight) != 0|| (DragDirection ^ DragDirection.TopRight) != 0)
+                    {
+                        if (!needSetLAlign)
+                        {
+                            TargetElement.Width = rAlign.X - Canvas.GetLeft(TargetElement);
+                            var layer = AdornerLayer.GetAdornerLayer(canvas);
+                            layer.Add(new SelectionAlignLine(canvas, rAlign, new Point(rAlign.X, Canvas.GetTop(TargetElement))));
+                        }
+                    }
+                }
+
+                //底
+                var bAlign = points.FirstOrDefault(x => x.Y - (Canvas.GetTop(TargetElement) + TargetElement.ActualHeight) <= AutoAlignScope && x.Y - (Canvas.GetTop(TargetElement) + TargetElement.ActualHeight) > 0
+                ||((Canvas.GetTop(TargetElement) + TargetElement.ActualHeight)-x.Y<= AutoAlignScope && (Canvas.GetTop(TargetElement) + TargetElement.ActualHeight) - x.Y > 0));
+                if (bAlign != default)
+                {
+                    //不是向底拉不执行对齐
+                    if ((DragDirection ^ DragDirection.BottomLeft) != 0 || (DragDirection ^ DragDirection.BottomRight) != 0 || (DragDirection ^ DragDirection.BottomCenter) != 0) 
+                    {
+                        if (!needSetTAlign)
+                        {
+                            TargetElement.Height = bAlign.Y - Canvas.GetTop(TargetElement);
+                            var layer = AdornerLayer.GetAdornerLayer(canvas);
+                            layer.Add(new SelectionAlignLine(canvas, bAlign, new Point(Canvas.GetLeft(TargetElement), bAlign.Y)));
+                        }
+                    }
+                }
+
+                #endregion
+
+                points.Clear();
             }
         }
 

@@ -706,7 +706,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  
+
   <Style TargetType="{x:Type cc:DiagramListBoxItem}">
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="MinHeight" Value="50" />
@@ -882,6 +882,31 @@
               <TextBox IsReadOnly="{TemplateBinding IsReadonly}" Text="{TemplateBinding Text}" />
             </DockPanel>
           </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style TargetType="cc:FormGroup">
+    <Setter Property="Padding" Value="5" />
+    <Setter Property="ItemsPanel">
+      <Setter.Value>
+        <ItemsPanelTemplate>
+          <cc:FormPanel />
+        </ItemsPanelTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="cc:FormGroup">
+          <Grid Margin="{TemplateBinding Padding}">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto" />
+              <RowDefinition />
+            </Grid.RowDefinitions>
+            <ContentPresenter ContentSource="Header" />
+            <ItemsPresenter Grid.Row="1" />
+          </Grid>
         </ControlTemplate>
       </Setter.Value>
     </Setter>

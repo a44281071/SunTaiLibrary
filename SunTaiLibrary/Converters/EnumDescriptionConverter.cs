@@ -8,21 +8,28 @@ using System.Windows.Data;
 
 namespace SunTaiLibrary.Converters
 {
-  /// <summary>
-  /// 获取枚举的描述文字。
-  /// </summary>
-  [ValueConversion(typeof(Enum), typeof(string))]
-  public class EnumDescriptionConverter : IValueConverter
-  {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    /// <summary>
+    /// 获取枚举的描述文字。
+    /// </summary>
+    [ValueConversion(typeof(Enum), typeof(string))]
+    public class EnumDescriptionConverter : IValueConverter
     {
-      Enum vv = (Enum)value;
-      return vv.GetEnumDescription();
-    }
+        /// <summary>
+        /// get enum description.
+        /// </summary>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (value is Enum vee)
+                ? vee.GetEnumDescription(true)
+                : "";
+        }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-      throw new NotImplementedException();
+        /// <summary>
+        /// not implemented
+        /// </summary>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
-  }
 }

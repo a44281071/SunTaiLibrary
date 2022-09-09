@@ -33,9 +33,11 @@
   <ScrollViewer>
     <WrapPanel>
       <GroupBox Margin="3" Header="ClippingBorder">
-        <t3:ClippingBorder CornerRadius="0,0,24,0" Background="Pink">
-          <Button Width="80"                 
-                  Background="Gray" />
+        <t3:ClippingBorder Background="Pink"
+                           BorderBrush="Red"
+                           BorderThickness="2"
+                           CornerRadius="0,0,24,0">
+          <Button Width="80" Background="Gray" />
         </t3:ClippingBorder>
       </GroupBox>
       <GroupBox Width="300"

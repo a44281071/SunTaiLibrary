@@ -857,6 +857,8 @@
             <Viewbox>
               <cc:DiagramCanvas Width="{TemplateBinding DiagramWidth}"
                                 Height="{TemplateBinding DiagramHeight}"
+                                AlignToChildren="{TemplateBinding ItemAlignToDrag}"
+                                AlignToChildrenScope="{TemplateBinding ItemAlignToDragScope}"
                                 AllowDragOutOfView="False"
                                 Background="{TemplateBinding Background}"
                                 ClipToBounds="True"

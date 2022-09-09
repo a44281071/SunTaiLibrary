@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
@@ -14,6 +17,7 @@ namespace SunTaiLibrary.Controls
     /// </summary>
     public class DiagramCanvas : Canvas
     {
+
         #region Static Constructor
 
         static DiagramCanvas()
@@ -30,11 +34,24 @@ namespace SunTaiLibrary.Controls
                 typeof(DiagramCanvas),
                 new UIPropertyMetadata(false));
 
+            AlignToChildrenProperty = DependencyProperty.Register(
+                "AlignToChildren",
+                typeof(bool),
+                typeof(DiagramCanvas),
+                new UIPropertyMetadata(false));
+
+            AlignToChildrenScopeProperty = DependencyProperty.Register(
+                "AlignToChildrenScope",
+                typeof(double),
+                typeof(DiagramCanvas),
+                new UIPropertyMetadata(10d));
+
             CanBeDraggedProperty = DependencyProperty.RegisterAttached(
                 "CanBeDragged",
                 typeof(bool),
                 typeof(DiagramCanvas),
                 new UIPropertyMetadata(true));
+
         }
 
         private static void AllowDraggingPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -98,6 +115,8 @@ namespace SunTaiLibrary.Controls
 
         public static readonly DependencyProperty AllowDraggingProperty;
         public static readonly DependencyProperty AllowDragOutOfViewProperty;
+        public static readonly DependencyProperty AlignToChildrenProperty;
+        public static readonly DependencyProperty AlignToChildrenScopeProperty;
 
         #endregion Dependency Properties
 
@@ -130,6 +149,28 @@ namespace SunTaiLibrary.Controls
         }
 
         #endregion AllowDragOutOfView
+
+        #region AlignToChildren
+        /// <summary>
+        /// 使子项拖动时自动对齐并显示对齐标线
+        /// </summary>
+        public bool AlignToChildren
+        {
+            get => (bool)GetValue(AlignToChildrenProperty);
+            set => SetValue(AlignToChildrenProperty, value);
+        }
+        #endregion
+
+        #region AlignToChildrenScope
+        /// <summary>
+        /// 使子项拖动时自动对齐并显示对齐标线
+        /// </summary>
+        public double AlignToChildrenScope
+        {
+            get => (double)GetValue(AlignToChildrenScopeProperty);
+            set => SetValue(AlignToChildrenScopeProperty, value);
+        }
+        #endregion
 
         #region BringToFront / SendToBack
 
@@ -292,11 +333,34 @@ namespace SunTaiLibrary.Controls
                 return;
             }
 
+            this.ClearAlignLine();
+
             // Get the position of the mouse cursor, relative to the Canvas.
             Point cursorLocation = e.GetPosition(this);
 
             // These values will store the new offsets of the drag element.
             double newHorizontalOffset, newVerticalOffset;
+
+            //获取可对齐的点
+            List<Point> points = new List<Point>();
+            var element = ElementBeingDragged as FrameworkElement;
+            foreach (FrameworkElement ctrl in Children)
+            {
+                if (ctrl != element)
+                {
+                    //左上角的点
+                    Point itemtl = new Point(GetLeft(ctrl), GetTop(ctrl));
+                    //左下角的点
+                    Point itembl = new Point(GetLeft(ctrl), GetTop(ctrl) + ctrl.ActualHeight);
+                    //右上角的点
+                    Point itemtr = new Point(GetLeft(ctrl) + ctrl.ActualWidth, GetTop(ctrl));
+                    //右下角的点
+                    Point itembr = new Point(GetLeft(ctrl) + ctrl.ActualWidth, GetTop(ctrl) + ctrl.ActualHeight);
+
+                    points.AddRange(new Point[] { itemtl, itemtr, itembl, itembr });
+                }
+            }
+
 
             #region Calculate Offsets
 
@@ -372,6 +436,49 @@ namespace SunTaiLibrary.Controls
             }
 
             #endregion Move Drag Element
+
+            //计算是否显示对齐线
+            if (AlignToChildren)
+            {
+                //左
+                var lAlign = points.FirstOrDefault(x => Math.Abs(x.X - newHorizontalOffset) <= AlignToChildrenScope);
+                if (lAlign != default)
+                {
+                    var layer = AdornerLayer.GetAdornerLayer(this);
+                    layer.Add(new SelectionAlignLine(this, lAlign, new Point(lAlign.X, newVerticalOffset)));
+                    SetLeft(ElementBeingDragged, lAlign.X);
+                }
+
+                //顶
+                var tAlign2 = points.FirstOrDefault(x => Math.Abs(x.Y - newVerticalOffset) <= AlignToChildrenScope);
+                if (tAlign2 != default)
+                {
+                    var layer = AdornerLayer.GetAdornerLayer(this);
+                    layer.Add(new SelectionAlignLine(this, tAlign2, new Point(newHorizontalOffset, tAlign2.Y)));
+                    SetTop(ElementBeingDragged, tAlign2.Y);
+                }
+
+                //右
+                var rAlign = points.FirstOrDefault(x => Math.Abs(x.X - (GetLeft(element) + element.ActualWidth)) <= AlignToChildrenScope);
+                if (rAlign != default)
+                {
+                    var layer = AdornerLayer.GetAdornerLayer(this);
+                    layer.Add(new SelectionAlignLine(this, rAlign, new Point(rAlign.X, newVerticalOffset)));
+                    if (lAlign == default) SetLeft(ElementBeingDragged, rAlign.X - element.Width); ;
+                }
+
+                //底
+                var bAlign = points.FirstOrDefault(x => Math.Abs(x.Y - (GetTop(element) + element.ActualHeight)) <= AlignToChildrenScope);
+                if (bAlign != default)
+                {
+                    var layer = AdornerLayer.GetAdornerLayer(this);
+                    layer.Add(new SelectionAlignLine(this, bAlign, new Point(newHorizontalOffset, bAlign.Y)));
+
+                    if (tAlign2 == default) SetTop(ElementBeingDragged, bAlign.Y - element.Height);
+
+                }
+            }
+            points.Clear();
         }
 
         protected override void OnMouseUp(MouseButtonEventArgs e)
@@ -381,6 +488,8 @@ namespace SunTaiLibrary.Controls
             // Reset the field whether the left or right mouse button was
             // released, in case a context menu was opened on the drag element.
             ElementBeingDragged = null;
+
+            this.ClearAlignLine();
         }
 
         #endregion Overrides
@@ -537,5 +646,28 @@ namespace SunTaiLibrary.Controls
         }
 
         #endregion Private Helpers
+    }
+
+
+    public static class UIElementEx
+    {
+        /// <summary>
+        /// 清除绘制的对齐线
+        /// </summary>
+        public static void ClearAlignLine(this UIElement element)
+        {
+            try
+            {
+                var arr = AdornerLayer.GetAdornerLayer(element).GetAdorners(element);
+                if (arr != null)
+                {
+                    for (int i = arr.Length - 1; i >= 0; i--)
+                    {
+                        AdornerLayer.GetAdornerLayer(element).Remove(arr[i]);
+                    }
+                }
+            }
+            catch { }
+        }
     }
 }

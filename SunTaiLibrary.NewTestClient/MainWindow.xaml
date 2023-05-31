@@ -31,7 +31,7 @@
   </Control.Resources>
 
   <ScrollViewer>
-    <WrapPanel>
+    <t3:WrapPanel HorizontalSpacing="3" VerticalSpacing="3">
       <GroupBox Margin="3" Header="ClippingBorder">
         <t3:ClippingBorder Background="Pink"
                            BorderBrush="Red"
@@ -119,7 +119,7 @@
             </t3:SwitchGearControl.TrueContent>
           </t3:SwitchGearControl>
         </DockPanel>
-      </GroupBox>
-    </WrapPanel>
+      </GroupBox>      
+    </t3:WrapPanel>
   </ScrollViewer>
 </Window>

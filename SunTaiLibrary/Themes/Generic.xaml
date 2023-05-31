@@ -1,861 +1,914 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:att="clr-namespace:SunTaiLibrary.Attached"
-                    xmlns:cc="clr-namespace:SunTaiLibrary.Controls"
-                    xmlns:cvt="clr-namespace:SunTaiLibrary.Converters"
-                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                    mc:Ignorable="d">
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:att="clr-namespace:SunTaiLibrary.Attached"
+    xmlns:cc="clr-namespace:SunTaiLibrary.Controls"
+    xmlns:cvt="clr-namespace:SunTaiLibrary.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    mc:Ignorable="d">
 
-  <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="/SunTaiLibrary;component/Themes/Icons.xaml" />
-  </ResourceDictionary.MergedDictionaries>
-  <cvt:ProgressBarWidthConverter x:Key="ProgressBarWidthConverter" />
-  <cvt:ValueToEqualsParameterConverter x:Key="ValueToEqualsParameterConverter" />
-  <cvt:ViewBoxScaleTransformInverseConverter x:Key="ViewBoxScaleTransformInverse" />
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/SunTaiLibrary;component/Themes/Icons.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <cvt:ProgressBarWidthConverter x:Key="ProgressBarWidthConverter" />
+    <cvt:ValueToEqualsParameterConverter x:Key="ValueToEqualsParameterConverter" />
+    <cvt:ViewBoxScaleTransformInverseConverter x:Key="ViewBoxScaleTransformInverse" />
 
-  <Style TargetType="{x:Type cc:CaptionButton}">
-    <Setter Property="Width" Value="34" />
-    <Setter Property="Height" Value="26" />
-    <Setter Property="Background" Value="Transparent" />
-    <Setter Property="HorizontalContentAlignment" Value="Center" />
-    <Setter Property="VerticalContentAlignment" Value="Center" />
-    <Setter Property="BorderThickness" Value="0" />
-    <Setter Property="SnapsToDevicePixels" Value="True" />
-    <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
-    <Setter Property="Cursor" Value="Hand" />
-    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-    <Setter Property="IsTabStop" Value="False" />
-    <Setter Property="Focusable" Value="False" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type cc:CaptionButton}">
-          <Border x:Name="border"
-                  Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}"
-                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-            <Grid Margin="{TemplateBinding Padding}"
-                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-              <ContentPresenter x:Name="contentPresenter" />
-              <Path x:Name="icon"
-                    Fill="{TemplateBinding Foreground}"
-                    Visibility="Collapsed" />
-            </Grid>
-          </Border>
-          <ControlTemplate.Triggers>
-            <Trigger Property="WindowAction" Value="Minimize">
-              <Setter TargetName="icon" Property="Style" Value="{StaticResource MinimizeIconKey}" />
+    <Style TargetType="{x:Type cc:CaptionButton}">
+        <Setter Property="Width" Value="34" />
+        <Setter Property="Height" Value="26" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type cc:CaptionButton}">
+                    <Border
+                        x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                        <Grid
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <ContentPresenter x:Name="contentPresenter" />
+                            <Path
+                                x:Name="icon"
+                                Fill="{TemplateBinding Foreground}"
+                                Visibility="Collapsed" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="WindowAction" Value="Minimize">
+                            <Setter TargetName="icon" Property="Style" Value="{StaticResource MinimizeIconKey}" />
+                        </Trigger>
+                        <Trigger Property="WindowAction" Value="Maximize">
+                            <Setter TargetName="icon" Property="Style" Value="{StaticResource MaximizeIconKey}" />
+                        </Trigger>
+                        <Trigger Property="WindowAction" Value="Normalize">
+                            <Setter TargetName="icon" Property="Style" Value="{StaticResource NormalizeIconKey}" />
+                        </Trigger>
+                        <Trigger Property="WindowAction" Value="Close">
+                            <Setter TargetName="icon" Property="Style" Value="{StaticResource CloseIconKey}" />
+                        </Trigger>
+                        <Trigger Property="Content" Value="{x:Null}">
+                            <Setter TargetName="icon" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ActiveBackgroundBrushKey}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorderBrushKey}" />
+                <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
             </Trigger>
-            <Trigger Property="WindowAction" Value="Maximize">
-              <Setter TargetName="icon" Property="Style" Value="{StaticResource MaximizeIconKey}" />
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource AccentBrushKey}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorderBrushKey}" />
+                <Setter Property="Foreground" Value="{DynamicResource AccentForegroundBrushKey}" />
             </Trigger>
-            <Trigger Property="WindowAction" Value="Normalize">
-              <Setter TargetName="icon" Property="Style" Value="{StaticResource NormalizeIconKey}" />
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.6" />
             </Trigger>
-            <Trigger Property="WindowAction" Value="Close">
-              <Setter TargetName="icon" Property="Style" Value="{StaticResource CloseIconKey}" />
-            </Trigger>
-            <Trigger Property="Content" Value="{x:Null}">
-              <Setter TargetName="icon" Property="Visibility" Value="Visible" />
-            </Trigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-    <Style.Triggers>
-      <Trigger Property="IsMouseOver" Value="True">
-        <Setter Property="Background" Value="{DynamicResource ActiveBackgroundBrushKey}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorderBrushKey}" />
-        <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
-      </Trigger>
-      <Trigger Property="IsPressed" Value="True">
-        <Setter Property="Background" Value="{DynamicResource AccentBrushKey}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorderBrushKey}" />
-        <Setter Property="Foreground" Value="{DynamicResource AccentForegroundBrushKey}" />
-      </Trigger>
-      <Trigger Property="IsEnabled" Value="False">
-        <Setter Property="Opacity" Value="0.6" />
-      </Trigger>
-    </Style.Triggers>
-  </Style>
+        </Style.Triggers>
+    </Style>
 
-  <Style TargetType="{x:Type cc:SystemButtons}">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type cc:SystemButtons}">
-          <StackPanel Orientation="Horizontal" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-            <cc:CaptionButton WindowAction="Minimize" />
-            <cc:CaptionButton d:IsHidden="True" WindowAction="Normalize" />
-            <cc:CaptionButton WindowAction="Maximize" />
-            <cc:CaptionButton WindowAction="Close" />
-          </StackPanel>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+    <Style TargetType="{x:Type cc:SystemButtons}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type cc:SystemButtons}">
+                    <StackPanel Orientation="Horizontal" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                        <cc:CaptionButton WindowAction="Minimize" />
+                        <cc:CaptionButton d:IsHidden="True" WindowAction="Normalize" />
+                        <cc:CaptionButton WindowAction="Maximize" />
+                        <cc:CaptionButton WindowAction="Close" />
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  <Style TargetType="{x:Type cc:ImageButton}">
-    <Setter Property="Background" Value="Transparent" />
-    <Setter Property="SnapsToDevicePixels" Value="True" />
-    <Setter Property="Cursor" Value="Hand" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type cc:ImageButton}">
-          <Border Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}"
-                  SnapsToDevicePixels="True">
-            <Grid Margin="{TemplateBinding Padding}">
-              <Image x:Name="img"
-                     Margin="{TemplateBinding ImageMargin}"
-                     HorizontalAlignment="{TemplateBinding HorizontalImageAlignment}"
-                     VerticalAlignment="{TemplateBinding VerticalImageAlignment}"
-                     Source="{TemplateBinding NormalImage}"
-                     Stretch="{TemplateBinding Stretch}" />
-              <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+    <Style TargetType="{x:Type cc:ImageButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type cc:ImageButton}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="True">
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Image
+                                x:Name="img"
+                                Margin="{TemplateBinding ImageMargin}"
+                                HorizontalAlignment="{TemplateBinding HorizontalImageAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalImageAlignment}"
+                                Source="{TemplateBinding NormalImage}"
+                                Stretch="{TemplateBinding Stretch}" />
+                            <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 RecognizesAccessKey="True"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-            </Grid>
-          </Border>
-          <ControlTemplate.Triggers>
-            <MultiDataTrigger>
-              <MultiDataTrigger.Conditions>
-                <Condition Binding="{Binding Path=IsMouseOver, RelativeSource={x:Static RelativeSource.Self}}" Value="True" />
-                <Condition>
-                  <Condition.Binding>
-                    <Binding Converter="{StaticResource ValueToEqualsParameterConverter}"
-                             ConverterParameter="{x:Null}"
-                             Path="HoverImage"
-                             RelativeSource="{x:Static RelativeSource.Self}" />
-                  </Condition.Binding>
-                  <Condition.Value>
-                    <sys:Boolean>False</sys:Boolean>
-                  </Condition.Value>
-                </Condition>
-              </MultiDataTrigger.Conditions>
-              <Setter TargetName="img" Property="Source" Value="{Binding Path=HoverImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
-            </MultiDataTrigger>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsMouseOver, RelativeSource={x:Static RelativeSource.Self}}" Value="True" />
+                                <Condition>
+                                    <Condition.Binding>
+                                        <Binding
+                                            Converter="{StaticResource ValueToEqualsParameterConverter}"
+                                            ConverterParameter="{x:Null}"
+                                            Path="HoverImage"
+                                            RelativeSource="{x:Static RelativeSource.Self}" />
+                                    </Condition.Binding>
+                                    <Condition.Value>
+                                        <sys:Boolean>False</sys:Boolean>
+                                    </Condition.Value>
+                                </Condition>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="img" Property="Source" Value="{Binding Path=HoverImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
+                        </MultiDataTrigger>
 
-            <MultiDataTrigger>
-              <MultiDataTrigger.Conditions>
-                <Condition Binding="{Binding Path=IsPressed, RelativeSource={x:Static RelativeSource.Self}}" Value="True" />
-                <Condition>
-                  <Condition.Binding>
-                    <Binding Converter="{StaticResource ValueToEqualsParameterConverter}"
-                             ConverterParameter="{x:Null}"
-                             Path="PressedImage"
-                             RelativeSource="{x:Static RelativeSource.Self}" />
-                  </Condition.Binding>
-                  <Condition.Value>
-                    <sys:Boolean>False</sys:Boolean>
-                  </Condition.Value>
-                </Condition>
-              </MultiDataTrigger.Conditions>
-              <Setter TargetName="img" Property="Source" Value="{Binding Path=PressedImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
-            </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsPressed, RelativeSource={x:Static RelativeSource.Self}}" Value="True" />
+                                <Condition>
+                                    <Condition.Binding>
+                                        <Binding
+                                            Converter="{StaticResource ValueToEqualsParameterConverter}"
+                                            ConverterParameter="{x:Null}"
+                                            Path="PressedImage"
+                                            RelativeSource="{x:Static RelativeSource.Self}" />
+                                    </Condition.Binding>
+                                    <Condition.Value>
+                                        <sys:Boolean>False</sys:Boolean>
+                                    </Condition.Value>
+                                </Condition>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="img" Property="Source" Value="{Binding Path=PressedImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
+                        </MultiDataTrigger>
 
-            <MultiDataTrigger>
-              <MultiDataTrigger.Conditions>
-                <Condition Binding="{Binding Path=IsEnabled, RelativeSource={x:Static RelativeSource.Self}}" Value="False" />
-                <Condition>
-                  <Condition.Binding>
-                    <Binding Converter="{StaticResource ValueToEqualsParameterConverter}"
-                             ConverterParameter="{x:Null}"
-                             Path="DisableImage"
-                             RelativeSource="{x:Static RelativeSource.Self}" />
-                  </Condition.Binding>
-                  <Condition.Value>
-                    <sys:Boolean>False</sys:Boolean>
-                  </Condition.Value>
-                </Condition>
-              </MultiDataTrigger.Conditions>
-              <Setter TargetName="img" Property="Source" Value="{Binding Path=DisableImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
-            </MultiDataTrigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsEnabled, RelativeSource={x:Static RelativeSource.Self}}" Value="False" />
+                                <Condition>
+                                    <Condition.Binding>
+                                        <Binding
+                                            Converter="{StaticResource ValueToEqualsParameterConverter}"
+                                            ConverterParameter="{x:Null}"
+                                            Path="DisableImage"
+                                            RelativeSource="{x:Static RelativeSource.Self}" />
+                                    </Condition.Binding>
+                                    <Condition.Value>
+                                        <sys:Boolean>False</sys:Boolean>
+                                    </Condition.Value>
+                                </Condition>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="img" Property="Source" Value="{Binding Path=DisableImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
+                        </MultiDataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  <Style TargetType="{x:Type cc:NineGridImage}">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type cc:NineGridImage}">
-          <Grid SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="Auto" />
-              <ColumnDefinition Width="*" />
-              <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-              <RowDefinition Height="Auto" />
-              <RowDefinition Height="*" />
-              <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+    <Style TargetType="{x:Type cc:NineGridImage}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type cc:NineGridImage}">
+                    <Grid SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-            <Rectangle x:Name="PART_topleft" SnapsToDevicePixels="True">
-              <Rectangle.Fill>
-                <ImageBrush x:Name="brush1" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
-              </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle x:Name="PART_topmid"
-                       Grid.Row="0"
-                       Grid.Column="1"
-                       SnapsToDevicePixels="True">
-              <Rectangle.Fill>
-                <ImageBrush x:Name="brush2" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
-              </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle Grid.Row="0"
-                       Grid.Column="2"
-                       SnapsToDevicePixels="True">
-              <Rectangle.Fill>
-                <ImageBrush x:Name="brush3" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
-              </Rectangle.Fill>
-            </Rectangle>
+                        <Rectangle x:Name="PART_topleft" SnapsToDevicePixels="True">
+                            <Rectangle.Fill>
+                                <ImageBrush x:Name="brush1" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle
+                            x:Name="PART_topmid"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            SnapsToDevicePixels="True">
+                            <Rectangle.Fill>
+                                <ImageBrush x:Name="brush2" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            SnapsToDevicePixels="True">
+                            <Rectangle.Fill>
+                                <ImageBrush x:Name="brush3" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
 
-            <Rectangle x:Name="PART_midleft"
-                       Grid.Row="1"
-                       SnapsToDevicePixels="True">
-              <Rectangle.Fill>
-                <ImageBrush x:Name="brush4" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
-              </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle Grid.Row="1"
-                       Grid.Column="1"
-                       SnapsToDevicePixels="True">
-              <Rectangle.Fill>
-                <ImageBrush x:Name="brush5" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
-              </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle Grid.Row="1"
-                       Grid.Column="2"
-                       SnapsToDevicePixels="True">
-              <Rectangle.Fill>
-                <ImageBrush x:Name="brush6" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
-              </Rectangle.Fill>
-            </Rectangle>
+                        <Rectangle
+                            x:Name="PART_midleft"
+                            Grid.Row="1"
+                            SnapsToDevicePixels="True">
+                            <Rectangle.Fill>
+                                <ImageBrush x:Name="brush4" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            SnapsToDevicePixels="True">
+                            <Rectangle.Fill>
+                                <ImageBrush x:Name="brush5" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            SnapsToDevicePixels="True">
+                            <Rectangle.Fill>
+                                <ImageBrush x:Name="brush6" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
 
-            <Rectangle Grid.Row="2" SnapsToDevicePixels="True">
-              <Rectangle.Fill>
-                <ImageBrush x:Name="brush7" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
-              </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle Grid.Row="2"
-                       Grid.Column="1"
-                       SnapsToDevicePixels="True">
-              <Rectangle.Fill>
-                <ImageBrush x:Name="brush8" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
-              </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle x:Name="PART_bottomright"
-                       Grid.Row="2"
-                       Grid.Column="2"
-                       SnapsToDevicePixels="True">
-              <Rectangle.Fill>
-                <ImageBrush x:Name="brush9" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
-              </Rectangle.Fill>
-            </Rectangle>
-          </Grid>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+                        <Rectangle Grid.Row="2" SnapsToDevicePixels="True">
+                            <Rectangle.Fill>
+                                <ImageBrush x:Name="brush7" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            SnapsToDevicePixels="True">
+                            <Rectangle.Fill>
+                                <ImageBrush x:Name="brush8" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle
+                            x:Name="PART_bottomright"
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            SnapsToDevicePixels="True">
+                            <Rectangle.Fill>
+                                <ImageBrush x:Name="brush9" ImageSource="{Binding Path=Source, RelativeSource={RelativeSource AncestorType=cc:NineGridImage}}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  <Style TargetType="{x:Type cc:BusyIndicator}">
-    <Setter Property="MinValue" Value="0" />
-    <Setter Property="MaxValue" Value="100" />
-    <Setter Property="IsTabStop" Value="False" />
-    <Setter Property="Focusable" Value="False" />
-    <Setter Property="OverlayStyle">
-      <Setter.Value>
-        <Style TargetType="Rectangle">
-          <Setter Property="Fill" Value="White" />
-          <Setter Property="Opacity" Value="0.5" />
-        </Style>
-      </Setter.Value>
-    </Setter>
-    <Setter Property="ProgressBarStyle">
-      <Setter.Value>
-        <Style TargetType="ProgressBar">
-          <Setter Property="Height" Value="15" />
-          <Setter Property="Margin" Value="8,0,8,8" />
-        </Style>
-      </Setter.Value>
-    </Setter>
-    <Setter Property="DisplayAfter" Value="00:00:00.1" />
-    <Setter Property="HorizontalAlignment" Value="Stretch" />
-    <Setter Property="VerticalAlignment" Value="Stretch" />
-    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-    <Setter Property="VerticalContentAlignment" Value="Stretch" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type cc:BusyIndicator}">
-          <Grid>
-            <ContentControl x:Name="content"
+    <Style TargetType="{x:Type cc:BusyIndicator}">
+        <Setter Property="MinValue" Value="0" />
+        <Setter Property="MaxValue" Value="100" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="OverlayStyle">
+            <Setter.Value>
+                <Style TargetType="Rectangle">
+                    <Setter Property="Fill" Value="White" />
+                    <Setter Property="Opacity" Value="0.5" />
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ProgressBarStyle">
+            <Setter.Value>
+                <Style TargetType="ProgressBar">
+                    <Setter Property="Height" Value="15" />
+                    <Setter Property="Margin" Value="8,0,8,8" />
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="DisplayAfter" Value="00:00:00.1" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type cc:BusyIndicator}">
+                    <Grid>
+                        <ContentControl
+                            x:Name="content"
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
                             Focusable="False"
                             IsTabStop="False" />
-            <Rectangle x:Name="overlay" Style="{TemplateBinding OverlayStyle}" />
-            <ContentPresenter x:Name="busycontent">
-              <ContentPresenter.Content>
-                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                  <Border Background="White"
-                          BorderThickness="1"
-                          CornerRadius="2">
-                    <Border.BorderBrush>
-                      <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                        <GradientStop Offset="0" Color="#FFA3AEB9" />
-                        <GradientStop Offset="0.375" Color="#FF8399A9" />
-                        <GradientStop Offset="0.375" Color="#FF718597" />
-                        <GradientStop Offset="1" Color="#FF617584" />
-                      </LinearGradientBrush>
-                    </Border.BorderBrush>
-                    <Border Margin="1" CornerRadius="1.5">
-                      <Border.Background>
-                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                          <GradientStop Offset="0.02" Color="#FFF6F8F9" />
-                          <GradientStop Offset="0.996" Color="#FFB8B8B8" />
-                        </LinearGradientBrush>
-                      </Border.Background>
-                      <Grid x:Name="_grid" MinWidth="150">
-                        <Grid.RowDefinitions>
-                          <RowDefinition />
-                          <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <ContentPresenter x:Name="busyContent"
-                                          Margin="8"
-                                          HorizontalAlignment="Center"
-                                          Content="{TemplateBinding BusyContent}"
-                                          ContentTemplate="{TemplateBinding BusyContentTemplate}" />
-                        <ProgressBar Grid.Row="1"
-                                     IsIndeterminate="{TemplateBinding IsIndeterminate}"
-                                     Maximum="{TemplateBinding MaxValue}"
-                                     Minimum="{TemplateBinding MinValue}"
-                                     Style="{TemplateBinding ProgressBarStyle}"
-                                     Value="{TemplateBinding CurrentProgressValue}">
-                          <ProgressBar.Width>
-                            <MultiBinding Converter="{StaticResource ProgressBarWidthConverter}">
-                              <Binding ElementName="busyContent" Path="ActualWidth" />
-                              <Binding ElementName="_grid" Path="MinWidth" />
-                            </MultiBinding>
-                          </ProgressBar.Width>
-                        </ProgressBar>
-                      </Grid>
-                    </Border>
-                  </Border>
-                </Grid>
-              </ContentPresenter.Content>
-            </ContentPresenter>
-            <VisualStateManager.VisualStateGroups>
-              <VisualStateGroup x:Name="VisibilityStates">
-                <VisualState x:Name="Hidden">
-                  <Storyboard>
-                    <ObjectAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                   Storyboard.TargetName="busycontent"
-                                                   Storyboard.TargetProperty="(UIElement.Visibility)"
-                                                   Duration="00:00:00.001">
-                      <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                        <DiscreteObjectKeyFrame.Value>
-                          <Visibility>Collapsed</Visibility>
-                        </DiscreteObjectKeyFrame.Value>
-                      </DiscreteObjectKeyFrame>
-                    </ObjectAnimationUsingKeyFrames>
-                    <ObjectAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                   Storyboard.TargetName="overlay"
-                                                   Storyboard.TargetProperty="(UIElement.Visibility)"
-                                                   Duration="00:00:00.001">
-                      <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                        <DiscreteObjectKeyFrame.Value>
-                          <Visibility>Collapsed</Visibility>
-                        </DiscreteObjectKeyFrame.Value>
-                      </DiscreteObjectKeyFrame>
-                    </ObjectAnimationUsingKeyFrames>
-                  </Storyboard>
-                </VisualState>
-                <VisualState x:Name="Visible">
-                  <Storyboard>
-                    <ObjectAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                   Storyboard.TargetName="busycontent"
-                                                   Storyboard.TargetProperty="(UIElement.Visibility)"
-                                                   Duration="00:00:00.001">
-                      <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                        <DiscreteObjectKeyFrame.Value>
-                          <Visibility>Visible</Visibility>
-                        </DiscreteObjectKeyFrame.Value>
-                      </DiscreteObjectKeyFrame>
-                    </ObjectAnimationUsingKeyFrames>
-                    <ObjectAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                   Storyboard.TargetName="overlay"
-                                                   Storyboard.TargetProperty="(UIElement.Visibility)"
-                                                   Duration="00:00:00.001">
-                      <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                        <DiscreteObjectKeyFrame.Value>
-                          <Visibility>Visible</Visibility>
-                        </DiscreteObjectKeyFrame.Value>
-                      </DiscreteObjectKeyFrame>
-                    </ObjectAnimationUsingKeyFrames>
-                  </Storyboard>
-                </VisualState>
-              </VisualStateGroup>
-              <VisualStateGroup x:Name="BusyStatusStates">
-                <VisualState x:Name="Idle">
-                  <Storyboard>
-                    <ObjectAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                   Storyboard.TargetName="content"
-                                                   Storyboard.TargetProperty="(Control.IsEnabled)"
-                                                   Duration="00:00:00.001">
-                      <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                        <DiscreteObjectKeyFrame.Value>
-                          <sys:Boolean>True</sys:Boolean>
-                        </DiscreteObjectKeyFrame.Value>
-                      </DiscreteObjectKeyFrame>
-                    </ObjectAnimationUsingKeyFrames>
-                  </Storyboard>
-                </VisualState>
-                <VisualState x:Name="Busy">
-                  <Storyboard>
-                    <ObjectAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                   Storyboard.TargetName="content"
-                                                   Storyboard.TargetProperty="(Control.IsEnabled)"
-                                                   Duration="00:00:00.001">
-                      <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                        <DiscreteObjectKeyFrame.Value>
-                          <sys:Boolean>False</sys:Boolean>
-                        </DiscreteObjectKeyFrame.Value>
-                      </DiscreteObjectKeyFrame>
-                    </ObjectAnimationUsingKeyFrames>
-                  </Storyboard>
-                </VisualState>
-              </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>
-          </Grid>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+                        <Rectangle x:Name="overlay" Style="{TemplateBinding OverlayStyle}" />
+                        <ContentPresenter x:Name="busycontent">
+                            <ContentPresenter.Content>
+                                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Border
+                                        Background="White"
+                                        BorderThickness="1"
+                                        CornerRadius="2">
+                                        <Border.BorderBrush>
+                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                <GradientStop Offset="0" Color="#FFA3AEB9" />
+                                                <GradientStop Offset="0.375" Color="#FF8399A9" />
+                                                <GradientStop Offset="0.375" Color="#FF718597" />
+                                                <GradientStop Offset="1" Color="#FF617584" />
+                                            </LinearGradientBrush>
+                                        </Border.BorderBrush>
+                                        <Border Margin="1" CornerRadius="1.5">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                    <GradientStop Offset="0.02" Color="#FFF6F8F9" />
+                                                    <GradientStop Offset="0.996" Color="#FFB8B8B8" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <Grid x:Name="_grid" MinWidth="150">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <ContentPresenter
+                                                    x:Name="busyContent"
+                                                    Margin="8"
+                                                    HorizontalAlignment="Center"
+                                                    Content="{TemplateBinding BusyContent}"
+                                                    ContentTemplate="{TemplateBinding BusyContentTemplate}" />
+                                                <ProgressBar
+                                                    Grid.Row="1"
+                                                    IsIndeterminate="{TemplateBinding IsIndeterminate}"
+                                                    Maximum="{TemplateBinding MaxValue}"
+                                                    Minimum="{TemplateBinding MinValue}"
+                                                    Style="{TemplateBinding ProgressBarStyle}"
+                                                    Value="{TemplateBinding CurrentProgressValue}">
+                                                    <ProgressBar.Width>
+                                                        <MultiBinding Converter="{StaticResource ProgressBarWidthConverter}">
+                                                            <Binding ElementName="busyContent" Path="ActualWidth" />
+                                                            <Binding ElementName="_grid" Path="MinWidth" />
+                                                        </MultiBinding>
+                                                    </ProgressBar.Width>
+                                                </ProgressBar>
+                                            </Grid>
+                                        </Border>
+                                    </Border>
+                                </Grid>
+                            </ContentPresenter.Content>
+                        </ContentPresenter>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="VisibilityStates">
+                                <VisualState x:Name="Hidden">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames
+                                            BeginTime="00:00:00"
+                                            Storyboard.TargetName="busycontent"
+                                            Storyboard.TargetProperty="(UIElement.Visibility)"
+                                            Duration="00:00:00.001">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Collapsed</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames
+                                            BeginTime="00:00:00"
+                                            Storyboard.TargetName="overlay"
+                                            Storyboard.TargetProperty="(UIElement.Visibility)"
+                                            Duration="00:00:00.001">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Collapsed</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Visible">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames
+                                            BeginTime="00:00:00"
+                                            Storyboard.TargetName="busycontent"
+                                            Storyboard.TargetProperty="(UIElement.Visibility)"
+                                            Duration="00:00:00.001">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames
+                                            BeginTime="00:00:00"
+                                            Storyboard.TargetName="overlay"
+                                            Storyboard.TargetProperty="(UIElement.Visibility)"
+                                            Duration="00:00:00.001">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="BusyStatusStates">
+                                <VisualState x:Name="Idle">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames
+                                            BeginTime="00:00:00"
+                                            Storyboard.TargetName="content"
+                                            Storyboard.TargetProperty="(Control.IsEnabled)"
+                                            Duration="00:00:00.001">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <sys:Boolean>True</sys:Boolean>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Busy">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames
+                                            BeginTime="00:00:00"
+                                            Storyboard.TargetName="content"
+                                            Storyboard.TargetProperty="(Control.IsEnabled)"
+                                            Duration="00:00:00.001">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <sys:Boolean>False</sys:Boolean>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  <Style TargetType="{x:Type cc:EnumImageButton}">
-    <Setter Property="Padding" Value="0" />
-    <Setter Property="Background" Value="Transparent" />
-    <Setter Property="Cursor" Value="Hand" />
-    <Setter Property="HorizontalContentAlignment" Value="Center" />
-    <Setter Property="VerticalContentAlignment" Value="Center" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type cc:EnumImageButton}">
-          <Border Background="Transparent" SnapsToDevicePixels="True">
-            <Grid Margin="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
-              <Image Name="normalImage" Source="{TemplateBinding NormalImage}" />
-              <Image Name="matchedImage"
-                     Source="{TemplateBinding MatchedImage}"
-                     Visibility="Hidden" />
-              <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+    <Style TargetType="{x:Type cc:EnumImageButton}">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type cc:EnumImageButton}">
+                    <Border Background="Transparent" SnapsToDevicePixels="True">
+                        <Grid Margin="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                            <Image Name="normalImage" Source="{TemplateBinding NormalImage}" />
+                            <Image
+                                Name="matchedImage"
+                                Source="{TemplateBinding MatchedImage}"
+                                Visibility="Hidden" />
+                            <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 RecognizesAccessKey="True"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-            </Grid>
-          </Border>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsMatched" Value="True">
-              <Setter TargetName="normalImage" Property="Visibility" Value="Hidden" />
-              <Setter TargetName="matchedImage" Property="Visibility" Value="Visible" />
-            </Trigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMatched" Value="True">
+                            <Setter TargetName="normalImage" Property="Visibility" Value="Hidden" />
+                            <Setter TargetName="matchedImage" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  <Style TargetType="cc:ToastControl">
-    <Setter Property="Focusable" Value="False" />
-    <Setter Property="FontSize" Value="16" />
-    <Setter Property="Background" Value="#312829" />
-    <Setter Property="Foreground" Value="White" />
-    <Setter Property="HorizontalAlignment" Value="Center" />
-    <Setter Property="VerticalAlignment" Value="Center" />
-    <Setter Property="Margin" Value="10" />
-    <Setter Property="Padding" Value="5" />
-    <Setter Property="att:BorderAttached.CornerRadius" Value="3" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type cc:ToastControl}">
-          <ControlTemplate.Resources>
-            <Style TargetType="TextBlock">
-              <Setter Property="TextWrapping" Value="Wrap" />
-            </Style>
-          </ControlTemplate.Resources>
-          <Border SnapsToDevicePixels="True">
-            <Border.Effect>
-              <DropShadowEffect BlurRadius="6"
+    <Style TargetType="cc:ToastControl">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Background" Value="#312829" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="att:BorderAttached.CornerRadius" Value="3" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type cc:ToastControl}">
+                    <ControlTemplate.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </ControlTemplate.Resources>
+                    <Border SnapsToDevicePixels="True">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="6"
                                 Direction="270"
                                 Opacity="0.75"
                                 ShadowDepth="1"
                                 Color="{TemplateBinding Background}" />
-            </Border.Effect>
-            <Border Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{Binding Path=(att:BorderAttached.CornerRadius), RelativeSource={RelativeSource Mode=TemplatedParent}}">
-              <ContentPresenter Margin="{TemplateBinding Padding}"
+                        </Border.Effect>
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{Binding Path=(att:BorderAttached.CornerRadius), RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                            <ContentPresenter
+                                Margin="{TemplateBinding Padding}"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                <ContentPresenter.Resources>
-                  <Style TargetType="{x:Type TextBlock}">
-                    <Setter Property="TextWrapping" Value="Wrap" />
-                  </Style>
-                </ContentPresenter.Resources>
-              </ContentPresenter>
-            </Border>
-          </Border>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  <Style TargetType="{x:Type cc:ToggleImageButton}">
-    <Setter Property="Background" Value="Transparent" />
-    <Setter Property="SnapsToDevicePixels" Value="True" />
-    <Setter Property="Cursor" Value="Hand" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type cc:ToggleImageButton}">
-          <Border Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}"
-                  SnapsToDevicePixels="True">
-            <Grid Margin="{TemplateBinding Padding}">
-              <Image x:Name="img" Source="{TemplateBinding NormalImage}" />
-              <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+    <Style TargetType="{x:Type cc:ToggleImageButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type cc:ToggleImageButton}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="True">
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Image x:Name="img" Source="{TemplateBinding NormalImage}" />
+                            <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 RecognizesAccessKey="True"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-            </Grid>
-          </Border>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsChecked" Value="True">
-              <Setter TargetName="img" Property="Source" Value="{Binding Path=CheckedImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
-            </Trigger>
-            <Trigger Property="IsChecked" Value="{x:Null}">
-              <Setter TargetName="img" Property="Source" Value="{Binding Path=IndeterminateImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
-            </Trigger>
-            <MultiDataTrigger>
-              <MultiDataTrigger.Conditions>
-                <Condition Binding="{Binding Path=IsMouseOver, RelativeSource={x:Static RelativeSource.Self}}" Value="True" />
-                <Condition>
-                  <Condition.Binding>
-                    <Binding Converter="{StaticResource ValueToEqualsParameterConverter}"
-                             ConverterParameter="{x:Null}"
-                             Path="HoverImage"
-                             RelativeSource="{x:Static RelativeSource.Self}" />
-                  </Condition.Binding>
-                  <Condition.Value>
-                    <sys:Boolean>False</sys:Boolean>
-                  </Condition.Value>
-                </Condition>
-              </MultiDataTrigger.Conditions>
-              <Setter TargetName="img" Property="Source" Value="{Binding Path=HoverImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
-            </MultiDataTrigger>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="img" Property="Source" Value="{Binding Path=CheckedImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="{x:Null}">
+                            <Setter TargetName="img" Property="Source" Value="{Binding Path=IndeterminateImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
+                        </Trigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsMouseOver, RelativeSource={x:Static RelativeSource.Self}}" Value="True" />
+                                <Condition>
+                                    <Condition.Binding>
+                                        <Binding
+                                            Converter="{StaticResource ValueToEqualsParameterConverter}"
+                                            ConverterParameter="{x:Null}"
+                                            Path="HoverImage"
+                                            RelativeSource="{x:Static RelativeSource.Self}" />
+                                    </Condition.Binding>
+                                    <Condition.Value>
+                                        <sys:Boolean>False</sys:Boolean>
+                                    </Condition.Value>
+                                </Condition>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="img" Property="Source" Value="{Binding Path=HoverImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
+                        </MultiDataTrigger>
 
-            <MultiDataTrigger>
-              <MultiDataTrigger.Conditions>
-                <Condition Binding="{Binding Path=IsPressed, RelativeSource={x:Static RelativeSource.Self}}" Value="True" />
-                <Condition>
-                  <Condition.Binding>
-                    <Binding Converter="{StaticResource ValueToEqualsParameterConverter}"
-                             ConverterParameter="{x:Null}"
-                             Path="PressedImage"
-                             RelativeSource="{x:Static RelativeSource.Self}" />
-                  </Condition.Binding>
-                  <Condition.Value>
-                    <sys:Boolean>False</sys:Boolean>
-                  </Condition.Value>
-                </Condition>
-              </MultiDataTrigger.Conditions>
-              <Setter TargetName="img" Property="Source" Value="{Binding Path=PressedImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
-            </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsPressed, RelativeSource={x:Static RelativeSource.Self}}" Value="True" />
+                                <Condition>
+                                    <Condition.Binding>
+                                        <Binding
+                                            Converter="{StaticResource ValueToEqualsParameterConverter}"
+                                            ConverterParameter="{x:Null}"
+                                            Path="PressedImage"
+                                            RelativeSource="{x:Static RelativeSource.Self}" />
+                                    </Condition.Binding>
+                                    <Condition.Value>
+                                        <sys:Boolean>False</sys:Boolean>
+                                    </Condition.Value>
+                                </Condition>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="img" Property="Source" Value="{Binding Path=PressedImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
+                        </MultiDataTrigger>
 
-            <MultiDataTrigger>
-              <MultiDataTrigger.Conditions>
-                <Condition Binding="{Binding Path=IsEnabled, RelativeSource={x:Static RelativeSource.Self}}" Value="False" />
-                <Condition>
-                  <Condition.Binding>
-                    <Binding Converter="{StaticResource ValueToEqualsParameterConverter}"
-                             ConverterParameter="{x:Null}"
-                             Path="DisableImage"
-                             RelativeSource="{x:Static RelativeSource.Self}" />
-                  </Condition.Binding>
-                  <Condition.Value>
-                    <sys:Boolean>False</sys:Boolean>
-                  </Condition.Value>
-                </Condition>
-              </MultiDataTrigger.Conditions>
-              <Setter TargetName="img" Property="Source" Value="{Binding Path=DisableImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
-            </MultiDataTrigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsEnabled, RelativeSource={x:Static RelativeSource.Self}}" Value="False" />
+                                <Condition>
+                                    <Condition.Binding>
+                                        <Binding
+                                            Converter="{StaticResource ValueToEqualsParameterConverter}"
+                                            ConverterParameter="{x:Null}"
+                                            Path="DisableImage"
+                                            RelativeSource="{x:Static RelativeSource.Self}" />
+                                    </Condition.Binding>
+                                    <Condition.Value>
+                                        <sys:Boolean>False</sys:Boolean>
+                                    </Condition.Value>
+                                </Condition>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="img" Property="Source" Value="{Binding Path=DisableImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
+                        </MultiDataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  <Style TargetType="{x:Type cc:RadioImageButton}">
-    <Setter Property="Background" Value="Transparent" />
-    <Setter Property="SnapsToDevicePixels" Value="True" />
-    <Setter Property="Cursor" Value="Hand" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type cc:RadioImageButton}">
-          <Border Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}"
-                  SnapsToDevicePixels="True">
-            <Grid Margin="{TemplateBinding Padding}">
-              <Image x:Name="img" Source="{TemplateBinding NormalImage}" />
-              <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+    <Style TargetType="{x:Type cc:RadioImageButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type cc:RadioImageButton}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="True">
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Image x:Name="img" Source="{TemplateBinding NormalImage}" />
+                            <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 RecognizesAccessKey="True"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-            </Grid>
-          </Border>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsChecked" Value="True">
-              <Setter TargetName="img" Property="Source" Value="{Binding Path=CheckedImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
-            </Trigger>
-            <Trigger Property="IsChecked" Value="{x:Null}">
-              <Setter TargetName="img" Property="Source" Value="{Binding Path=IndeterminateImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
-            </Trigger>
-            <MultiDataTrigger>
-              <MultiDataTrigger.Conditions>
-                <Condition Binding="{Binding Path=IsMouseOver, RelativeSource={x:Static RelativeSource.Self}}" Value="True" />
-                <Condition>
-                  <Condition.Binding>
-                    <Binding Converter="{StaticResource ValueToEqualsParameterConverter}"
-                             ConverterParameter="{x:Null}"
-                             Path="HoverImage"
-                             RelativeSource="{x:Static RelativeSource.Self}" />
-                  </Condition.Binding>
-                  <Condition.Value>
-                    <sys:Boolean>False</sys:Boolean>
-                  </Condition.Value>
-                </Condition>
-              </MultiDataTrigger.Conditions>
-              <Setter TargetName="img" Property="Source" Value="{Binding Path=HoverImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
-            </MultiDataTrigger>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="img" Property="Source" Value="{Binding Path=CheckedImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="{x:Null}">
+                            <Setter TargetName="img" Property="Source" Value="{Binding Path=IndeterminateImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
+                        </Trigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsMouseOver, RelativeSource={x:Static RelativeSource.Self}}" Value="True" />
+                                <Condition>
+                                    <Condition.Binding>
+                                        <Binding
+                                            Converter="{StaticResource ValueToEqualsParameterConverter}"
+                                            ConverterParameter="{x:Null}"
+                                            Path="HoverImage"
+                                            RelativeSource="{x:Static RelativeSource.Self}" />
+                                    </Condition.Binding>
+                                    <Condition.Value>
+                                        <sys:Boolean>False</sys:Boolean>
+                                    </Condition.Value>
+                                </Condition>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="img" Property="Source" Value="{Binding Path=HoverImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
+                        </MultiDataTrigger>
 
-            <MultiDataTrigger>
-              <MultiDataTrigger.Conditions>
-                <Condition Binding="{Binding Path=IsPressed, RelativeSource={x:Static RelativeSource.Self}}" Value="True" />
-                <Condition>
-                  <Condition.Binding>
-                    <Binding Converter="{StaticResource ValueToEqualsParameterConverter}"
-                             ConverterParameter="{x:Null}"
-                             Path="PressedImage"
-                             RelativeSource="{x:Static RelativeSource.Self}" />
-                  </Condition.Binding>
-                  <Condition.Value>
-                    <sys:Boolean>False</sys:Boolean>
-                  </Condition.Value>
-                </Condition>
-              </MultiDataTrigger.Conditions>
-              <Setter TargetName="img" Property="Source" Value="{Binding Path=PressedImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
-            </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsPressed, RelativeSource={x:Static RelativeSource.Self}}" Value="True" />
+                                <Condition>
+                                    <Condition.Binding>
+                                        <Binding
+                                            Converter="{StaticResource ValueToEqualsParameterConverter}"
+                                            ConverterParameter="{x:Null}"
+                                            Path="PressedImage"
+                                            RelativeSource="{x:Static RelativeSource.Self}" />
+                                    </Condition.Binding>
+                                    <Condition.Value>
+                                        <sys:Boolean>False</sys:Boolean>
+                                    </Condition.Value>
+                                </Condition>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="img" Property="Source" Value="{Binding Path=PressedImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
+                        </MultiDataTrigger>
 
-            <MultiDataTrigger>
-              <MultiDataTrigger.Conditions>
-                <Condition Binding="{Binding Path=IsEnabled, RelativeSource={x:Static RelativeSource.Self}}" Value="False" />
-                <Condition>
-                  <Condition.Binding>
-                    <Binding Converter="{StaticResource ValueToEqualsParameterConverter}"
-                             ConverterParameter="{x:Null}"
-                             Path="DisableImage"
-                             RelativeSource="{x:Static RelativeSource.Self}" />
-                  </Condition.Binding>
-                  <Condition.Value>
-                    <sys:Boolean>False</sys:Boolean>
-                  </Condition.Value>
-                </Condition>
-              </MultiDataTrigger.Conditions>
-              <Setter TargetName="img" Property="Source" Value="{Binding Path=DisableImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
-            </MultiDataTrigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsEnabled, RelativeSource={x:Static RelativeSource.Self}}" Value="False" />
+                                <Condition>
+                                    <Condition.Binding>
+                                        <Binding
+                                            Converter="{StaticResource ValueToEqualsParameterConverter}"
+                                            ConverterParameter="{x:Null}"
+                                            Path="DisableImage"
+                                            RelativeSource="{x:Static RelativeSource.Self}" />
+                                    </Condition.Binding>
+                                    <Condition.Value>
+                                        <sys:Boolean>False</sys:Boolean>
+                                    </Condition.Value>
+                                </Condition>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="img" Property="Source" Value="{Binding Path=DisableImage, RelativeSource={x:Static RelativeSource.TemplatedParent}}" />
+                        </MultiDataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  <Style x:Key="DiagramResizeThumb" TargetType="cc:ResizeThumb">
-    <Setter Property="BorderBrush" Value="Black" />
-    <Setter Property="Background" Value="White" />
-    <Setter Property="Height" Value="8" />
-    <Setter Property="Width" Value="8" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="cc:ResizeThumb">
-          <Rectangle Fill="{TemplateBinding Background}"
-                     Stroke="Black"
-                     StrokeThickness="1" />
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+    <Style x:Key="DiagramResizeThumb" TargetType="cc:ResizeThumb">
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="Height" Value="8" />
+        <Setter Property="Width" Value="8" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="cc:ResizeThumb">
+                    <Rectangle
+                        Fill="{TemplateBinding Background}"
+                        Stroke="Black"
+                        StrokeThickness="1" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  <Style TargetType="{x:Type cc:DiagramListBoxItem}">
-    <Setter Property="Background" Value="Transparent" />
-    <Setter Property="MinHeight" Value="50" />
-    <Setter Property="MinWidth" Value="50" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="cc:DiagramListBoxItem">
-          <Border Padding="0.5"
-                  Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}">
-            <Grid>
-              <Grid.LayoutTransform>
-                <MultiBinding Converter="{StaticResource ViewBoxScaleTransformInverse}">
-                  <MultiBinding.Bindings>
-                    <Binding RelativeSource="{RelativeSource AncestorType=Viewbox}" />
-                    <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType=Viewbox}" />
-                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=Viewbox}" />
-                  </MultiBinding.Bindings>
-                </MultiBinding>
-              </Grid.LayoutTransform>
+    <Style TargetType="{x:Type cc:DiagramListBoxItem}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="MinHeight" Value="50" />
+        <Setter Property="MinWidth" Value="50" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="cc:DiagramListBoxItem">
+                    <Border
+                        Padding="0.5"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.LayoutTransform>
+                                <MultiBinding Converter="{StaticResource ViewBoxScaleTransformInverse}">
+                                    <MultiBinding.Bindings>
+                                        <Binding RelativeSource="{RelativeSource AncestorType=Viewbox}" />
+                                        <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType=Viewbox}" />
+                                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=Viewbox}" />
+                                    </MultiBinding.Bindings>
+                                </MultiBinding>
+                            </Grid.LayoutTransform>
 
-              <ContentPresenter />
+                            <ContentPresenter />
 
-              <!--#region 缩放柄-->
-              <cc:ResizeThumb x:Name="thumb4"
-                              Margin="-6,0,0,0"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Center"
-                              Cursor="SizeWE"
-                              DisplayRatio="{TemplateBinding cc:DisplayRatioAttached.DisplayRatio}"
-                              DragDirection="MiddleLeft"
-                              Style="{StaticResource DiagramResizeThumb}"
-                              TargetElement="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
-                              Visibility="Hidden" />
-              <cc:ResizeThumb x:Name="thumb8"
-                              Margin="0,-6,0,0"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Top"
-                              Cursor="SizeNS"
-                              DisplayRatio="{TemplateBinding cc:DisplayRatioAttached.DisplayRatio}"
-                              DragDirection="TopCenter"
-                              Style="{StaticResource DiagramResizeThumb}"
-                              TargetElement="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
-                              Visibility="Hidden" />
-              <cc:ResizeThumb x:Name="thumb6"
-                              Margin="0,0,-6,0"
-                              HorizontalAlignment="Right"
-                              VerticalAlignment="Center"
-                              Cursor="SizeWE"
-                              DisplayRatio="{TemplateBinding cc:DisplayRatioAttached.DisplayRatio}"
-                              DragDirection="MiddleRight"
-                              Style="{StaticResource DiagramResizeThumb}"
-                              TargetElement="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
-                              Visibility="Hidden" />
-              <cc:ResizeThumb x:Name="thumb2"
-                              Margin="0,0,0,-6"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Bottom"
-                              Cursor="SizeNS"
-                              DisplayRatio="{TemplateBinding cc:DisplayRatioAttached.DisplayRatio}"
-                              DragDirection="BottomCenter"
-                              Style="{StaticResource DiagramResizeThumb}"
-                              TargetElement="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
-                              Visibility="Hidden" />
-              <cc:ResizeThumb x:Name="thumb7"
-                              Width="7"
-                              Height="7"
-                              Margin="-6,-6,0,0"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Top"
-                              Cursor="SizeNWSE"
-                              DisplayRatio="{TemplateBinding cc:DisplayRatioAttached.DisplayRatio}"
-                              DragDirection="TopLeft"
-                              Style="{StaticResource DiagramResizeThumb}"
-                              TargetElement="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
-                              Visibility="Hidden" />
-              <cc:ResizeThumb x:Name="thumb9"
-                              Width="7"
-                              Height="7"
-                              Margin="0,-6,-6,0"
-                              HorizontalAlignment="Right"
-                              VerticalAlignment="Top"
-                              Cursor="SizeNESW"
-                              DisplayRatio="{TemplateBinding cc:DisplayRatioAttached.DisplayRatio}"
-                              DragDirection="TopRight"
-                              Style="{StaticResource DiagramResizeThumb}"
-                              TargetElement="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
-                              Visibility="Hidden" />
-              <cc:ResizeThumb x:Name="thumb3"
-                              Width="7"
-                              Height="7"
-                              Margin="0,0,-6,-6"
-                              HorizontalAlignment="Right"
-                              VerticalAlignment="Bottom"
-                              Cursor="SizeNWSE"
-                              DisplayRatio="{TemplateBinding cc:DisplayRatioAttached.DisplayRatio}"
-                              DragDirection="BottomRight"
-                              Style="{StaticResource DiagramResizeThumb}"
-                              TargetElement="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
-                              Visibility="Hidden" />
-              <cc:ResizeThumb x:Name="thumb1"
-                              Width="7"
-                              Height="7"
-                              Margin="-6,0,0,-6"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Bottom"
-                              Cursor="SizeNESW"
-                              DisplayRatio="{TemplateBinding cc:DisplayRatioAttached.DisplayRatio}"
-                              DragDirection="BottomLeft"
-                              Style="{StaticResource DiagramResizeThumb}"
-                              TargetElement="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
-                              Visibility="Hidden" />
-              <!--#endregion-->
-            </Grid>
-          </Border>
-          <ControlTemplate.Triggers>
-            <MultiDataTrigger>
-              <MultiDataTrigger.Conditions>
-                <Condition Binding="{Binding Path=IsReadOnly, RelativeSource={x:Static RelativeSource.Self}}" Value="False" />
-                <Condition Binding="{Binding Path=IsSelected, RelativeSource={x:Static RelativeSource.Self}}" Value="True" />
-              </MultiDataTrigger.Conditions>
-              <Setter TargetName="thumb4" Property="Visibility" Value="Visible" />
-              <Setter TargetName="thumb8" Property="Visibility" Value="Visible" />
-              <Setter TargetName="thumb6" Property="Visibility" Value="Visible" />
-              <Setter TargetName="thumb2" Property="Visibility" Value="Visible" />
-              <Setter TargetName="thumb7" Property="Visibility" Value="Visible" />
-              <Setter TargetName="thumb9" Property="Visibility" Value="Visible" />
-              <Setter TargetName="thumb1" Property="Visibility" Value="Visible" />
-              <Setter TargetName="thumb3" Property="Visibility" Value="Visible" />
-            </MultiDataTrigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+                            <!--#region 缩放柄-->
+                            <cc:ResizeThumb
+                                x:Name="thumb4"
+                                Margin="-6,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Cursor="SizeWE"
+                                DisplayRatio="{TemplateBinding cc:DisplayRatioAttached.DisplayRatio}"
+                                DragDirection="MiddleLeft"
+                                Style="{StaticResource DiagramResizeThumb}"
+                                TargetElement="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
+                                Visibility="Hidden" />
+                            <cc:ResizeThumb
+                                x:Name="thumb8"
+                                Margin="0,-6,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Cursor="SizeNS"
+                                DisplayRatio="{TemplateBinding cc:DisplayRatioAttached.DisplayRatio}"
+                                DragDirection="TopCenter"
+                                Style="{StaticResource DiagramResizeThumb}"
+                                TargetElement="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
+                                Visibility="Hidden" />
+                            <cc:ResizeThumb
+                                x:Name="thumb6"
+                                Margin="0,0,-6,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Cursor="SizeWE"
+                                DisplayRatio="{TemplateBinding cc:DisplayRatioAttached.DisplayRatio}"
+                                DragDirection="MiddleRight"
+                                Style="{StaticResource DiagramResizeThumb}"
+                                TargetElement="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
+                                Visibility="Hidden" />
+                            <cc:ResizeThumb
+                                x:Name="thumb2"
+                                Margin="0,0,0,-6"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Cursor="SizeNS"
+                                DisplayRatio="{TemplateBinding cc:DisplayRatioAttached.DisplayRatio}"
+                                DragDirection="BottomCenter"
+                                Style="{StaticResource DiagramResizeThumb}"
+                                TargetElement="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
+                                Visibility="Hidden" />
+                            <cc:ResizeThumb
+                                x:Name="thumb7"
+                                Width="7"
+                                Height="7"
+                                Margin="-6,-6,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Cursor="SizeNWSE"
+                                DisplayRatio="{TemplateBinding cc:DisplayRatioAttached.DisplayRatio}"
+                                DragDirection="TopLeft"
+                                Style="{StaticResource DiagramResizeThumb}"
+                                TargetElement="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
+                                Visibility="Hidden" />
+                            <cc:ResizeThumb
+                                x:Name="thumb9"
+                                Width="7"
+                                Height="7"
+                                Margin="0,-6,-6,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Cursor="SizeNESW"
+                                DisplayRatio="{TemplateBinding cc:DisplayRatioAttached.DisplayRatio}"
+                                DragDirection="TopRight"
+                                Style="{StaticResource DiagramResizeThumb}"
+                                TargetElement="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
+                                Visibility="Hidden" />
+                            <cc:ResizeThumb
+                                x:Name="thumb3"
+                                Width="7"
+                                Height="7"
+                                Margin="0,0,-6,-6"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Cursor="SizeNWSE"
+                                DisplayRatio="{TemplateBinding cc:DisplayRatioAttached.DisplayRatio}"
+                                DragDirection="BottomRight"
+                                Style="{StaticResource DiagramResizeThumb}"
+                                TargetElement="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
+                                Visibility="Hidden" />
+                            <cc:ResizeThumb
+                                x:Name="thumb1"
+                                Width="7"
+                                Height="7"
+                                Margin="-6,0,0,-6"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                Cursor="SizeNESW"
+                                DisplayRatio="{TemplateBinding cc:DisplayRatioAttached.DisplayRatio}"
+                                DragDirection="BottomLeft"
+                                Style="{StaticResource DiagramResizeThumb}"
+                                TargetElement="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}}"
+                                Visibility="Hidden" />
+                            <!--#endregion-->
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsReadOnly, RelativeSource={x:Static RelativeSource.Self}}" Value="False" />
+                                <Condition Binding="{Binding Path=IsSelected, RelativeSource={x:Static RelativeSource.Self}}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="thumb4" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="thumb8" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="thumb6" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="thumb2" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="thumb7" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="thumb9" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="thumb1" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="thumb3" Property="Visibility" Value="Visible" />
+                        </MultiDataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  <Style TargetType="{x:Type cc:DiagramListBox}">
-    <Setter Property="BorderThickness" Value="0" />
-    <Setter Property="BorderBrush" Value="{x:Null}" />
-    <Setter Property="Background" Value="Transparent" />
-    <Setter Property="SelectionMode" Value="Single" />
-    <Setter Property="att:SelectorAttached.SelectNoneWhenClickBlankArea" Value="True" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type cc:DiagramListBox}">
-          <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-            <Viewbox>
-              <cc:DiagramCanvas Width="{TemplateBinding DiagramWidth}"
+    <Style TargetType="{x:Type cc:DiagramListBox}">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="SelectionMode" Value="Single" />
+        <Setter Property="att:SelectorAttached.SelectNoneWhenClickBlankArea" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type cc:DiagramListBox}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Viewbox>
+                            <cc:DiagramCanvas
+                                Width="{TemplateBinding DiagramWidth}"
                                 Height="{TemplateBinding DiagramHeight}"
                                 AlignToChildren="{TemplateBinding ItemAlignToDrag}"
                                 AlignToChildrenScope="{TemplateBinding ItemAlignToDragScope}"
@@ -863,54 +916,88 @@
                                 Background="{TemplateBinding Background}"
                                 ClipToBounds="True"
                                 IsItemsHost="True" />
-            </Viewbox>
-          </Border>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+                        </Viewbox>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  <Style TargetType="{x:Type cc:FolderBrowser}">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type cc:FolderBrowser}">
-          <Border Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}">
-            <DockPanel>
-              <Button Name="PART_BrowseButton"
-                      Content="浏览(_B)"
-                      DockPanel.Dock="Right" />
-              <TextBox IsReadOnly="{TemplateBinding IsReadonly}" Text="{TemplateBinding Text}" />
-            </DockPanel>
-          </Border>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+    <Style TargetType="{x:Type cc:FolderBrowser}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type cc:FolderBrowser}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <DockPanel>
+                            <Button
+                                Name="PART_BrowseButton"
+                                Content="浏览(_B)"
+                                DockPanel.Dock="Right" />
+                            <TextBox IsReadOnly="{TemplateBinding IsReadonly}" Text="{TemplateBinding Text}" />
+                        </DockPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  <Style TargetType="cc:FormGroup">
-    <Setter Property="Padding" Value="5" />
-    <Setter Property="ItemsPanel">
-      <Setter.Value>
-        <ItemsPanelTemplate>
-          <cc:FormPanel />
-        </ItemsPanelTemplate>
-      </Setter.Value>
-    </Setter>
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="cc:FormGroup">
-          <Grid Margin="{TemplateBinding Padding}">
-            <Grid.RowDefinitions>
-              <RowDefinition Height="Auto" />
-              <RowDefinition />
-            </Grid.RowDefinitions>
-            <ContentPresenter ContentSource="Header" />
-            <ItemsPresenter Grid.Row="1" />
-          </Grid>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+    <Style TargetType="cc:FormGroup">
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <cc:FormPanel />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="cc:FormGroup">
+                    <Grid Margin="{TemplateBinding Padding}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <ContentPresenter ContentSource="Header" />
+                        <ItemsPresenter Grid.Row="1" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="cc:ZoomContentControl">
+        <Setter Property="IsZoom" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type cc:ZoomContentControl}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        ClipToBounds="True">
+                        <ContentPresenter Name="PART_Content" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type cc:SwitchGearControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type cc:SwitchGearControl}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter Content="{TemplateBinding ComputedContent}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

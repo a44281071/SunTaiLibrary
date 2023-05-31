@@ -6,8 +6,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:t3="http://www.suntai.org/library"
         Title="MainWindow"
-        Width="800"
-        Height="450"
+        Width="960"
+        Height="640"
         mc:Ignorable="d">
 
   <FrameworkElement.DataContext>
@@ -53,19 +53,7 @@
                 Margin="3"
                 Header="ZoomContentControl">
         <t3:ZoomContentControl>
-          <Border Background="Transparent">
-            <Rectangle Width="50"
-                       Height="30"
-                       Fill="Blue" />
-          </Border>
-        </t3:ZoomContentControl>
-      </GroupBox>
-      <GroupBox Width="200"
-                Height="200"
-                Margin="3"
-                Header="ZoomContentControl">
-        <t3:ZoomContentControl>
-          <Border Background="Transparent">
+          <Border Background="Pink">
             <Rectangle Width="50"
                        Height="30"
                        Fill="Blue" />
@@ -112,6 +100,25 @@
                     TopMask="{Binding ElementName=maskbox_Top, Path=Value}">
           <Button Content="I'm button" />
         </t3:MaskBox>
+      </GroupBox>
+      <GroupBox Width="200">
+        <DockPanel>
+          <CheckBox Name="switchContentCheckBox"
+                    Content="switch content"
+                    DockPanel.Dock="Top" />
+          <t3:SwitchGearControl DecisionValue="{Binding ElementName=switchContentCheckBox, Path=IsChecked}">
+            <Border BorderBrush="Pink" BorderThickness="1">
+              <Button Margin="3" Content="false content" />
+            </Border>
+            <t3:SwitchGearControl.TrueContent>
+              <Border BorderBrush="Blue"
+                      BorderThickness="2"
+                      CornerRadius="5">
+                <TextBox Margin="5" Text="true content" />
+              </Border>
+            </t3:SwitchGearControl.TrueContent>
+          </t3:SwitchGearControl>
+        </DockPanel>
       </GroupBox>
     </WrapPanel>
   </ScrollViewer>

@@ -41,7 +41,6 @@ public class VerticalTextConverter : IValueConverter
 
         if (txt.Length <= 0) return null;
 
-        var roorigin = new Point(0.5, 0.5);
         var rotate = new RotateTransform() { Angle = RotateAngle };
         rotate.Freeze();
 
@@ -56,7 +55,6 @@ public class VerticalTextConverter : IValueConverter
             var tb = new TextBlock()
             {
                 Text = jw,
-                RenderTransformOrigin = roorigin,
                 LayoutTransform = rotate
             };
             ele.Children.Add(tb);

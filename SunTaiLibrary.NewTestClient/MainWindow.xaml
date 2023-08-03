@@ -14,6 +14,12 @@
     <local:MainViewModel />
   </FrameworkElement.DataContext>
   <Control.Resources>
+    <t3:VerticalTextConverter x:Key="VerticalText0" RotateAngle="0" />
+    <t3:VerticalTextConverter x:Key="RightDockText100" RotateAngle="100" />
+    <t3:VerticalTextConverter x:Key="LeftDockText280"
+                              FlowDirection="RightToLeft"
+                              RotateAngle="280" />
+
     <ItemsPanelTemplate x:Key="TilePanelItemsPanelTemplate">
       <t3:VirtualizingTilePanel ChildSize="60" />
     </ItemsPanelTemplate>
@@ -119,7 +125,21 @@
             </t3:SwitchGearControl.TrueContent>
           </t3:SwitchGearControl>
         </DockPanel>
-      </GroupBox>      
+      </GroupBox>
+      <GroupBox Name="ldtcGroupBox" Header="VerticalText 转换器">
+        <DockPanel>
+          <Button HorizontalAlignment="Center"
+                  Content="{Binding ElementName=ldtcGroupBox, Path=Header, Converter={StaticResource LeftDockText280}}"
+                  DockPanel.Dock="Left" />
+          <Button HorizontalAlignment="Center"
+                  Content="{Binding ElementName=ldtcGroupBox, Path=Header, Converter={StaticResource RightDockText100}}"
+                  DockPanel.Dock="Right" />
+          <Button HorizontalAlignment="Center"
+                  Content="{Binding ElementName=ldtcGroupBox, Path=Header, Converter={StaticResource VerticalText0}}"
+                  DockPanel.Dock="Right" />
+          <Border />
+        </DockPanel>
+      </GroupBox>
     </t3:WrapPanel>
   </ScrollViewer>
 </Window>

@@ -10,6 +10,7 @@ using System.Security;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml.Serialization;
 
 namespace SunTaiLibrary
@@ -17,7 +18,6 @@ namespace SunTaiLibrary
     /// <summary>
     /// single app instance for WPF.
     /// </summary>
-    /// <typeparam name="TApplication"></typeparam>
     public static class SingleInstance
     {
         /// <summary>
@@ -145,6 +145,20 @@ namespace SunTaiLibrary
         }
 
         /// <summary>
+        /// Release single app instance Mutex, useful for restart application.
+        /// </summary>
+        public static void ReleaseInstanceMutex()
+        {
+            try
+            {
+                singleInstanceMutex?.ReleaseMutex();
+            }
+            catch (ObjectDisposedException)
+            {
+            }
+        }
+
+        /// <summary>
         /// 激活指定进程的主窗体，使其成为当前窗体
         /// </summary>
         /// <param name="pProcess">进程</param>
@@ -170,6 +184,20 @@ namespace SunTaiLibrary
         public static void ActivateWindow()
         {
             ActivateWindow(Process.GetCurrentProcess());
+        }
+
+        /// <summary>
+        /// Release single app instance Mutex, then start a new app instance, then shut down old app.
+        /// </summary>
+        /// <param name="app">single instance app</param>
+        public static void Restart<TApp>(this TApp app) where TApp : Application, ISingleInstanceApp
+        {
+            ReleaseInstanceMutex();
+            Process.Start(Process.GetCurrentProcess().MainModule!.FileName);
+            app.Shutdown();
+            /* or 
+             * System.Diagnostics.Process.Start(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);  
+            */
         }
     }
 

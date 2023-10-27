@@ -24,5 +24,11 @@ namespace SunTaiLibrary.NewTestClient
         {
             InitializeComponent();
         }
+
+        private void RestartApp_Click(object sender, RoutedEventArgs e)
+        {
+            var app = (App)Application.Current;
+            app.Restart();
+        }
     }
 }

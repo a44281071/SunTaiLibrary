@@ -36,110 +36,117 @@
     </DataTemplate>
   </Control.Resources>
 
-  <ScrollViewer>
-    <t3:WrapPanel HorizontalSpacing="3" VerticalSpacing="3">
-      <GroupBox Margin="3" Header="ClippingBorder">
-        <t3:ClippingBorder Background="Pink"
-                           BorderBrush="Red"
-                           BorderThickness="2"
-                           CornerRadius="0,0,24,0">
-          <Button Width="80" Background="Gray" />
-        </t3:ClippingBorder>
-      </GroupBox>
-      <GroupBox Width="300"
-                Height="200"
-                Margin="3"
-                Header="TilePanel">
-        <ListBox ItemTemplate="{StaticResource FileDataTemplate}"
-                 ItemsPanel="{StaticResource TilePanelItemsPanelTemplate}"
-                 ItemsSource="{Binding Items}" />
-      </GroupBox>
-      <GroupBox Width="200"
-                Height="200"
-                Margin="3"
-                Header="ZoomContentControl">
-        <t3:ZoomContentControl>
-          <Border Background="Pink">
-            <Rectangle Width="50"
-                       Height="30"
-                       Fill="Blue" />
-          </Border>
-        </t3:ZoomContentControl>
-      </GroupBox>
-      <GroupBox Width="200"
-                Height="200"
-                Margin="3"
-                Header="MaskBox Setting">
-        <StackPanel>
-          <CheckBox Name="maskbox_IsMask"
-                    Content="IsMask"
-                    IsChecked="True" />
-          <GroupBox Header="Left">
-            <Slider Name="maskbox_Left"
-                    Maximum="1"
-                    Minimum="0" />
-          </GroupBox>
-          <GroupBox Header="Top">
-            <Slider Name="maskbox_Top"
-                    Maximum="1"
-                    Minimum="0" />
-          </GroupBox>
-          <GroupBox Header="Right">
-            <Slider Name="maskbox_Right"
-                    Maximum="1"
-                    Minimum="0" />
-          </GroupBox>
-          <GroupBox Header="Bottom">
-            <Slider Name="maskbox_Bottom"
-                    Maximum="1"
-                    Minimum="0" />
-          </GroupBox>
-        </StackPanel>
-      </GroupBox>
-      <GroupBox Width="200"
-                Height="200"
-                Header="MaskBox_Display">
-        <t3:MaskBox BottomMask="{Binding ElementName=maskbox_Bottom, Path=Value}"
-                    IsMaskEnabled="{Binding ElementName=maskbox_IsMask, Path=IsChecked}"
-                    LeftMask="{Binding ElementName=maskbox_Left, Path=Value}"
-                    RightMask="{Binding ElementName=maskbox_Right, Path=Value}"
-                    TopMask="{Binding ElementName=maskbox_Top, Path=Value}">
-          <Button Content="I'm button" />
-        </t3:MaskBox>
-      </GroupBox>
-      <GroupBox Width="200">
-        <DockPanel>
-          <CheckBox Name="switchContentCheckBox"
-                    Content="switch content"
-                    DockPanel.Dock="Top" />
-          <t3:SwitchGearControl DecisionValue="{Binding ElementName=switchContentCheckBox, Path=IsChecked}">
-            <Border BorderBrush="Pink" BorderThickness="1">
-              <Button Margin="3" Content="false content" />
+  <DockPanel>
+    <WrapPanel DockPanel.Dock="Top">
+      <Menu>
+        <MenuItem Click="RestartApp_Click" Header="Restart App" />
+      </Menu>
+    </WrapPanel>
+    <ScrollViewer>
+      <t3:WrapPanel HorizontalSpacing="3" VerticalSpacing="3">
+        <GroupBox Margin="3" Header="ClippingBorder">
+          <t3:ClippingBorder Background="Pink"
+                             BorderBrush="Red"
+                             BorderThickness="2"
+                             CornerRadius="0,0,24,0">
+            <Button Width="80" Background="Gray" />
+          </t3:ClippingBorder>
+        </GroupBox>
+        <GroupBox Width="300"
+                  Height="200"
+                  Margin="3"
+                  Header="TilePanel">
+          <ListBox ItemTemplate="{StaticResource FileDataTemplate}"
+                   ItemsPanel="{StaticResource TilePanelItemsPanelTemplate}"
+                   ItemsSource="{Binding Items}" />
+        </GroupBox>
+        <GroupBox Width="200"
+                  Height="200"
+                  Margin="3"
+                  Header="ZoomContentControl">
+          <t3:ZoomContentControl>
+            <Border Background="Pink">
+              <Rectangle Width="50"
+                         Height="30"
+                         Fill="Blue" />
             </Border>
-            <t3:SwitchGearControl.TrueContent>
-              <Border BorderBrush="Blue"
-                      BorderThickness="2"
-                      CornerRadius="5">
-                <TextBox Margin="5" Text="true content" />
+          </t3:ZoomContentControl>
+        </GroupBox>
+        <GroupBox Width="200"
+                  Height="200"
+                  Margin="3"
+                  Header="MaskBox Setting">
+          <StackPanel>
+            <CheckBox Name="maskbox_IsMask"
+                      Content="IsMask"
+                      IsChecked="True" />
+            <GroupBox Header="Left">
+              <Slider Name="maskbox_Left"
+                      Maximum="1"
+                      Minimum="0" />
+            </GroupBox>
+            <GroupBox Header="Top">
+              <Slider Name="maskbox_Top"
+                      Maximum="1"
+                      Minimum="0" />
+            </GroupBox>
+            <GroupBox Header="Right">
+              <Slider Name="maskbox_Right"
+                      Maximum="1"
+                      Minimum="0" />
+            </GroupBox>
+            <GroupBox Header="Bottom">
+              <Slider Name="maskbox_Bottom"
+                      Maximum="1"
+                      Minimum="0" />
+            </GroupBox>
+          </StackPanel>
+        </GroupBox>
+        <GroupBox Width="200"
+                  Height="200"
+                  Header="MaskBox_Display">
+          <t3:MaskBox BottomMask="{Binding ElementName=maskbox_Bottom, Path=Value}"
+                      IsMaskEnabled="{Binding ElementName=maskbox_IsMask, Path=IsChecked}"
+                      LeftMask="{Binding ElementName=maskbox_Left, Path=Value}"
+                      RightMask="{Binding ElementName=maskbox_Right, Path=Value}"
+                      TopMask="{Binding ElementName=maskbox_Top, Path=Value}">
+            <Button Content="I'm button" />
+          </t3:MaskBox>
+        </GroupBox>
+        <GroupBox Width="200">
+          <DockPanel>
+            <CheckBox Name="switchContentCheckBox"
+                      Content="switch content"
+                      DockPanel.Dock="Top" />
+            <t3:SwitchGearControl DecisionValue="{Binding ElementName=switchContentCheckBox, Path=IsChecked}">
+              <Border BorderBrush="Pink" BorderThickness="1">
+                <Button Margin="3" Content="false content" />
               </Border>
-            </t3:SwitchGearControl.TrueContent>
-          </t3:SwitchGearControl>
-        </DockPanel>
-      </GroupBox>
-      <GroupBox Name="ldtcGroupBox" Header="VerticalText 转换器">
-        <DockPanel>
-          <Button HorizontalAlignment="Center"
-                  Content="{Binding ElementName=ldtcGroupBox, Path=Header, Converter={StaticResource LeftDockText280}}"
-                  DockPanel.Dock="Left" />
-          <Button HorizontalAlignment="Center"
-                  Content="{Binding ElementName=ldtcGroupBox, Path=Header, Converter={StaticResource RightDockText100}}"
-                  DockPanel.Dock="Right" />
-          <Button HorizontalAlignment="Center"
-                  Content="{Binding ElementName=ldtcGroupBox, Path=Header, Converter={StaticResource VerticalText0}}"
-                  DockPanel.Dock="Right" />
-          <Border />
-        </DockPanel>
-      </GroupBox>
-    </t3:WrapPanel>
-  </ScrollViewer>
+              <t3:SwitchGearControl.TrueContent>
+                <Border BorderBrush="Blue"
+                        BorderThickness="2"
+                        CornerRadius="5">
+                  <TextBox Margin="5" Text="true content" />
+                </Border>
+              </t3:SwitchGearControl.TrueContent>
+            </t3:SwitchGearControl>
+          </DockPanel>
+        </GroupBox>
+        <GroupBox Name="ldtcGroupBox" Header="VerticalText 转换器">
+          <DockPanel>
+            <Button HorizontalAlignment="Center"
+                    Content="{Binding ElementName=ldtcGroupBox, Path=Header, Converter={StaticResource LeftDockText280}}"
+                    DockPanel.Dock="Left" />
+            <Button HorizontalAlignment="Center"
+                    Content="{Binding ElementName=ldtcGroupBox, Path=Header, Converter={StaticResource RightDockText100}}"
+                    DockPanel.Dock="Right" />
+            <Button HorizontalAlignment="Center"
+                    Content="{Binding ElementName=ldtcGroupBox, Path=Header, Converter={StaticResource VerticalText0}}"
+                    DockPanel.Dock="Right" />
+            <Border />
+          </DockPanel>
+        </GroupBox>
+      </t3:WrapPanel>
+    </ScrollViewer>
+  </DockPanel>
 </Window>

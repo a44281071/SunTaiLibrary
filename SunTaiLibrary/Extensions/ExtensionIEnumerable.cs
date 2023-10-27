@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace System.Linq
 {
@@ -13,20 +14,35 @@ namespace System.Linq
     public static class ExtensionIEnumerable
     {
         /// <summary>
-        /// 对 System.Collections.Generic.IEnumerable 的每个元素执行指定操作
+        /// 对 System.Collections.Generic.IEnumerable 的每个元素执行指定操作。
+        /// 由于很可能因 Foreach 名称冲突，采用追加名。
         /// </summary>
         /// <typeparam name="T">列表中元素的类型</typeparam>
         /// <param name="source">System.Collections.Generic.IEnumerable </param>
         /// <param name="action">要对 System.Collections.Generic.IEnumerable  的每个元素执行的 System.Action 委托</param>
-        public static IEnumerable<T> ForEach<T>(this IEnumerable<T> source, Action<T> action)
+        public static void ForEachApply<T>(this IEnumerable<T> source, Action<T> action)
         {
             if (source != null && action != null)
             {
                 foreach (var item in source)
                     action(item);
             }
+        }
 
-            return source;
+        /// <summary>
+        /// 对 System.Collections.Generic.IEnumerable 的每个元素执行指定操作。
+        /// 由于很可能因 Foreach 名称冲突，采用追加名。
+        /// </summary>
+        /// <typeparam name="T">列表中元素的类型</typeparam>
+        /// <param name="source">System.Collections.Generic.IEnumerable </param>
+        /// <param name="action">要对 System.Collections.Generic.IEnumerable  的每个元素执行的 System.Func 委托</param>
+        public static async Task ForEachApplyAsync<T>(this IEnumerable<T> source, Func<T, Task> action)
+        {
+            if (source != null && action != null)
+            {
+                foreach (var item in source)
+                    await action(item);
+            }
         }
 
         /// <summary>
@@ -38,7 +54,7 @@ namespace System.Linq
         /// <returns>第一个item，可能会返回 null</returns>
         public static T ForFirst<T>(this IEnumerable<T> source, Action<T> action)
         {
-            if (source != null && action != null)
+            if (source != null && source.Any() && action != null)
             {
                 T firstT = source.FirstOrDefault();
                 if (null != firstT)
@@ -59,12 +75,50 @@ namespace System.Linq
         /// <returns>最后一个item，可能会返回 null</returns>
         public static T ForLast<T>(this IEnumerable<T> source, Action<T> action)
         {
-            if (source != null && action != null)
+            if (source != null && source.Any() && action != null)
             {
                 T lastT = source.LastOrDefault();
                 if (null != lastT)
                 {
                     action(lastT);
+                }
+                return lastT;
+            }
+            return default;
+        }
+
+        /// <summary>
+        /// Invoke action for first element in source.
+        /// </summary>
+        public static async Task<T> ForFirstAsync<T>(this IEnumerable<T> source, Func<T, Task> action)
+        {
+            if (source != null && source.Any() && action != null)
+            {
+                T firstT = source.FirstOrDefault();
+                if (firstT is not null)
+                {
+                    await action(firstT);
+                }
+                return firstT;
+            }
+            return default;
+        }
+
+        /// <summary>
+        /// 获取 System.Collections.Generic.IEnumerable 的最后一个元素，并对其执行指定操作，如果无匹配项则不进行操作
+        /// </summary>
+        /// <typeparam name="T">列表中元素的类型</typeparam>
+        /// <param name="source">System.Collections.Generic.IEnumerable </param>
+        /// <param name="action">要对 System.Collections.Generic.IEnumerable  的最后一个元素执行的 System.Func 委托</param>
+        /// <returns>最后一个item，可能会返回 null</returns>
+        public static async Task<T> ForLastAsync<T>(this IEnumerable<T> source, Func<T, Task> action)
+        {
+            if (source != null && source.Any() && action != null)
+            {
+                T lastT = source.LastOrDefault();
+                if (lastT is not null)
+                {
+                    await action(lastT);
                 }
                 return lastT;
             }

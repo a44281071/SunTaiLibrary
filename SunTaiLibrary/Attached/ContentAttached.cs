@@ -10,6 +10,23 @@ namespace SunTaiLibrary.Attached
     /// </summary>
     public static class ContentAttached
     {
+        #region Header-Properties
+
+        public static Thickness GetHeaderPadding(DependencyObject obj)
+        {
+            return (Thickness)obj.GetValue(HeaderPaddingProperty);
+        }
+
+        public static void SetHeaderPadding(DependencyObject obj, Thickness value)
+        {
+            obj.SetValue(HeaderPaddingProperty, value);
+        }
+
+        public static readonly DependencyProperty HeaderPaddingProperty =
+            DependencyProperty.RegisterAttached("HeaderPadding", typeof(Thickness), typeof(ContentAttached), new PropertyMetadata(new Thickness()));
+
+        #endregion Header-Properties
+
         #region ContentMargin
 
         /// <summary>

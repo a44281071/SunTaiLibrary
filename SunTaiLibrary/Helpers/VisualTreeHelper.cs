@@ -10,8 +10,11 @@ namespace SunTaiLibrary
     /// </summary>
     /// <typeparam name="T">The type of the Child</typeparam>
     /// <param name="obj">The parent Element</param>
-    public static T FindVisualChild<T>(this DependencyObject obj) where T : DependencyObject
+    /// <param name="excludeSelf">exclude oneself parent element.</param>
+    public static T FindVisualChild<T>(this DependencyObject obj, bool excludeSelf = false) where T : DependencyObject
     {
+      if (obj is T tobj && !excludeSelf) return tobj;
+
       for (int i = 0; i < System.Windows.Media.VisualTreeHelper.GetChildrenCount(obj); i++)
       {
         DependencyObject child = System.Windows.Media.VisualTreeHelper.GetChild(obj, i);

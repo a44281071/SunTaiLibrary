@@ -12,9 +12,10 @@
     <RepositoryUrl>https://github.com/a44281071/SunTaiLibrary</RepositoryUrl>
     <PackageTags>suntai SamTi library wpf control helper</PackageTags>
     <PackageReleaseNotes>
-      - support net7.0-windows.
-      - add SwitchGearControl.
-      - fix ZoomContentControl bug.
+        - support net8.0-windows.
+        - support net7.0-windows.
+        - add SwitchGearControl.
+        - fix ZoomContentControl bug.
     </PackageReleaseNotes>
     <Description>suntai library for wpf</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

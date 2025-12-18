@@ -11,6 +11,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/SunTaiLibrary;component/Themes/Icons.xaml" />
+        <ResourceDictionary Source="/SunTaiLibrary;component/Controls/SequenceBox/SequenceBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <cvt:ProgressBarWidthConverter x:Key="ProgressBarWidthConverter" />
     <cvt:ValueToEqualsParameterConverter x:Key="ValueToEqualsParameterConverter" />

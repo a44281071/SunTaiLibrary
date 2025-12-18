@@ -1,0 +1,138 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:lc="clr-namespace:SunTaiLibrary.Controls"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ControlTemplate x:Key="TransparentThumb" TargetType="Thumb">
+        <Border Background="Transparent" />
+    </ControlTemplate>
+
+    <Style TargetType="lc:SequenceBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="lc:SequenceBoxItem">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter Grid.ColumnSpan="3"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            <Thumb Name="PART_LeftSizeGripper"
+                                   Grid.Column="0"
+                                   Width="3"
+                                   Cursor="SizeWE"
+                                   Template="{StaticResource TransparentThumb}"
+                                   Visibility="Collapsed" />
+                            <Thumb Name="PART_RightSizeGripper"
+                                   Grid.Column="2"
+                                   Width="3"
+                                   Cursor="SizeWE"
+                                   Template="{StaticResource TransparentThumb}"
+                                   Visibility="Collapsed" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="PART_LeftSizeGripper" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="PART_RightSizeGripper" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="lc:SequenceBox">
+        <Setter Property="Background" Value="#3f3f3f" />
+        <Setter Property="ScaleX" Value="5.0" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <lc:VStackCanvas LineBrush="White" ScaleX="{Binding RelativeSource={RelativeSource AncestorType=lc:SequenceBox}, Path=ScaleX}" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="lc:SequenceBox">
+                    <Border Background="{TemplateBinding Background}" Grid.IsSharedSizeScope="True">
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                            <lc:SelectiveScrollingGrid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <!--  利用共享宽度方式，兼容分组功能。  -->
+                                    <ColumnDefinition Name="rowHeaderCol"
+                                                      Width="Auto"
+                                                      SharedSizeGroup="RowHeaderGroup" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <!--  数据列表区  -->
+                                <Border Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        ClipToBounds="True">
+                                    <!--  装饰竖线和提示  -->
+                                    <lc:VerticalLineDecorator x:Name="vld"
+                                                              LineBrush="#9a8a59"
+                                                              LineThickness="1">
+                                        <lc:VerticalLineDecorator.HeaderContent>
+                                            <Border Padding="2" Background="Black">
+                                                <!--<TextBlock Foreground="White" Text="{Binding ElementName=vld, Path=MouseX, StringFormat='0.#'}" />-->
+                                                <TextBlock Foreground="White">
+                                                    <TextBlock.Text>
+                                                        <!--  让出行表头区域不计入计算  -->
+                                                        <MultiBinding Converter="{x:Static lc:VerticalLineDecorator.PointValueDisplay}" StringFormat="X: {0:0.#}">
+                                                            <Binding ElementName="vld" Path="MouseX" />
+                                                            <Binding ElementName="rowHeaderCol" Path="ActualWidth" />
+                                                            <Binding Path="ScaleX" RelativeSource="{RelativeSource Mode=TemplatedParent}" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Border>
+                                        </lc:VerticalLineDecorator.HeaderContent>
+                                        <lc:VerticalLineDecorator.Child>
+                                            <ItemsPresenter />
+                                        </lc:VerticalLineDecorator.Child>
+                                    </lc:VerticalLineDecorator>
+                                </Border>
+                                <!--  表头刻度滚动区：仅水平被动滚动、仅控制刻度  -->
+                                <Border Grid.Column="1"
+                                        Panel.ZIndex="1"
+                                        lc:SelectiveScrollingGrid.SelectiveScrollingOrientation="Horizontal"
+                                        Background="#b7bcc4"
+                                        ClipToBounds="True">
+                                    <lc:LabeledTickBar Fill="Black"
+                                                       LabelInterval="1"
+                                                       Maximum="555"
+                                                       ScaleX="{TemplateBinding ScaleX}"
+                                                       SnapsToDevicePixels="True" />
+                                </Border>
+                                <!--  左上角占位（遮挡附近组件的偏移后内容）  -->
+                                <Border Name="leftTop"
+                                        Panel.ZIndex="2"
+                                        lc:SelectiveScrollingGrid.SelectiveScrollingOrientation="None"
+                                        Background="{TemplateBinding Background}" />
+                            </lc:SelectiveScrollingGrid>
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsGrouping" Value="true">
+                <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

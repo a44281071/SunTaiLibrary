@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Media;
 
 namespace SunTaiLibrary
 {
@@ -61,5 +63,21 @@ namespace SunTaiLibrary
         dependencyObject = System.Windows.Media.VisualTreeHelper.GetParent(dependencyObject);
       }
     }
-  }
+
+        /// <summary>
+        /// 返回当前 Visual 的 PixelsPerDip（DPI 缩放因子）
+        /// ≥4.8 用原生，<4.8 用兼容实现
+        /// </summary>
+        public static double GetPixelsPerDip(Visual visual)
+        {
+#if NET48_OR_GREATER   // .NET Framework 4.8 及以上
+            return VisualTreeHelper.GetDpi(visual).PixelsPerDip;
+#else                   // .NET Framework 4.7.x 及以下（含 4.6.1）
+        var source = PresentationSource.FromVisual(visual);
+        if (source?.CompositionTarget != null)
+            return source.CompositionTarget.TransformToDevice.M11; // = DpiScaleX
+        return 1.0;   // 默认 96 DPI
+#endif
+        }
+    }
 }

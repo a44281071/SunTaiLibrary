@@ -44,11 +44,18 @@
     </WrapPanel>
     <ScrollViewer>
       <t3:WrapPanel HorizontalSpacing="3" VerticalSpacing="3">
+        <GroupBox Margin="3" Header="SequenceBox">
+          <t3:SequenceBox Width="250" ScaleX="20">
+            <t3:SequenceBoxItem Content="line 1" MinHeight="30" Background="AliceBlue" t3:VStackCanvas.UnitWidth="3" t3:VStackCanvas.UnitX="3.3"/>
+            <t3:SequenceBoxItem Content="line 2" MinHeight="22" Background="Pink" t3:VStackCanvas.UnitWidth="4" t3:VStackCanvas.UnitX="2.2"/>
+            <t3:SequenceBoxItem Content="line 3" Background="LightGreen" t3:VStackCanvas.UnitWidth="5" t3:VStackCanvas.UnitX="1.1"/>
+          </t3:SequenceBox>
+        </GroupBox>
         <GroupBox Margin="3" Header="ClippingBorder">
           <t3:ClippingBorder Background="Pink"
                              BorderBrush="Red"
                              BorderThickness="2"
-                             CornerRadius="0,0,24,0">
+                             CornerRadius="0,30,30,0">
             <Button Width="80" Background="Gray" />
           </t3:ClippingBorder>
         </GroupBox>

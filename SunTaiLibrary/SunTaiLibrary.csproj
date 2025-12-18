@@ -5,7 +5,7 @@
     <TargetFrameworks>net461;net48;net6.0-windows;net8.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
-    <Version>1.0.8.0</Version>
+    <Version>1.0.9.0</Version>
     <Authors>suntai,SamTi</Authors>
     <Copyright>MIT</Copyright>
     <PackageProjectUrl>https://github.com/a44281071/SunTaiLibrary</PackageProjectUrl>

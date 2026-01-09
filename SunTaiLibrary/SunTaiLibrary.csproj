@@ -1,60 +1,54 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
-  <PropertyGroup>
-    <!--<TargetFramework>net461</TargetFramework>-->
-    <TargetFrameworks>net461;net48;net6.0-windows;net8.0-windows</TargetFrameworks>
-    <UseWPF>true</UseWPF>
-    <UseWindowsForms>true</UseWindowsForms>
-    <Version>1.0.9.0</Version>
-    <Authors>suntai,SamTi</Authors>
-    <Copyright>MIT</Copyright>
-    <PackageProjectUrl>https://github.com/a44281071/SunTaiLibrary</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/a44281071/SunTaiLibrary</RepositoryUrl>
-    <PackageTags>suntai SamTi library wpf control helper</PackageTags>
-    <PackageReleaseNotes>
-        - support net8.0-windows.
-        - support net7.0-windows.
-        - add SwitchGearControl.
-        - fix ZoomContentControl bug.
-    </PackageReleaseNotes>
-    <Description>suntai library for wpf</Description>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Company>SamTi</Company>
-    <PackageIcon>SunTai.jpg</PackageIcon>
-    <LangVersion>preview</LangVersion>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <IncludeSymbols>True</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <CheckEolTargetFramework>false</CheckEolTargetFramework>
-  </PropertyGroup>
-  
-  <ItemGroup>
-    <AssemblyAttribute Include="System.CLSCompliantAttribute">
-      <_Parameter1>true</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Compile Remove="Controls\Panel\SqueezePanel.cs" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFrameworks>net461;net48;net6.0-windows;net8.0-windows</TargetFrameworks>
+        <UseWPF>true</UseWPF>
+        <UseWindowsForms>true</UseWindowsForms>
+        <Version>1.1.0.0</Version>
+        <Authors>suntai,SamTi</Authors>
+        <Copyright>MIT</Copyright>
+        <PackageProjectUrl>https://github.com/a44281071/SunTaiLibrary</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/a44281071/SunTaiLibrary</RepositoryUrl>
+        <PackageTags>suntai SamTi library wpf control helper</PackageTags>
+        <PackageReleaseNotes>
+            - remove Index/Range.
+            - More extensions.
+        </PackageReleaseNotes>
+        <Description>suntai library for wpf</Description>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Company>SamTi</Company>
+        <PackageIcon>SunTai.jpg</PackageIcon>
+        <LangVersion>12</LangVersion>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <IncludeSymbols>True</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
-  </ItemGroup>
+    <ItemGroup>
+        <AssemblyAttribute Include="System.CLSCompliantAttribute">
+            <_Parameter1>true</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Remove="Controls\Panel\SqueezePanel.cs" />
+    </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' or '$(TargetFramework)' == 'net47' ">
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" Condition=" '$(OS)' != 'Windows_NT' " IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" PrivateAssets="all" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+        <PackageReference Include="IndexRange"
+                          Version="1.1.0"
+                          Condition="('$(TargetFrameworkIdentifier)' == '.NETFramework') Or
+                             ('$(TargetFrameworkIdentifier)' == '.NETStandard' And
+                              '$([System.Version]::Parse($(TargetFrameworkVersion.Substring(1))).Major)' &lt; 2)" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\Documents\SunTai.jpg">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+        <None Include="..\Documents\SunTai.jpg">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+        </None>
+    </ItemGroup>
 
 </Project>

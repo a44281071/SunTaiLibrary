@@ -3,6 +3,6 @@
     <File Path=".editorconfig" />
   </Folder>
   <Project Path="SunTaiLibrary.NewTestClient/SunTaiLibrary.NewTestClient.csproj" />
-  <Project Path="SunTaiLibrary.TestClient/SunTaiLibrary.TestClient.csproj" Id="ea122dcd-3c5f-46bc-8fd5-cedb6b07520f" />
+  <Project Path="SunTaiLibrary.TestClient/SunTaiLibrary.TestClient.csproj" />
   <Project Path="SunTaiLibrary/SunTaiLibrary.csproj" />
 </Solution>
